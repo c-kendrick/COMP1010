@@ -23,6 +23,26 @@ class Barbarian extends Character {
         intelligence = 5;
         initiative = 5;
 	}
+
+    public void rage() {
+
+    }
+	
+}
+
+class Engineer extends Character {
+
+	public Engineer(String r) {
+		health = 20;
+		damage = 10;
+		race = r;
+        intelligence = 40;
+        initiative = 2;
+	}
+
+    public void build() {
+        
+    }
 	
 }
 
