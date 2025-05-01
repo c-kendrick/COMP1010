@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Character {
     int health;
     int damage;
@@ -29,7 +31,7 @@ class Rogue extends Character {
 	public Rogue(String r) {
 		health = 10;
 		damage = 30;
-		Race = r;
+		race = r;
 	}
 	
 }
