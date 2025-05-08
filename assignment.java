@@ -14,37 +14,81 @@ class Character {
         health -= amount;
     }
 
-    }   
+    void attack(Character target, int amount) {
+        target.takeDamage(amount);
+    }
+
+
+}   
     
 
 class Barbarian extends Character {
 
+    boolean isRaging;
+
 	public Barbarian(String r) {
-		health = 40;
-		damage = 20;
+		health = 150;
+		damage = 30;
 		race = r;
         intelligence = 5;
         initiative = 5;
+        isRaging = false;
 	}
 
     void attack(Character target) {
-        target.takeDamage(10);
-        System.out.println(target.getClass().getSimpleName());
+        if (target instanceof Engineer) {
+            Engineer eng = (Engineer) target;
+            
+            if (eng.deployedDevice) {
+                if (isRaging)
+                    eng.deployedDevice = false;
+            } else {                
+                target.takeDamage(damage);
+            }
+
+            
+            
+        }
+
+        if (target instanceof Rogue) {
+            Rogue rog = (Rogue) target;
+            if (!rog.isInvisible) {
+                target.takeDamage(damage);
+            }
+        }
+
+        if (target instanceof Mage) {
+            
+        }
+    }
+
+    void rageAttack(Character target) {
+        isRaging = true;
+        damage += 20;
+        attack(target);
+        damage -= 20;
+        isRaging = false;
     }
 	
+    
 }
 
 class Rogue extends Character {
+    boolean isInvisible;
 
 	public Rogue(String r) {
-		health = 10;
-		damage = 30;
+		health = 100;
+		damage = 15;
 		race = r;
 	}
 	
 }
 
-class Equipment {
+class Engineer extends Character {
+    boolean deployedDevice;
+}
+
+class Mage extends Character {
 
 }
 
