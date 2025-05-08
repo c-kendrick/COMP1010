@@ -18,6 +18,7 @@ public class equipment {
         this.initiative = initiative;
         this.type = type;
     }
+    //convert type number to name ie helmet armour etc
     public String typeName(int type){
         String typeName="";
         if (type == 1 ){
@@ -40,4 +41,8 @@ public class equipment {
     public String toString(){   
         return "Equipment{" +"Name= " + name + ", Health= " + health + ", Strength= " + strength +", Defence= " + defence +", Initiative= " + initiative + ", Type= " + typeName(type) +'}';
     }
+
+
+
+
 }
