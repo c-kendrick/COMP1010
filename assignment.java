@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 class Character {
     int health;
     int damage;
@@ -9,7 +7,12 @@ class Character {
     Boolean isWounded;
     Boolean isPoisoned;
 
-    ArrayList<String> inventory = new ArrayList<>();
+    //ArrayList<String> inventory = new ArrayList<>();
+
+
+    void takeDamage(int amount) {
+        health -= amount;
+    }
 
     }   
     
@@ -24,24 +27,9 @@ class Barbarian extends Character {
         initiative = 5;
 	}
 
-    public void rage() {
-
-    }
-	
-}
-
-class Engineer extends Character {
-
-	public Engineer(String r) {
-		health = 20;
-		damage = 10;
-		race = r;
-        intelligence = 40;
-        initiative = 2;
-	}
-
-    public void build() {
-        
+    void attack(Character target) {
+        target.takeDamage(10);
+        System.out.println(target.getClass().getSimpleName());
     }
 	
 }
@@ -64,7 +52,11 @@ public class assignment {
 
 
     public static void main(String[] args) {
-
+        Barbarian john = new Barbarian("John");
+        Rogue alex = new Rogue("Alex");
+        System.out.println(alex.health);
+        john.attack(alex);
+        System.out.println(alex.health);
         
     }
 }
