@@ -21,11 +21,18 @@ class Character {
 
 }   
     
-
+class turn {
+    int turnsLeft;
+    
+}
 
 
 
 public class assignment {
+
+    public void turnCounter() {
+
+    }
 
 
     public static void main(String[] args) {

@@ -1,36 +1,41 @@
 public class mage extends Character {
-    
+    boolean spellUsed;
 
     public mage(String r) {
-		health = 150;
-		damage = 30;
+		health = 200;
+		damage = 15;
 		race = r;
         intelligence = 5;
-        initiative = 5;
+        initiative = 4;
 	}
 
-    void attack(Character target) {
-        // attacking engineer
+    void spellAttack(Character target) {
         if (target instanceof engineer) {
+            engineer eng = (engineer) target;
+
+            if (eng.deployedDevice) {
+
+            } else {
+                target.takeDamage(damage);
+            }
+
 
         }
 
         if (target instanceof rogue) {
-
+            target.takeDamage(damage);
         }
 
         if (target instanceof barbarian) {
-
+            spellUsed = true;
+            target.takeDamage(damage);
         }
     }
 
-    void spellAttack(Character target) {
+    void spellWeaken(Character target) {
         
     }
 
-    void spellWeaken(Character target) {
-
-    }
 
     void spellHeal() {
 
