@@ -48,12 +48,20 @@ public class barbarian extends Character {
         }
     }
 
-    void rageAttack(Character target) {
+    void activateRage() {
         isRaging = true;
         damage += 20;
-        attack(target);
-        damage -= 20;
+    }
+    
+    void deactivateRage() {
         isRaging = false;
+        damage -= 20;
+    }
+
+    void rageAttack(Character target) {
+        activateRage();
+        attack(target);
+        deactivateRage();
     }
 	
     
