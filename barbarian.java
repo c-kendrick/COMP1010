@@ -1,6 +1,5 @@
 
-    public class barbarian extends Character {
-
+public class barbarian extends Character {
     boolean isRaging;
 
 	public barbarian(String r) {
@@ -23,22 +22,29 @@
             } else {                
                 target.takeDamage(damage);
             }
-
-            
-            
         }
 
         // attacking rogue
         if (target instanceof rogue) {
             rogue rog = (rogue) target;
+
             if (!rog.isInvisible) {
+                // cannot rage against rogue
+                if (isRaging)
+                    damage -=20;
+
                 target.takeDamage(damage);
             }
         }
 
         // attacking mage
         if (target instanceof mage) {
-            
+            if (isRaging) {
+                // if mage is using spell
+                // chance for mage spell to double barbarian damage
+            }
+
+            target.takeDamage(damage);
         }
     }
 
