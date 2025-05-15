@@ -33,7 +33,10 @@ public class mage extends Character {
     }
 
     void spellWeaken(Character target) {
+        target.weaken(damage);
+        statusEffect weakenSpell = new statusEffect(5, target, "Weakness", damage);
         
+
     }
 
 

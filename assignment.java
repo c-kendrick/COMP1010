@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Character {
     int health;
     int damage;
@@ -14,6 +16,10 @@ class Character {
         health -= amount;
     }
 
+    void weaken(int amount) {
+        damage -= amount;
+    }
+
     void attack(Character target, int amount) {
         target.takeDamage(amount);
     }
@@ -21,9 +27,19 @@ class Character {
 
 }   
     
-class turn {
+class statusEffect {
     int turnsLeft;
-    
+    Character target;
+    String effect;
+    // info used for damage amount or other numbers needed
+    int info;
+
+    public statusEffect(int turnsLeft, Character target, String effect, int info) {
+        this.turnsLeft = turnsLeft;
+        this.target = target;
+        this.effect = effect;
+        this.info = info;
+    }
 }
 
 
@@ -31,7 +47,7 @@ class turn {
 public class assignment {
 
     public void turnCounter() {
-
+        ArrayList<statusEffect> effects = new ArrayList<>();
     }
 
 
