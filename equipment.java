@@ -93,7 +93,7 @@ public class equipment {
 
 
 
-public static void main(String[] args) {
+public static void man(String[] args) {
     equipment sword = new equipment(01,"Sword", 0, 10, 0, 5, 4);
     equipment shield = new equipment(02,"Shield", 5, 0, 10, 0, 3);
     equipment helmet = new equipment(03,"helmet", 0, 5, 0, 0, 1);
