@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,9 +71,14 @@ public class equipment{
     int equippedCount = 0;
     while (equippedCount < 4) {
         System.out.print("Enter the ID of equipment to equip (" + (equippedCount + 1) + "/4): ");
-        int choice = scanner.nextInt();
+        try{
+            int choice = scanner.nextInt();
+        }catch (InputMismatchException ex){
+            System.err.println("enter a number");
+        }
+        
 
-        if (choice < 1 || choice > 10) {
+        if (choice < 1 || choice > 10  ) {
             System.out.println("Invalid ID. Please choose an ID between 1 and 10.");
             continue;
         }
