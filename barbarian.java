@@ -1,8 +1,8 @@
 
-public class barbarian extends Character {
+public class Barbarian extends Character {
     boolean isRaging;
 
-	public barbarian(String r) {
+	public Barbarian(String r) {
 		health = 150;
 		damage = 30;
 		race = r;
@@ -13,8 +13,8 @@ public class barbarian extends Character {
 
     void attack(Character target) {
         // attacking engineer
-        if (target instanceof engineer) {
-            engineer eng = (engineer) target;
+        if (target instanceof Engineer) {
+            Engineer eng = (Engineer) target;
             
             if (eng.deployedDevice) {
                 if (isRaging)
@@ -25,8 +25,8 @@ public class barbarian extends Character {
         }
 
         // attacking rogue
-        if (target instanceof rogue) {
-            rogue rog = (rogue) target;
+        if (target instanceof Rogue) {
+            Rogue rog = (Rogue) target;
 
             if (!rog.isInvisible) {
                 // cannot rage against rogue
@@ -38,7 +38,7 @@ public class barbarian extends Character {
         }
 
         // attacking mage
-        if (target instanceof mage) {
+        if (target instanceof Mage) {
             if (isRaging) {
                 // if mage is using spell
                 // chance for mage spell to double barbarian damage

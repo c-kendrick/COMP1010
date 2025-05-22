@@ -1,7 +1,7 @@
-public class mage extends Character {
+public class Mage extends Character {
     boolean spellUsed;
 
-    public mage(String r) {
+    public Mage(String r) {
 		health = 200;
 		damage = 15;
 		race = r;
@@ -10,8 +10,8 @@ public class mage extends Character {
 	}
 
     void spellAttack(Character target) {
-        if (target instanceof engineer) {
-            engineer eng = (engineer) target;
+        if (target instanceof Engineer) {
+            Engineer eng = (Engineer) target;
 
             if (eng.deployedDevice) {
 
@@ -22,11 +22,11 @@ public class mage extends Character {
 
         }
 
-        if (target instanceof rogue) {
+        if (target instanceof Rogue) {
             target.takeDamage(damage);
         }
 
-        if (target instanceof barbarian) {
+        if (target instanceof Barbarian) {
             spellUsed = true;
             target.takeDamage(damage);
         }

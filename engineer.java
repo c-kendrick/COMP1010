@@ -1,7 +1,7 @@
-public class engineer extends Character {
+public class Engineer extends Character {
     boolean deployedDevice;
 
-    public engineer(String r) {
+    public Engineer(String r) {
         health = 200;
         damage = 15;
         race = r;
@@ -10,13 +10,15 @@ public class engineer extends Character {
         deployedDevice = false;
     }
 
-    void build()
+    void build() {
+        
+    }
 
 
     void attack(Character target) {
         // attacking barbarian
-        if (target instanceof barbarian) {
-            barbarian bar = (barbarian) target;
+        if (target instanceof Barbarian) {
+            Barbarian bar = (Barbarian) target;
 
         if (bar.isRaging) {
             
