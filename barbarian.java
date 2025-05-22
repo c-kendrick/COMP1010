@@ -20,7 +20,8 @@ public class barbarian extends Character {
             if (eng.deployedDevice) {
                 if (isRaging)
                     eng.deployedDevice = false;
-            } else {                
+            } else {        
+                System.out.println("Barbarian attacked for " + damage + " points");        
                 target.takeDamage(damage);
             }
         }
@@ -34,6 +35,7 @@ public class barbarian extends Character {
                 if (isRaging)
                     damage -=20;
 
+                System.out.println("Barbarian attacked for " + damage + " points");        
                 target.takeDamage(damage);
             }
         }
@@ -45,6 +47,7 @@ public class barbarian extends Character {
                 // chance for mage spell to double barbarian damage
             }
 
+            System.out.println("Barbarian attacked for " + damage + " points");
             target.takeDamage(damage);
         }
     }
@@ -62,6 +65,8 @@ public class barbarian extends Character {
     //rage attack special ability 
     @Override
     void specialAbility(Character target) {
+        System.out.println("BARBARIAN RAGING");
+
         activateRage();
         attack(target);
         deactivateRage();
