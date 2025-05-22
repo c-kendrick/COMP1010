@@ -33,7 +33,11 @@ public class mage extends Character {
     }
 
     void spellHeal() {
-
+        if (health < 180) {
+            health += 20;
+        } else {
+            health = 200;
+        }
     }
 
 }
