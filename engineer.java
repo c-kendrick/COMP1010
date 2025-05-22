@@ -1,12 +1,16 @@
+<<<<<<< HEAD
 import java.util.Scanner;
 
 public class engineer extends Character {
+=======
+public class Engineer extends Character {
+>>>>>>> 57b10028f4b973624b2938d53c327e7f71176faf
     boolean deployedDevice;
     String builtDevice;
     int wallHealth;
     boolean powerCoreActive;
 
-    public engineer(String r) {
+    public Engineer(String r) {
         health = 200;
         damage = 15;
         race = r;
@@ -19,6 +23,7 @@ public class engineer extends Character {
     }
 
     void build() {
+<<<<<<< HEAD
         if (deployedDevice) {
             System.out.println("Device already deployed:" + builtDevice);
             return;
@@ -63,14 +68,23 @@ public class engineer extends Character {
             default:
                 System.out.println("Invalid Choice. No device built.");
         }
+=======
+        
+>>>>>>> 57b10028f4b973624b2938d53c327e7f71176faf
     }
 
 
     void attack(Character target) {
+<<<<<<< HEAD
         System.out.println("Engineer attacks" + target.getClass().getSimpleName());
 
         if (target instanceof barbarian) {
             barbarian bar = (barbarian) target;
+=======
+        // attacking barbarian
+        if (target instanceof Barbarian) {
+            Barbarian bar = (Barbarian) target;
+>>>>>>> 57b10028f4b973624b2938d53c327e7f71176faf
 
         if (deployedDevice && builtDevice.equals("CAGE") && bar.isRaging) {
             bar.deactivateRage();
