@@ -7,14 +7,19 @@ public class Character {
     Boolean isWounded;
     Boolean isPoisoned;
 
-    // create constructor
+    public Character() {
+
+    }
 
     public void takeDamage(int damage) {
         health -= damage;
     }
 
     
-    void attack(Character target, int amount) {
-        target.takeDamage(amount);
+    void attack(Character target) {
+    }
+
+    void specialAbility(Character target) {
+
     }
 }

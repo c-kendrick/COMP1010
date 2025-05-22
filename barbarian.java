@@ -11,6 +11,7 @@ public class barbarian extends Character {
         isRaging = false;
 	}
 
+    @Override
     void attack(Character target) {
         // attacking engineer
         if (target instanceof engineer) {
@@ -58,7 +59,9 @@ public class barbarian extends Character {
         damage -= 20;
     }
 
-    void rageAttack(Character target) {
+    //rage attack special ability 
+    @Override
+    void specialAbility(Character target) {
         activateRage();
         attack(target);
         deactivateRage();
