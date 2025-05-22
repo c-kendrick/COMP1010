@@ -1,13 +1,13 @@
 import java.util.ArrayList;
     
-class statusEffect {
+class StatusEffect {
     int turnsLeft;
     Character target;
     String effect;
     // info used for damage amount or other numbers needed
     int info;
 
-    public statusEffect(int turnsLeft, Character target, String effect, int info) {
+    public StatusEffect(int turnsLeft, Character target, String effect, int info) {
         this.turnsLeft = turnsLeft;
         this.target = target;
         this.effect = effect;
@@ -20,7 +20,7 @@ class statusEffect {
 public class assignment {
 
     public void turnCounter() {
-        ArrayList<statusEffect> effects = new ArrayList<>();
+        ArrayList<StatusEffect> effects = new ArrayList<>();
     }
 
 
