@@ -47,7 +47,7 @@ public class equipment{
     }
 
     public String toString() {
-        return "Equipment{" + "ID = " + ID + " Name = " + name + " , Health = " + health + " , Strength = " + strength + ", Defence = " + defence + ", Initiative = " + initiative + ", Type = " + typeName(type) + '}' + "\n";
+        return "Equipment{" + "ID = " + ID + " Name = " + name + " , Health = " + health + " , Strength = " + strength + ", Defence = " + defence + ", Initiative = " + initiative + ", Type = " + typeName(type) + '}' ;
     }
 
     public static void allEquipment() {
@@ -110,7 +110,7 @@ public class equipment{
         equipment shield = new equipment(2, "Shield", 5, 0, 10, 0, 3);
         equipment helmet = new equipment(3, "helmet", 0, 5, 0, 0, 1);
         equipment armor = new equipment(4, "Armor", 20, 0, 15, 0, 2);
-        allEquipment();
+        //allEquipment();
         System.out.println(equip());
     }
 
