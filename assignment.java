@@ -44,11 +44,17 @@ public class assignment {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         barbarian john = new barbarian("John");
         rogue alex = new rogue("Alex");
         System.out.println(alex.health);
         john.attack(alex);
         System.out.println(alex.health);
+=======
+
+        Scanner scanner = new Scanner(System.in);
+
+>>>>>>> Stashed changes
 =======
 
         Scanner scanner = new Scanner(System.in);
