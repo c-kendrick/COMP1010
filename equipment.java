@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class equipment{
@@ -79,7 +78,7 @@ public class equipment{
 
     public static void equip() {
         Scanner scanner = new Scanner(System.in);
-        List<Integer> usedTypes = new ArrayList<>();
+        ArrayList<Integer> usedTypes = new ArrayList<>();
 
         allEquipment();
 
@@ -96,9 +95,6 @@ public class equipment{
             }
                 
             
-
-            
-
             equipment selected = null;
             for (equipment eq : equipmentList) {
                 if (eq.ID == choice) {
