@@ -139,6 +139,7 @@ public class equipment{
             System.out.print(i + " ");
 
         }
+        System.err.println(armor.ID);
     }
 
     
