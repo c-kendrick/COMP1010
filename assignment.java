@@ -63,14 +63,30 @@ public class assignment {
 
     public static int getClan(String name, String race) {
         Scanner scanner = new Scanner(System.in);
+        int choice = -1;
 
-        System.out.println("Okay " + race + ", what is your class?");
-        System.out.println("1. Barbarian?");
-        System.out.println("2. Rogue?");
-        System.out.println("3. Mage?");;
-        System.out.println("4. Engineer?");
+        while (true) {
+            System.out.println("Okay " + race + ", what is your class?");
+            System.out.println("1. Barbarian?");
+            System.out.println("2. Rogue?");
+            System.out.println("3. Mage?");;
+            System.out.println("4. Engineer?");
+            
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-        return scanner.nextInt();
+                if (choice >= 1 && choice <= 4) {
+                    return choice;
+                } else {
+                    System.out.println("Invalid number. Please a number between 1 and 4.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number between 1 and 4.");
+                scanner.nextLine();
+            }
+
+        }
     }
 
     public static Character create(int answer, String race) {
@@ -85,14 +101,30 @@ public class assignment {
 
     public static void getAction(Character player, Character enemy) {
         Scanner scanner = new Scanner(System.in);
+        int answer = -1;
 
-        System.out.println("What do you do?");
-        System.out.println("1. Attack?");
-        System.out.println("2. Special attack?");
-        System.out.println("3. Flee?");
-        System.out.println("4. Defend?");
+        while (true) {
+            System.out.println("What do you do?");
+            System.out.println("1. Attack?");
+            System.out.println("2. Special attack?");
+            System.out.println("3. Flee?");
+            System.out.println("4. Defend?");
+            System.out.println("Please enter the number of your desired action");
 
-        int answer = scanner.nextInt();
+            if (scanner.hasNextInt()) {
+                answer = scanner.nextInt();
+                scanner.nextLine();
+                if (answer >= 1 && answer <= 4) {
+                    break;
+                } else {
+                    System.out.println("Invalid number. Please enter a number between 1 and 4.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number between 1 and 4.");
+                scanner.nextLine();
+            }
+
+        }
 
         switch(answer) {
             case 1:
@@ -115,11 +147,8 @@ public class assignment {
             case 4:
                 System.out.println("Began defense");
                 break;
-            default:
-                throw new IllegalArgumentException("Unknown choice");
         }
     }
-
     public static void combat(Character player, Character enemy) {
         while (enemy.health > 0) {
             getAction(player, enemy);
