@@ -92,6 +92,18 @@ public class assignment {
         }
     }
 
+    public static void combat(Character player, Character enemy) {
+        while (enemy.health > 0) {
+            getAction(player, enemy);
+
+            if (enemy.health > 0) {
+                System.out.println("Enemy still alive.");
+            } else {
+                System.out.println("Enemy killed!");
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         Random r= new Random();
@@ -107,16 +119,8 @@ public class assignment {
 
         System.out.println("A random " + enemy.getClass().toString() + " appeared!");
         
-        while (enemy.health > 0) {
-            getAction(player, enemy);
 
-            if (enemy.health > 0) {
-                System.out.println("Enemy still alive.");
-            } else {
-                System.out.println("Enemy killed!");
-            }
-        }
-        
+        combat(player, enemy);
 
 
 

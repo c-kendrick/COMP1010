@@ -29,7 +29,8 @@ public class mage extends Character {
         spells.add("Unstable");
 	}
 
-    void castSpell(Character target) {
+    @Override
+    void specialAbility(Character target) {
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
 
