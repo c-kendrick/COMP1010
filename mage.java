@@ -115,7 +115,7 @@ public class mage extends Character {
     }
 
     @Override
-    void takeDamage(int damage) {
+    public void takeDamage(int damage) {
         this.health -= damage;
         System.out.println("Mage takes " + damage + " damage. Remaining HP: " + this.health);
     }
