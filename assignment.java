@@ -48,9 +48,9 @@ public class assignment {
 
             switch (choice) {
                 case 1: return "Elf";
-                case 2: return "Robot";
+                case 2: return "Orc";
                 case 3: return "Alien";
-                case 4: return "Orc";
+                case 4: return "Robot";
                 default:
                     System.out.println("Invalid number. Please enter a number between 1 and 4.");
             }
