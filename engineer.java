@@ -17,6 +17,16 @@ public class engineer extends Character {
         wallHealth = 0;
         powerCoreActive = false;
     }
+    public engineer(String race, int health, int damage, int intelligence, int initiative) {
+        this.race = race;
+        this.health = health;
+        this.damage = damage;
+        this.intelligence = intelligence;
+        this.initiative = initiative;
+
+        deployedDevice = false;
+        powerCoreActive = false;
+    }
 
     @Override
     void specialAbility(Character target) {

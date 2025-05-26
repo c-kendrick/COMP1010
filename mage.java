@@ -28,6 +28,17 @@ public class mage extends Character {
         spells.add("Attack Boost");
         spells.add("Unstable");
 	}
+    public mage(String race, int health, int damage, int intelligence, int initiative) {
+        this.race = race;
+        this.health = health;
+        this.damage = damage;
+        this.intelligence = intelligence;
+        this.initiative = initiative;
+
+        hasSpellBook = true;
+        attackBoostActive = false;
+        poisonUsed = false;
+    }
 
     @Override
     void specialAbility(Character target) {
