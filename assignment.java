@@ -32,10 +32,34 @@ public class assignment {
 
     public static String getRace(String name) {
         Scanner scanner = new Scanner(System.in);
+        int choice = -1;
 
-        System.out.println("Okay " + name + ", what is your race?");
-        return scanner.nextLine();
+        while (true) {
+            System.out.println("Okay " + name + ", what is your race?");
+            System.out.println("Please choose from the following options:");
+            System.out.println("1. Elf");
+            System.out.println("2. Orc");
+            System.out.println("3. Alien");
+            System.out.println("4. Robot");
+
+        if (scanner.hasNextInt()) {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1: return "Elf";
+                case 2: return "Robot";
+                case 3: return "Alien";
+                case 4: return "Orc";
+                default:
+                    System.out.println("Invalid number. Please enter a number between 1 and 4.");
+            }
+        } else {
+            System.out.println("Invalid input. Please enter a number between 1 and 4.");
+            scanner.nextLine();
+        }
     }
+}
 
     public static int getClan(String name, String race) {
         Scanner scanner = new Scanner(System.in);
