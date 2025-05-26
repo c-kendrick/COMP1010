@@ -18,7 +18,8 @@ public class engineer extends Character {
         powerCoreActive = false;
     }
 
-    void build() {
+    @Override
+    void specialAbility(Character target) {
         if (deployedDevice) {
             System.out.println("Device already deployed:" + builtDevice);
             return;
