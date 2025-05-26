@@ -1,19 +1,18 @@
+import java.util.ArrayList;
+
 public class Dungeon {
     Dungeon next;
     int difficulty;
-
+    ArrayList<Character> enemyList;
 
     public Dungeon(int difficulty) {
         this.difficulty = difficulty;
-    }
-
-    void populateDungeon() {
+        enemyList = new ArrayList();
+        
         int numEnemies =((int)(Math.random() * 5) + 1) + difficulty;
-        
-        
 
         for (int i = 0; i < numEnemies; i++) {
-           
+           enemyList.add(createEnemy());
         }
     }
 
@@ -44,6 +43,6 @@ public class Dungeon {
             case 4:
                 return "Robot";
             default: throw new IllegalArgumentException("Unknown choice");
-        };
+        }
     }
 }
