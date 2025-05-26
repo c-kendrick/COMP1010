@@ -22,4 +22,35 @@ public class Character {
     void specialAbility(Character target) {
 
     }
+
+    boolean flee(Character target) {
+        int num;
+        if (initiative < target.initiative) {
+            num = (int)(Math.random() * 10) + 1;
+            if (num > 7) {
+                return true;
+            }
+            return false;
+        } 
+        
+        if (initiative == target.initiative) {
+            num = (int)(Math.random() * 10) + 1;
+            if (num > 5) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        if (initiative > target.initiative) {
+            num = (int)(Math.random() * 10) + 1;
+            if (num > 3) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        return true;
+    }
 }

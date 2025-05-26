@@ -82,8 +82,12 @@ public class assignment {
                 System.out.println("Enemy health now: " + enemy.health);
                 break;
             case 3:
-                System.out.println("Flee successful");
-                break;
+                if (player.flee(enemy)) {
+                    System.out.println("Flee successful");
+                    break;
+                }
+                System.out.println("Flee not successful.");
+                getAction(player, enemy);
             case 4:
                 System.out.println("Began defense");
                 break;
@@ -120,7 +124,7 @@ public class assignment {
         System.out.println("A random " + enemy.getClass().toString() + " appeared!");
         
 
-        combat(player, enemy);
+        getAction(player, enemy);
 
 
 
