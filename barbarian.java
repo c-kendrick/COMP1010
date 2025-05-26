@@ -13,6 +13,17 @@ public class barbarian extends Character {
         isBlindedRampage = false;
 	}
 
+    public barbarian(String race, int health, int damage, int intelligence, int initiative) {
+        this.race = race;
+        this.health = health;
+        this.damage = damage;
+        this.intelligence = intelligence;
+        this.initiative = initiative;
+
+        isRaging = false;
+        isBlindedRampage = false;
+    }
+
     @Override
     void attack(Character target) {
         // attacking engineer
