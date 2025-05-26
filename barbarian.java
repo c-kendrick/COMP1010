@@ -1,6 +1,7 @@
 
 public class barbarian extends Character {
     boolean isRaging;
+    boolean isBlindedRampage;
 
 	public barbarian(String r) {
 		health = 150;
@@ -9,6 +10,7 @@ public class barbarian extends Character {
         intelligence = 5;
         initiative = 5;
         isRaging = false;
+        isBlindedRampage = false;
 	}
 
     @Override
@@ -42,13 +44,20 @@ public class barbarian extends Character {
 
         // attacking mage
         if (target instanceof mage) {
-            if (isRaging) {
+            if (isBlindedRampage) {
                 // if mage is using spell
                 // chance for mage spell to double barbarian damage
+                System.out.println("Barbarian is in Blinded Rampage! 50% chance to hit Mage.");
+                if (Math.random() < 0.5) {
+                    System.out.println("Blinded Rampage hit the Mage for" + damage + " points!");
+                    target.takeDamage(damage);
+                } else {
+                    System.out.println("Blinded Rampage missed the Mage!");
+                } 
+            } else {
+                System.out.println("Barbarian attacked Mage for " + damage + " points.");
+                target.takeDamage(damage);
             }
-
-            System.out.println("Barbarian attacked for " + damage + " points");
-            target.takeDamage(damage);
         }
     }
 
@@ -62,6 +71,21 @@ public class barbarian extends Character {
         damage -= 20;
     }
 
+    void enterBlindedRampage() {
+        isRaging = true;
+        isBlindedRampage = true;
+        damage += 10;
+        System.out.println("Barbarian has entered Blinded Rampage!");
+    }
+
+    void exitBlindedRampage() {
+        if (isBlindedRampage) {
+            damage -= 10;
+            isBlindedRampage = false;
+            System.out.println("Barbarian exits Blinded Rampage");
+        }
+    }
+
     //rage attack special ability 
     @Override
     void specialAbility(Character target) {
@@ -70,6 +94,7 @@ public class barbarian extends Character {
         activateRage();
         attack(target);
         deactivateRage();
+        exitBlindedRampage();
     }
 	
     
