@@ -53,7 +53,7 @@ public class Equipment{
     public String toString() {
         return "Equipment{" + "ID = " + ID + " Name = " + name + " , Health = " + health + " , Strength = " + strength + ", Defence = " + defence + ", Initiative = " + initiative + ", Type = " + typeName(type) + '}';
     }
-
+    //Prints all unlocked equipment
     public static void allEquipment() {
         System.out.println("All created Equipment:");
         for (Equipment Equipment : equipmentList) {
@@ -62,7 +62,7 @@ public class Equipment{
             }
         }
     }
-
+//prints out equiped equipments
     public static void equiped() {
         System.out.println("All active Equipment:");
         for (Equipment Equipment : equippedItems) {
@@ -70,7 +70,7 @@ public class Equipment{
 
         }
     }
-
+    //calculates added stats of equiped equipments
     public static int[] addedstats() {
         int[] stats = new int[4];
         for (Equipment eq : equippedItems) {
@@ -81,7 +81,7 @@ public class Equipment{
         }
         return stats;
     }
-
+    //responsible for equiping 
     public static void equip() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Integer> usedTypes = new ArrayList<>();

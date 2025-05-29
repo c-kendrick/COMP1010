@@ -23,7 +23,7 @@ public class UnitTest {
     }
     @Test
     public void testTypename(){
-        assertEquals("helmet", Equipment.typeName(1));
+        assertEquals("Helmet", Equipment.typeName(1));
     }
 
     @Test
