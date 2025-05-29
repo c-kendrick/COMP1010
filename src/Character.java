@@ -1,13 +1,20 @@
 import java.util.Scanner;
 
 public class Character {
+    int gold;
+    int maxHealth;
     int health;
     int damage;
     int intelligence;
     int initiative;
     String race;
+    String name;
     Boolean isWounded;
     Boolean isPoisoned;
+    int killcount;
+    boolean hasRaged;
+    int specialAbLeft;
+    int specialAbMax;
 
     public Character() {
 
@@ -60,16 +67,16 @@ public class Character {
 
     }
 
-    void getAction(Character enemy) {
+    void getAction(Character enemy, Dungeon room, int difficulty) {
         Scanner scanner = new Scanner(System.in);
         int answer = -1;
 
         while (true) {
             System.out.println("What do you do?");
             System.out.println("1. Attack?");
-            System.out.println("2. Special attack?");
-            System.out.println("3. Flee?");
-            System.out.println("Please enter the number of your desired action");
+            System.out.println("2. Special attack? " + specialAbLeft + " left.");
+            System.out.println("3. Flee? (Lose all gold!)");
+            System.out.println("");
 
             if (scanner.hasNextInt()) {
                 answer = scanner.nextInt();
@@ -100,11 +107,20 @@ public class Character {
             case 3:
                 if (flee(enemy)) {
                     System.out.println("Flee successful");
-                    // TO DO: leave dungeon 
-                    break;
+                    gold = 0;
+                    health = maxHealth;
+                    specialAbLeft = specialAbMax;
+
+                    System.out.println("");
+                    System.out.println("You find a campfire and decide to rest.");
+                    System.out.println("Your health & special abilities have been reset to full.");
+
+                    Assignment.gameDriver(this, room, difficulty);
+                    return;
                 }
                 System.out.println("Flee not successful.");
-                getAction(enemy);
+                getAction(enemy, room, difficulty);
+                return;
             case 4:
                 System.out.println("Began defense");
                 break;

@@ -2,26 +2,37 @@
 public class Barbarian extends Character {
     boolean isRaging;
     boolean isBlindedRampage;
-    boolean hasRaged;
 
-	public Barbarian(String r) {
-		health = 150;
+
+	public Barbarian(String race, String name) {
+		this.race = race;
+        this.name = name;
+
+        health = 200;
+        maxHealth = health;
 		damage = 30;
-		race = r;
         intelligence = 5;
         initiative = 5;
         isRaging = false;
         isBlindedRampage = false;
-        hasRaged = false;
+        isPoisoned = false;
+        killcount = 0;
+        specialAbLeft = 3;
+        specialAbMax = specialAbLeft;
 	}
 
-    public Barbarian(String race, int health, int damage, int intelligence, int initiative) {
+    public Barbarian(String race, int health, int damage, int intelligence, int initiative, String name) {
         this.race = race;
         this.health = health;
+        this.maxHealth = health;
         this.damage = damage;
         this.intelligence = intelligence;
         this.initiative = initiative;
+        this.name = name;
 
+        specialAbLeft = 3;
+        specialAbMax = specialAbLeft;
+        killcount = 0;
         isRaging = false;
         isBlindedRampage = false;
     }
@@ -44,12 +55,18 @@ public class Barbarian extends Character {
         if (target instanceof Engineer) {
             Engineer eng = (Engineer) target;
             
-            if (eng.deployedDevice) {
-                if (isRaging)
-                    eng.deployedDevice = false;
+            if (eng.deployedDevice && eng.builtDevice == "WALL" && eng.wallHealth > 0) {
+                    if (isRaging) {
+                        eng.wallHealth = 0;
+                        eng.deployedDevice = false;
+                    }
+                    eng.wallHealth -= 25;
+                    if (eng.wallHealth < 0) {
+                        eng.deployedDevice = false;
+                    }
             } else {        
-                System.out.println("Barbarian attacked for " + damage + " points");        
-                target.takeDamage(damage);
+                System.out.println(name + " attacked " + eng.name + " for " + damage + " points");        
+                eng.takeDamage(damage);
             }
         }
 
@@ -60,11 +77,11 @@ public class Barbarian extends Character {
             if (!rog.isInvisible) {
                 // cannot rage against rogue
                 if (isRaging)
-                    damage -=20;
-
-                System.out.println("Barbarian attacked for " + damage + " points");        
-                target.takeDamage(damage);
+                    deactivateRage();
             }
+
+            System.out.println(name + " attacked " + rog.name + " for " + damage + " points");        
+            rog.takeDamage(damage);
         }
 
         // attacking mage
@@ -83,18 +100,23 @@ public class Barbarian extends Character {
                 System.out.println("Barbarian attacked Mage for " + damage + " points.");
                 target.takeDamage(damage);
             }
+        } 
+        
+        if (target instanceof Barbarian) {
+            System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
+            target.takeDamage(damage);
         }
     }
 
     void activateRage() {
         isRaging = true;
-        damage += 20;
-        hasRaged = true;
+        damage += 30;
+        specialAbLeft--;
     }
     
     void deactivateRage() {
         isRaging = false;
-        damage -= 20;
+        damage -= 30;
     }
 
     void enterBlindedRampage() {
@@ -115,7 +137,7 @@ public class Barbarian extends Character {
     //rage attack special ability 
     @Override
     void specialAbility(Character target) {
-        if (hasRaged) {
+        if (specialAbLeft < 1) {
             System.out.println("You are too tired to rage. Attacking normally instead");
             attack(target);
         } else {
@@ -124,8 +146,6 @@ public class Barbarian extends Character {
             activateRage();
             attack(target);
             deactivateRage();
-            exitBlindedRampage();   
-            // to do: turn hasRaged to false at the end of dungeon.
         }
 
 

@@ -11,31 +11,42 @@ public class Mage extends Character {
     boolean poisonUsed;
     
 
-    public Mage(String r) {
-		health = 200;
-        maxHealth = 200;
+    public Mage(String race, String name) {
+		this.race = race;
+		this.name = name;
+		health = 150;
+        maxHealth = health;
+        maxHealth = 150;
 		damage = 15;
-		race = r;
         intelligence = 10;
         initiative = 3;
         hasSpellBook = true;
         attackBoostActive = false;
         poisonUsed = false;
+        killcount = 0;
+        specialAbLeft = 7;
+        specialAbMax = specialAbLeft;
 
         spells = new ArrayList<>();
         spells.add("Poison");
         spells.add("Heal");
         spells.add("Attack Boost");
         spells.add("Unstable");
+        killcount = 0;
+        
 	}
 
-    public Mage(String race, int health, int damage, int intelligence, int initiative) {
+    public Mage(String race, int health, int damage, int intelligence, int initiative, String name) {
         this.race = race;
+        this.name = name;
         this.health = health;
         this.damage = damage;
         this.intelligence = intelligence;
         this.initiative = initiative;
 
+        specialAbLeft = 7;
+        specialAbMax = specialAbLeft;
+        maxHealth = health;
         hasSpellBook = true;
         attackBoostActive = false;
         poisonUsed = false;
@@ -61,6 +72,13 @@ public class Mage extends Character {
 
     @Override
     public void specialAbility(Character target) {
+        if (specialAbLeft < 1) {
+            System.out.println("Too tired to use special abilities.");
+            System.out.println("Attacking normally instead.");
+            attack(target);
+            return;
+        }
+
         Scanner scanner = new Scanner(System.in);
 
         if (!hasSpellBook) {
@@ -82,6 +100,15 @@ public class Mage extends Character {
 
     
     void useAbility(Character target, int choice) {
+        if (specialAbLeft < 1) {
+            System.out.println("Too tired to use special abilities.");
+            System.out.println("Attacking normally instead.");
+            attack(target);
+            return;
+        }
+
+        specialAbLeft--;
+        
         switch (choice) {
             case 1:
                 if (poisonUsed) {
@@ -107,7 +134,7 @@ public class Mage extends Character {
                 break;
             case 2:
                 System.out.println("Mage casts Heal Spell");
-                int healed = Math.min(10, maxHealth - health);
+                int healed = Math.min(20, maxHealth - health);
                 health += healed;
                 System.out.println("Mage heals for " + healed + ". Current HP:"  + health);
                 break;

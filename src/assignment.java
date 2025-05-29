@@ -2,45 +2,119 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Random;
     
-class StatusEffect {
-    int turnsLeft;
-    Character target;
-    String effect;
-    // info used for damage amount or other numbers needed
-    int info;
-
-    //ArrayList<String> inventory = new ArrayList<>();
-
-}   
-    
-
-
-
-
 public class Assignment {
+    static boolean endlessMode = false;
 
-    //to do: move to another class
+    public static void gameWon(Character player) {
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("CONGRATULATIONS! You have won the game!");
+        System.out.println("");
+        System.out.println("You killed: " + player.killcount + " enemies!");
+        System.out.println("Your health at the end of the game: " + player.health);
+        System.out.println("Your SCORE (in gold): $" + player.gold);
+    }
+
+    public static void gameLost(Character player) {
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("The game is over.");
+        System.out.println("You killed: " + player.killcount + " enemies!");
+        System.out.println("Your SCORE (in gold): $" + player.gold);
+    }
+
+public static int getDifficulty() {
+    Scanner scanner = new Scanner(System.in);
+    int choice = -1;
+
+    while (true) {
+        System.out.println("Choose difficulty:");
+        System.out.println("1. Endless (Normal)");
+        System.out.println("2. Normal");
+        System.out.println("3. Hard");
+
+        if (scanner.hasNextInt()) {
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            if (choice >= 1 && choice <= 3) {
+                return choice;
+            } else {
+                System.out.println("Invalid number. Please enter 1, 2, or 3.");
+            }
+        } else {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine();
+        }
+    }
+}
+
+public static void generateDungeons(Character player, int difficulty) {
+        Dungeon room = null;
+        
+        if (difficulty == 1)
+            endlessMode = true;
+            
+        int steps = 5;
+        int upper = 10 + (difficulty - 1) * 5; 
+        int lower = upper - (steps - 1) * 2; 
+        int count = ((upper - lower) / 2) + 1; 
+        int idx = count;
+
+        for (int i = upper; i >= lower; i -= 2) {
+            room = new Dungeon(i, room, idx, count);
+            idx--;
+        }
+            
+
+        gameDriver(player, room, difficulty);
+}
+
     public static String getName() {
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("You! You're finally awake.");
+        System.out.println("Hey, you! You're finally awake.");
         System.out.println("What is your name?");
         String name = scanner.nextLine();
 
         return name;
     }
 
-    public static String getRace(String name) {
+    public static String getRace() {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
 
         while (true) {
-            System.out.println("Okay " + name + ", what is your race?");
+            System.out.println("What is your race?");
             System.out.println("Please choose from the following options:");
             System.out.println("1. Elf");
             System.out.println("2. Orc");
-            System.out.println("3. Alien");
-            System.out.println("4. Robot");
+            System.out.println("3. Human");
+            System.out.println("4. Dwarf");
+            System.out.println("");
 
         if (scanner.hasNextInt()) {
             choice = scanner.nextInt();
@@ -49,8 +123,8 @@ public class Assignment {
             switch (choice) {
                 case 1: return "Elf";
                 case 2: return "Orc";
-                case 3: return "Alien";
-                case 4: return "Robot";
+                case 3: return "Human";
+                case 4: return "Dwarf";
                 default:
                     System.out.println("Invalid number. Please enter a number between 1 and 4.");
             }
@@ -61,16 +135,18 @@ public class Assignment {
     }
 }
 
-    public static int getClan(String name, String race) {
+
+    public static int getClan() {
         Scanner scanner = new Scanner(System.in);
         int choice = -1;
 
         while (true) {
-            System.out.println("Okay " + race + ", what is your class?");
+            System.out.println("What is your class?");
             System.out.println("1. Barbarian?");
             System.out.println("2. Rogue?");
             System.out.println("3. Mage?");;
             System.out.println("4. Engineer?");
+            System.out.println("");
             
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
@@ -89,46 +165,92 @@ public class Assignment {
         }
     }
 
-    public static Character create(int answer, String race) {
+    public static Character create(int answer) {
         return switch(answer) {
-            case 1 -> new Barbarian(race);
-            case 2 -> new Rogue(race);
-            case 3 -> new Mage(race);
-            case 4 -> new Engineer(race);
+            case 1 -> new Barbarian(getRace(), getName());
+            case 2 -> new Rogue(getRace(), getName());
+            case 3 -> new Mage(getRace(), getName());
+            case 4 -> new Engineer(getRace(), getName());
             default -> throw new IllegalArgumentException("Unknown choice");
         };
     }
 
-    public static void gameDriver(Character player, Dungeon room) {
-        if (room == null) {
-            System.out.println("CONGRATULATIONS! You have won the game!");
-            //give game stats
-            return;
-        }
+    public static void newEquipmentSet(Character player) {
 
-        if (player.health <= 0) {
-            System.out.println("You have lost the game. :(");
-            //give game stats
-            return;
-        }
-
-        room.combatDungeon(player);
-
-        gameDriver(player, room.next);
     }
 
+    public static void rest(Character player, int difficulty) {
+        if (player.isPoisoned) 
+            player.damage += 10;
+        
+        player.health = player.maxHealth;
+        player.specialAbLeft = player.specialAbMax;
+
+        System.out.println("");
+        System.out.println("");
+        System.out.println("");
+        System.out.println("=======================================");
+        System.out.println("You find a campfire and decide to rest.");
+        System.out.println("Your health & special abilities have been reset to full.");
+        
+        System.out.println("");
+        System.out.println("After relaxing by the crackling logs,");
+        System.out.println("and watching the embers fly up,");
+        System.out.println("you discover a chest filled with treasure,");
+        System.out.println("and several brand spanking new sets of armour and weapons.");
+        System.out.println("");
+        int gold = (int)((Math.random() * 20) + 5) * difficulty;
+        player.gold += gold;
+        System.out.println("Gold found: $" + gold);
+        System.out.println("Your current amount of gold: $" + player.gold);
+        
+        //to do: add armour sets and let player choose between armour.
+
+        
+        System.out.println("Would you like to continue on to the next dungeon?");
+        
+        System.out.println("1. Bring it on.");
+        System.out.println("2. Let's leave the dungeons for now (exits game).");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        scanner.nextLine();
+
+        if (choice == 2) {
+            gameLost(player);
+            return;
+        }
+
+
+    }
+
+    //recursive function to play the game
+    public static void gameDriver(Character player, Dungeon room, int difficulty) {
+        if (room == null) {
+            if (endlessMode == true) {
+                System.out.println("Stage: " + difficulty + " of INFINITY complete.");
+                generateDungeons(player, difficulty++);
+            } else {
+                gameWon(player);
+                return;
+            }        
+        }
+
+        if (room.defeatDungeon(player)) {
+            rest(player, difficulty);
+            gameDriver(player, room.next, difficulty);
+        } else {
+            gameLost(player);
+            return;
+        }
+    }
 
     public static void main(String[] args) {
-        String name = getName();
-        String race = getRace(name);
-        int clan = getClan(name, race);
-        Character player = create(clan, race);
+        int difficulty = getDifficulty();
+        int clan = getClan();
+        Character player = create(clan);
 
-        Dungeon room = null;
-        for (int i = 5; i >= 1; i--) 
-            room = new Dungeon(i, room);
-        
 
-        gameDriver(player, room);
+        generateDungeons(player, difficulty);
     }
 }

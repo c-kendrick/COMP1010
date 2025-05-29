@@ -6,29 +6,40 @@ public class Engineer extends Character {
     int wallHealth;
     boolean powerCoreActive;
 
-    public Engineer(String r) {
-        health = 200;
+    public Engineer(String race, String name) {
+        this.race = race;
+        this.name = name;
+
+        health = 150;
         damage = 15;
-        race = r;
         intelligence = 10;
         initiative = 2;
         deployedDevice = false;
         builtDevice = "";
         wallHealth = 0;
         powerCoreActive = false;
+        killcount = 0;
+        maxHealth = health;
+        specialAbLeft = 1000;
+        specialAbMax = specialAbLeft;
     }
 
-    public Engineer(String race, int health, int damage, int intelligence, int initiative) {
+    public Engineer(String race, int health, int damage, int intelligence, int initiative, String name) {
         this.race = race;
         this.health = health;
         this.damage = damage;
         this.intelligence = intelligence;
         this.initiative = initiative;
+        this.name = name;
 
+        specialAbLeft = 1000;
+        specialAbMax = specialAbLeft;
+        maxHealth = health;
         builtDevice = "";
         wallHealth = 0;
         deployedDevice = false;
         powerCoreActive = false;
+        killcount = 0;
     }
 
     @Override
@@ -96,7 +107,7 @@ public class Engineer extends Character {
         }
     }
 
-
+    @Override
     void attack(Character target) {
         System.out.println("Engineer attacks" + target.getClass().getSimpleName());
 
