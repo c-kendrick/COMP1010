@@ -21,6 +21,10 @@ public class UnitTest {
         assertEquals(4, test.type);
         assertEquals(true, test.unlocked);
     }
+    @Test
+    public void testTypename(){
+        assertEquals("helmet", Equipment.typeName(1));
+    }
 
     @Test
     public void testCharacter() {

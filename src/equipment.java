@@ -33,7 +33,7 @@ public class Equipment{
     }
 
     //convert type number to name ie helmet armour etc
-    public String typeName(int type) {
+    public static String typeName(int type) {
         String typeName = "";
         if (type == 1) {
             typeName = "helmet";
