@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Dungeon {
     Dungeon next;
@@ -45,4 +46,30 @@ public class Dungeon {
             default: throw new IllegalArgumentException("Unknown choice");
         }
     }
+
+    void combatDungeon(Character player) {
+        while (enemyList.size() > 0) {
+            System.out.println("You are facing " + enemyList.size() + " enemies!");
+
+            combatEnemy(player, enemyList.get(0));
+            if (enemyList.get(0).health <= 0)
+                enemyList.remove(0);
+        }
+    }
+
+    static void combatEnemy(Character player, Character enemy) {
+        while (enemy.health > 0) {
+            player.getAction(enemy); //replace with player.getAction(enemy);
+
+            if (enemy.health > 0) {
+                System.out.println("Enemy still alive.");
+            } else {
+                System.out.println("Enemy killed!");
+            }
+
+            //enemy.genRandomChoices();
+        }
+    }
+
+
 }

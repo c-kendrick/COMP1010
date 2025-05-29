@@ -2,6 +2,7 @@
 public class barbarian extends Character {
     boolean isRaging;
     boolean isBlindedRampage;
+    boolean hasRaged;
 
 	public barbarian(String r) {
 		health = 150;
@@ -11,6 +12,7 @@ public class barbarian extends Character {
         initiative = 5;
         isRaging = false;
         isBlindedRampage = false;
+        hasRaged = false;
 	}
 
     public barbarian(String race, int health, int damage, int intelligence, int initiative) {
@@ -22,6 +24,17 @@ public class barbarian extends Character {
 
         isRaging = false;
         isBlindedRampage = false;
+    }
+
+    void genChoices(Character target) {
+        int choice = (int)(Math.random() * 2) + 1;
+
+        if (choice == 1)
+            attack(target);
+
+        if (choice == 2) 
+            specialAbility(target);
+
     }
 
     @Override
@@ -75,6 +88,7 @@ public class barbarian extends Character {
     void activateRage() {
         isRaging = true;
         damage += 20;
+        hasRaged = true;
     }
     
     void deactivateRage() {
@@ -100,12 +114,20 @@ public class barbarian extends Character {
     //rage attack special ability 
     @Override
     void specialAbility(Character target) {
-        System.out.println("BARBARIAN RAGING");
+        if (hasRaged) {
+            System.out.println("You are too tired to rage. Attacking normally instead");
+            attack(target);
+        } else {
+            System.out.println("BARBARIAN RAGING");
 
-        activateRage();
-        attack(target);
-        deactivateRage();
-        exitBlindedRampage();
+            activateRage();
+            attack(target);
+            deactivateRage();
+            exitBlindedRampage();   
+            // to do: turn hasRaged to false at the end of dungeon.
+        }
+
+
     }
 	
     
