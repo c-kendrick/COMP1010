@@ -3,9 +3,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class equipment{
+public class Equipment{
 
-    int ID; 
+    int ID;
     String name;
     int health;
     int strength;
@@ -14,15 +14,14 @@ public class equipment{
     int type;
     boolean unlocked;
 
+    private static ArrayList<Equipment> equipmentList = new ArrayList<>();
+    private static ArrayList<Equipment> equippedItems = new ArrayList<>();
 
-    private static ArrayList<equipment> equipmentList = new ArrayList<>();
-    private static ArrayList<equipment> equippedItems = new ArrayList<>();
-
-    public equipment(int ID, String name, int health, int strength, int defence, int initiative, int type, boolean unlocked) {
+    public Equipment(int ID, String name, int health, int strength, int defence, int initiative, int type, boolean unlocked) {
         if (type < 1 || type > 4) {
             System.err.println("Type must be between 1 and 4 inclusive.");
         }
-        this.ID=ID;
+        this.ID = ID;
         this.name = name;
         this.health = health;
         this.strength = strength;
@@ -52,34 +51,36 @@ public class equipment{
     }
 
     public String toString() {
-        return "Equipment{" + "ID = " + ID + " Name = " + name + " , Health = " + health + " , Strength = " + strength + ", Defence = " + defence + ", Initiative = " + initiative + ", Type = " + typeName(type) + '}' ;
+        return "Equipment{" + "ID = " + ID + " Name = " + name + " , Health = " + health + " , Strength = " + strength + ", Defence = " + defence + ", Initiative = " + initiative + ", Type = " + typeName(type) + '}';
     }
 
     public static void allEquipment() {
-        System.out.println("All created equipment:");
-        for (equipment equipment : equipmentList) {
-            if(equipment.unlocked==true){
-                System.out.println(equipment);
-            }           
+        System.out.println("All created Equipment:");
+        for (Equipment Equipment : equipmentList) {
+            if (Equipment.unlocked == true) {
+                System.out.println(Equipment);
+            }
         }
     }
+
     public static void equiped() {
-        System.out.println("All active equipment:");
-        for (equipment equipment : equippedItems){
-            System.out.println(equipment);
+        System.out.println("All active Equipment:");
+        for (Equipment Equipment : equippedItems) {
+            System.out.println(Equipment);
 
         }
     }
-    public static int[] addedstats(){
+
+    public static int[] addedstats() {
         int[] stats = new int[4];
-        for(equipment eq : equippedItems){
+        for (Equipment eq : equippedItems) {
             stats[0] += eq.health;
             stats[1] += eq.strength;
             stats[2] += eq.defence;
             stats[3] += eq.initiative;
-        } return stats;
+        }
+        return stats;
     }
-
 
     public static void equip() {
         Scanner scanner = new Scanner(System.in);
@@ -89,19 +90,18 @@ public class equipment{
 
         int equippedCount = 0;
         while (equippedCount < 4) {
-            System.out.print("Enter the ID of equipment to equip (" + (equippedCount + 1) + "/4): ");
+            System.out.print("Enter the ID of Equipment to equip (" + (equippedCount + 1) + "/4): ");
             int choice = 0;
-            try{
+            try {
                 choice = scanner.nextInt();
-                
-            }catch (InputMismatchException ex){
+
+            } catch (InputMismatchException ex) {
                 System.err.println("enter a number");
                 scanner.nextLine();
             }
-                
-            
-            equipment selected = null;
-            for (equipment eq : equipmentList) {
+
+            Equipment selected = null;
+            for (Equipment eq : equipmentList) {
                 if (eq.ID == choice && eq.unlocked == true) {
                     selected = eq;
                     break;
@@ -109,7 +109,7 @@ public class equipment{
             }
 
             if (selected == null) {
-                System.out.println("No equipment found with that ID.");
+                System.out.println("No Equipment found with that ID.");
                 continue;
             }
 
@@ -118,35 +118,38 @@ public class equipment{
                 continue;
             }
 
-            
             equippedItems.add(selected);
             usedTypes.add(selected.type);
             System.out.println("Equipped: " + selected.name + " (" + selected.typeName(selected.type) + ")");
             equippedCount++;
         }
-        scanner.close();
+        //scanner.close();
 
         equiped();
     }
 
     public static void main(String[] args) {
-        equipment sword = new equipment(1, "Sword", 0, 10, 0, 5, 4,true);
-        equipment shield = new equipment(2, "Shield", 5, 0, 10, 0, 3,true);
-        equipment helmet = new equipment(3, "helmet", 0, 5, 0, 0, 1,true);
-        equipment armor = new equipment(4, "Armor", 20, 0, 15, 0, 2,true);
-        equipment locked = new equipment(5, "Armor", 20, 0, 15, 0, 2,false);
-        for (int i : addedstats()){
+        Equipment sword = new Equipment(1, "Sword", 0, 10, 0, 5, 4, true);
+        Equipment shield = new Equipment(2, "Shield", 5, 0, 10, 0, 3, true);
+        Equipment helmet = new Equipment(3, "helmet", 0, 5, 0, 0, 1, true);
+        Equipment armor = new Equipment(4, "Armor", 20, 0, 15, 0, 2, true);
+        Equipment locked = new Equipment(5, "Armor", 200, 100, 15, 0, 2, true);
+        for (int i : addedstats()) {
             System.out.print(i + " ");
 
         }
         System.err.println(" ");
         equip();
-        for (int i : addedstats()){
+        for (int i : addedstats()) {
             System.out.print(i + " ");
 
         }
-        System.err.println(armor.ID);
+        System.err.println(" ");
+        equip();
+        for (int i : addedstats()) {
+            System.out.print(i + " ");
+
+        }
     }
 
-    
 }
