@@ -36,7 +36,7 @@ public class Equipment{
     public static String typeName(int type) {
         String typeName = "";
         if (type == 1) {
-            typeName = "helmet";
+            typeName = "Helmet";
         }
         if (type == 2) {
             typeName = "Armour";
@@ -45,7 +45,7 @@ public class Equipment{
             typeName = "Item";
         }
         if (type == 4) {
-            typeName = "wepon";
+            typeName = "Weapon";
         }
         return typeName;
     }
@@ -131,9 +131,9 @@ public class Equipment{
     public static void main(String[] args) {
         Equipment sword = new Equipment(1, "Sword", 0, 10, 0, 5, 4, true);
         Equipment shield = new Equipment(2, "Shield", 5, 0, 10, 0, 3, true);
-        Equipment helmet = new Equipment(3, "helmet", 0, 5, 0, 0, 1, true);
-        Equipment armor = new Equipment(4, "Armor", 20, 0, 15, 0, 2, true);
-        Equipment locked = new Equipment(5, "Armor", 200, 100, 15, 0, 2, true);
+        Equipment helmet = new Equipment(3, "Helmet", 0, 5, 0, 0, 1, true);
+        Equipment armour = new Equipment(4, "Armour", 20, 0, 15, 0, 2, true);
+        Equipment locked = new Equipment(5, "Armour", 200, 100, 15, 0, 2, true);
         for (int i : addedstats()) {
             System.out.print(i + " ");
 
