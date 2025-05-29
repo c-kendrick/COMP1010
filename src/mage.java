@@ -52,7 +52,7 @@ public class mage extends Character {
         }
 
         System.out.println("Choose a spell to cast:");
-        System.out.println("1. Poison - Reduces opponent's damage (and may blind a raging barbarian)");
+        System.out.println("1. Poison - Reduces opponent's damage  (and may blind a raging barbarian)");
         System.out.println("2. Heal - Restores 10 HP (max 200)");
         System.out.println("3. Attack Boost - Increase Mage's damage by 10");
         System.out.println("4. Unstable - Random damage to both enemy and self");
@@ -61,6 +61,11 @@ public class mage extends Character {
 
         switch (choice) {
             case 1:
+                if (poisonUsed) {
+                    System.out.println("Poison spell has already been used and cannot be used again.");
+                    break;
+                }
+                
                 System.out.println("Mage casts Poison Spell!");
                 if (target instanceof barbarian) {
                     barbarian bar = (barbarian) target;
