@@ -6,10 +6,11 @@ public class Dungeon {
     int difficulty;
     ArrayList<Character> enemyList;
 
-    public Dungeon(int difficulty) {
+    public Dungeon(int difficulty, Dungeon next) {
+        this.next = next;
         this.difficulty = difficulty;
-        enemyList = new ArrayList();
-        
+
+        enemyList = new ArrayList();        
         int numEnemies =((int)(Math.random() * 5) + 1) + difficulty;
 
         for (int i = 0; i < numEnemies; i++) {
@@ -24,11 +25,11 @@ public class Dungeon {
         int damage = ((int)(Math.random() * 5) + 1) * difficulty;
 
         switch (choice) {
-            case 1: return new barbarian(getRace(), health, damage, difficulty, difficulty);
-            case 2: return new rogue(getRace());
-            case 3: return new mage(getRace());
-            case 4: return new engineer(getRace());
-            default: return new barbarian(getRace());
+            case 1: return new Barbarian(getRace(), health, damage, difficulty, difficulty);
+            case 2: return new Rogue(getRace(), health, damage, difficulty, difficulty);
+            case 3: return new Mage(getRace(), health, damage, difficulty, difficulty);
+            case 4: return new Engineer(getRace(), health, damage, difficulty, difficulty);
+            default: return new Barbarian(getRace(), health, damage, difficulty, difficulty);
         }
     }
 
@@ -59,7 +60,8 @@ public class Dungeon {
         System.out.println("You have defeated the dungeon!");
     }
 
-    static void combatEnemy(Character player, Character enemy) {
+    void combatEnemy(Character player, Character enemy) {
+        System.out.println("You are facing a " + enemy.race + " " + enemy.getClass().getSimpleName());
         while (enemy.health > 0) {
             player.getAction(enemy);
 

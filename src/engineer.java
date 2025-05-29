@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
-public class engineer extends Character {
+public class Engineer extends Character {
     boolean deployedDevice;
     String builtDevice;
     int wallHealth;
     boolean powerCoreActive;
 
-    public engineer(String r) {
+    public Engineer(String r) {
         health = 200;
         damage = 15;
         race = r;
@@ -17,15 +17,30 @@ public class engineer extends Character {
         wallHealth = 0;
         powerCoreActive = false;
     }
-    public engineer(String race, int health, int damage, int intelligence, int initiative) {
+
+    public Engineer(String race, int health, int damage, int intelligence, int initiative) {
         this.race = race;
         this.health = health;
         this.damage = damage;
         this.intelligence = intelligence;
         this.initiative = initiative;
 
+        builtDevice = "";
+        wallHealth = 0;
         deployedDevice = false;
         powerCoreActive = false;
+    }
+
+    @Override
+    void genChoices(Character target) {
+        int choice = (int)(Math.random() * 5) + 1;
+
+        if (choice < 5)
+            useAbility(target, choice);
+
+        if (choice == 5)
+            attack(target);
+
     }
 
     @Override
@@ -34,6 +49,7 @@ public class engineer extends Character {
             System.out.println("Device already deployed:" + builtDevice);
             return;
         }
+
         System.out.println("Choose a device to build:");
         System.out.println("1. Cage - Pacifies the rage of a Barbarian");
         System.out.println("2. Tracker - Reveals an invisible Rogue");
@@ -42,7 +58,11 @@ public class engineer extends Character {
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
+        useAbility(target, choice);
+    }
 
+    
+    void useAbility(Character target, int choice) {
         switch (choice) {
             case 1:
                 builtDevice = "CAGE";
@@ -80,16 +100,16 @@ public class engineer extends Character {
     void attack(Character target) {
         System.out.println("Engineer attacks" + target.getClass().getSimpleName());
 
-        if (target instanceof barbarian) {
-            barbarian bar = (barbarian) target;
+        if (target instanceof Barbarian) {
+            Barbarian bar = (Barbarian) target;
 
         if (deployedDevice && builtDevice.equals("CAGE") && bar.isRaging) {
             bar.deactivateRage();
             System.out.println("Cage pacified the Barbarian's rage!");
         }
             target.takeDamage(damage);  
-        } else if (target instanceof rogue) {
-            rogue rog = (rogue) target;
+        } else if (target instanceof Rogue) {
+            Rogue rog = (Rogue) target;
 
             if (deployedDevice && builtDevice.equals("TRACKER") && rog.isInvisible) {
                 rog.isInvisible = false;

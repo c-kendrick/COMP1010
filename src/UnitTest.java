@@ -28,7 +28,7 @@ public class UnitTest {
 
     @Test
     public void testCharacter() {
-        Character test = assignment.create(3, "elf");
+        Character test = Assignment.create(3, "elf");
         assertEquals("elf", test.race);
     }
 }

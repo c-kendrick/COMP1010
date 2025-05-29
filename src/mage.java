@@ -3,7 +3,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 
-public class mage extends Character {
+public class Mage extends Character {
     boolean hasSpellBook;
     ArrayList<String> spells;
     int maxHealth;
@@ -11,7 +11,7 @@ public class mage extends Character {
     boolean poisonUsed;
     
 
-    public mage(String r) {
+    public Mage(String r) {
 		health = 200;
         maxHealth = 200;
 		damage = 15;
@@ -28,7 +28,8 @@ public class mage extends Character {
         spells.add("Attack Boost");
         spells.add("Unstable");
 	}
-    public mage(String race, int health, int damage, int intelligence, int initiative) {
+
+    public Mage(String race, int health, int damage, int intelligence, int initiative) {
         this.race = race;
         this.health = health;
         this.damage = damage;
@@ -38,27 +39,49 @@ public class mage extends Character {
         hasSpellBook = true;
         attackBoostActive = false;
         poisonUsed = false;
+
+        spells = new ArrayList<>();
+        spells.add("Poison");
+        spells.add("Heal");
+        spells.add("Attack Boost");
+        spells.add("Unstable");
     }
 
     @Override
-    void specialAbility(Character target) {
+    public void genChoices(Character target) {
+        int choice = (int)(Math.random() * 5) + 1;
+
+        if (choice < 5)
+            useAbility(target, choice);
+
+        if (choice == 5)
+            attack(target);
+
+    }
+
+    @Override
+    public void specialAbility(Character target) {
         Scanner scanner = new Scanner(System.in);
-        Random rand = new Random();
 
         if (!hasSpellBook) {
             System.out.println("Spellbook is stolen! You can only cast the Unstable Spell.");
-            castUnstableSpell(target, rand);
+            castUnstableSpell(target);
             return;
         }
 
         System.out.println("Choose a spell to cast:");
-        System.out.println("1. Poison - Reduces opponent's damage  (and may blind a raging barbarian)");
+        System.out.println("1. Poison - Reduces opponent's damage (and may blind a raging barbarian)");
         System.out.println("2. Heal - Restores 10 HP (max 200)");
         System.out.println("3. Attack Boost - Increase Mage's damage by 10");
         System.out.println("4. Unstable - Random damage to both enemy and self");
 
-        int choice = scanner.nextInt();
+        int choice = scanner.nextInt();   
+        useAbility(target, choice);
 
+    }
+
+    
+    void useAbility(Character target, int choice) {
         switch (choice) {
             case 1:
                 if (poisonUsed) {
@@ -67,8 +90,8 @@ public class mage extends Character {
                 }
                 
                 System.out.println("Mage casts Poison Spell!");
-                if (target instanceof barbarian) {
-                    barbarian bar = (barbarian) target;
+                if (target instanceof Barbarian) {
+                    Barbarian bar = (Barbarian) target;
                     if (bar.isRaging) {
                         bar.enterBlindedRampage();
                         System.out.println("Barbarian enters a Blinded Rampage!");
@@ -98,13 +121,15 @@ public class mage extends Character {
                 }
                 break;
             case 4: 
-                castUnstableSpell (target, rand);
+                castUnstableSpell (target);
                 break;
             default:
                 System.out.println("Invalid spell choice");
         }
     }
-    void castUnstableSpell(Character target, Random rand) {
+
+    void castUnstableSpell(Character target) {
+        Random rand = new Random();
         int damageToEnemy = rand.nextInt(11) + 15; //15-25
         int damageToSelf = rand.nextInt(11) + 10; //10-20
 
@@ -115,16 +140,7 @@ public class mage extends Character {
         this.takeDamage(damageToSelf);
     }
     
-    void loseSpellBook() {
-        hasSpellBook = false;
-        System.out.println("Mage's spellbook has been stolen!");
-    }
-    
-    void regainSpellBook() {
-        hasSpellBook = true;
-        System.out.println("Mage has recovered their spellbook!");
-    }
-
+    @Override
     void attack(Character target) {
         System.out.println("Mage attacks with basic magic!");
         target.takeDamage(damage);
@@ -135,6 +151,17 @@ public class mage extends Character {
         this.health -= damage;
         System.out.println("Mage takes " + damage + " damage. Remaining HP: " + this.health);
     }
+
+    void loseSpellBook() {
+        hasSpellBook = false;
+        System.out.println("Mage's spellbook has been stolen!");
+    }
+    
+    void regainSpellBook() {
+        hasSpellBook = true;
+        System.out.println("Mage has recovered their spellbook!");
+    }
+
 
 }
 

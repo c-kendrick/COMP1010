@@ -17,7 +17,7 @@ class StatusEffect {
 
 
 
-public class assignment {
+public class Assignment {
 
     //to do: move to another class
     public static String getName() {
@@ -91,34 +91,44 @@ public class assignment {
 
     public static Character create(int answer, String race) {
         return switch(answer) {
-            case 1 -> new barbarian(race);
-            case 2 -> new rogue(race);
-            case 3 -> new mage(race);
-            case 4 -> new engineer(race);
+            case 1 -> new Barbarian(race);
+            case 2 -> new Rogue(race);
+            case 3 -> new Mage(race);
+            case 4 -> new Engineer(race);
             default -> throw new IllegalArgumentException("Unknown choice");
         };
     }
 
+    public static void gameDriver(Character player, Dungeon room) {
+        if (room == null) {
+            System.out.println("CONGRATULATIONS! You have won the game!");
+            //give game stats
+            return;
+        }
+
+        if (player.health <= 0) {
+            System.out.println("You have lost the game. :(");
+            //give game stats
+            return;
+        }
+
+        room.combatDungeon(player);
+
+        gameDriver(player, room.next);
+    }
+
 
     public static void main(String[] args) {
-        Random r= new Random();
-            
         String name = getName();
         String race = getRace(name);
-        int answer = getClan(name, race);
+        int clan = getClan(name, race);
+        Character player = create(clan, race);
+
+        Dungeon room = null;
+        for (int i = 5; i >= 1; i--) 
+            room = new Dungeon(i, room);
         
 
-        Character player = create(answer, race);
-        int num = (int)(Math.random() * 4) + 1;
-        Character enemy = create(num, "elf");
-
-        System.out.println("A random " + enemy.getClass().toString() + " appeared!");
-        
-
-        player.getAction(enemy);
-
-
-
-
+        gameDriver(player, room);
     }
 }
