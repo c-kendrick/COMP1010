@@ -8,7 +8,7 @@ public class UnitTest {
     }
     @Test
     public void testEquipment() {
-        equipment test = new equipment(6, "test", 10, 20, 0, 50, 4);
+        equipment test = new equipment(6, "test", 10, 20, 0, 50, 4 , true);
         assertEquals(6, test.ID);  
     }
     @Test
