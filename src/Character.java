@@ -56,6 +56,10 @@ public class Character {
         return true;
     }
 
+    void genChoices(Character target) {
+
+    }
+
     void getAction(Character enemy) {
         Scanner scanner = new Scanner(System.in);
         int answer = -1;

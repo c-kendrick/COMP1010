@@ -55,11 +55,13 @@ public class Dungeon {
             if (enemyList.get(0).health <= 0)
                 enemyList.remove(0);
         }
+
+        System.out.println("You have defeated the dungeon!");
     }
 
     static void combatEnemy(Character player, Character enemy) {
         while (enemy.health > 0) {
-            player.getAction(enemy); //replace with player.getAction(enemy);
+            player.getAction(enemy);
 
             if (enemy.health > 0) {
                 System.out.println("Enemy still alive.");
@@ -67,7 +69,15 @@ public class Dungeon {
                 System.out.println("Enemy killed!");
             }
 
-            //enemy.genRandomChoices();
+            enemy.genChoices(player);
+
+            if (player.health > 0) {
+                System.out.println("Your health: " + player.health);
+            } else {
+                System.out.println("You have died!");
+                //to do: kill game
+                break;
+            }
         }
     }
 

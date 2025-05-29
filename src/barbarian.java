@@ -26,6 +26,7 @@ public class barbarian extends Character {
         isBlindedRampage = false;
     }
 
+    @Override
     void genChoices(Character target) {
         int choice = (int)(Math.random() * 2) + 1;
 
