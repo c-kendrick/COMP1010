@@ -1,5 +1,9 @@
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -30,7 +34,30 @@ public class Equipment{
         this.type = type;
         equipmentList.add(this);
         this.unlocked = unlocked;
+
+        try {
+        appendToCSV("allEquipments.csv"); 
+    } catch (IOException e) {
+        System.err.println("Error writing to CSV: " + e.getMessage());
     }
+
+
+    }
+
+
+    //Converts Equipment to csv
+    public String EqtoCSV() {
+        return ID + "," + name + "," + health + "," + strength + "," + defence + "," + initiative + "," + type + "," + unlocked;
+    }
+
+    //Adds this Equipment to csv
+    public void appendToCSV(String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            writer.write(this.EqtoCSV());
+            writer.newLine();
+        }
+    }
+
 
     //convert type number to name ie helmet armour etc
     public static String typeName(int type) {
@@ -73,6 +100,7 @@ public class Equipment{
     //calculates added stats of equiped equipments
     public static int[] addedstats() {
         int[] stats = new int[4];
+        Arrays.fill(stats, 0);
         for (Equipment eq : equippedItems) {
             stats[0] += eq.health;
             stats[1] += eq.strength;
@@ -85,6 +113,7 @@ public class Equipment{
     public static void equip() {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Integer> usedTypes = new ArrayList<>();
+        equippedItems.clear();
 
         allEquipment();
 
@@ -130,7 +159,7 @@ public class Equipment{
 
     public static void main(String[] args) {
         Equipment sword = new Equipment(1, "Sword", 0, 10, 0, 5, 4, true);
-        Equipment shield = new Equipment(2, "Shield", 5, 0, 10, 0, 3, true);
+        Equipment shield = new Equipment(2, "Shield", 0, 0, 10, 0, 3, true);
         Equipment helmet = new Equipment(3, "Helmet", 0, 5, 0, 0, 1, true);
         Equipment armour = new Equipment(4, "Armour", 20, 0, 15, 0, 2, true);
         Equipment locked = new Equipment(5, "Armour", 200, 100, 15, 0, 2, true);
