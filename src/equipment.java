@@ -20,6 +20,7 @@ public class Equipment{
 
     private static ArrayList<Equipment> equipmentList = new ArrayList<>();
     private static ArrayList<Equipment> equippedItems = new ArrayList<>();
+    public static int[] stats = new int[4];
 
     public Equipment(int ID, String name, int health, int strength, int defence, int initiative, int type, boolean unlocked) {
         if (type < 1 || type > 4) {
@@ -99,7 +100,7 @@ public class Equipment{
     }
     //calculates added stats of equiped equipments
     public static int[] addedstats() {
-        int[] stats = new int[4];
+        
         Arrays.fill(stats, 0);
         for (Equipment eq : equippedItems) {
             stats[0] += eq.health;
@@ -109,8 +110,20 @@ public class Equipment{
         }
         return stats;
     }
+    public static void generateEquipments(){
+        Equipment locked = new Equipment(5, "Armour", 200, 100, 15, 0, 2, true);
+        Equipment sword = new Equipment(1, "Sword", 0, 10, 0, 5, 4, true);
+        Equipment shield = new Equipment(2, "Shield", 0, 0, 10, 0, 3, true);
+        Equipment helmet = new Equipment(3, "Helmet", 0, 5, 0, 0, 1, true);
+        Equipment armour = new Equipment(4, "Armour", 20, 0, 15, 0, 2, true);
+    }
+    
     //responsible for equiping 
     public static void equip() {
+        if(equipmentList.isEmpty() == true){
+            generateEquipments();
+        }
+        
         Scanner scanner = new Scanner(System.in);
         ArrayList<Integer> usedTypes = new ArrayList<>();
         equippedItems.clear();
@@ -153,16 +166,18 @@ public class Equipment{
             equippedCount++;
         }
         //scanner.close();
-
+        addedstats();
         equiped();
     }
 
+    
+        
+
+
+
     public static void main(String[] args) {
-        Equipment sword = new Equipment(1, "Sword", 0, 10, 0, 5, 4, true);
-        Equipment shield = new Equipment(2, "Shield", 0, 0, 10, 0, 3, true);
-        Equipment helmet = new Equipment(3, "Helmet", 0, 5, 0, 0, 1, true);
-        Equipment armour = new Equipment(4, "Armour", 20, 0, 15, 0, 2, true);
-        Equipment locked = new Equipment(5, "Armour", 200, 100, 15, 0, 2, true);
+       
+        
         for (int i : addedstats()) {
             System.out.print(i + " ");
 
@@ -175,10 +190,9 @@ public class Equipment{
         }
         System.err.println(" ");
         equip();
-        for (int i : addedstats()) {
-            System.out.print(i + " ");
+ 
+            System.out.print( stats[0]+ " ");
 
-        }
     }
 
 }

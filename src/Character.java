@@ -110,7 +110,7 @@ public class Character {
                     gold = 0;
                     health = maxHealth;
                     specialAbLeft = specialAbMax;
-
+                    
                     System.out.println("");
                     System.out.println("You find a campfire and decide to rest.");
                     System.out.println("Your health & special abilities have been reset to full.");

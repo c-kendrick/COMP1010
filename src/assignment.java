@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Random;
     
 public class Assignment {
     static boolean endlessMode = false;
@@ -211,7 +209,7 @@ public static void generateDungeons(Character player, int difficulty) {
         
         System.out.println("1. Bring it on.");
         System.out.println("2. Let's leave the dungeons for now (exits game).");
-
+        System.out.println("3. Edit Equipments.");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         scanner.nextLine();
@@ -220,7 +218,17 @@ public static void generateDungeons(Character player, int difficulty) {
             gameLost(player);
             return;
         }
+        if(choice == 3){
+            Equipment.equip();
+            player.health +=  Equipment.stats[0];
+            player.damage +=  Equipment.stats[1];
+            player.initiative +=  Equipment.stats[3];
+            player.maxHealth += Equipment.stats[0];
+            System.err.println("New health: " + player.health);
+            System.err.println("New strength: " + player.damage);
+            System.err.println("New initiative: " + player.initiative);
 
+        }
 
     }
 

@@ -11,8 +11,8 @@ public class Barbarian extends Character {
         health = 200;
         maxHealth = health;
 		damage = 30;
-        intelligence = 5;
-        initiative = 5;
+        intelligence = 5 ;
+        initiative = 5 ;
         isRaging = false;
         isBlindedRampage = false;
         isPoisoned = false;
