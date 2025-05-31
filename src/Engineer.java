@@ -68,10 +68,10 @@ public class Engineer extends Character {
     @Override
     void specialAbility(Character target) {
         System.out.println("Choose a device to build:");
-        System.out.println("1. RoboRogue (AP Cost: 2) - Steals all mage's spellbook");
-        System.out.println("2. Tracker (AP Cost: 3) - Reveals an invisible Rogue & doubles your damage for this dungeon only.");
-        System.out.println("3. Wall (AP Cost: 1) - Defend against Barbarian");
-        System.out.println("4. Power Core (AP Cost: 1) - Increases damage temporarily by 10, permanently by 5");
+        System.out.println("1. RoboRogue - Steals all Mage's spellbook");
+        System.out.println("2. Tracker - Reveals all invisible Rogues");
+        System.out.println("3. Wall - Defend against Barbarian");
+        System.out.println("4. Power Core - Increases damage temporarily by 10, permanently by 5");
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -98,8 +98,8 @@ public class Engineer extends Character {
     }
 
     void buildRoboRogue(Character target) {
-        if (!RRBuilt && specialAbLeft > 1) {
-            specialAbLeft -= 2;
+        if (!RRBuilt && specialAbLeft > 0) {
+            specialAbLeft--;
             RRBuilt = true;
             System.out.println(name + " built a RoboRogue.");
         } else {
@@ -109,8 +109,8 @@ public class Engineer extends Character {
     }
 
     void buildTracker(Character target) {
-        if (!trackerBuilt && specialAbLeft > 2) {
-            specialAbLeft -= 3;
+        if (!trackerBuilt && specialAbLeft > 0) {
+            specialAbLeft--;
             trackerBuilt = true;
             damage += damage;
             System.out.println(name + " built a Tracker.");
