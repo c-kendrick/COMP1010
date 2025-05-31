@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -124,9 +125,9 @@ public class Equipment{
     
     //responsible for equiping 
     public static void equip() {
-        if(equipmentList.isEmpty() == true){
-            generateEquipments();
-        }
+        //if(equipmentList.isEmpty() == true){
+        //    generateEquipments();
+        //}
         
         Scanner scanner = new Scanner(System.in);
         ArrayList<Integer> usedTypes = new ArrayList<>();
@@ -173,29 +174,39 @@ public class Equipment{
         addedstats();
         equiped();
     }
-
+    //function that unlocks 2 random equipments
     public static void unlockTwoRandomEquipments() {
-        Random rand = new Random();
-        int unlockedCount = 0;
+        List<Equipment> lockedItems = new ArrayList<>();
 
-        while (unlockedCount < 2) {
-            int randomIndex = rand.nextInt(Equipment.equipmentList.size() - 4) + 4; // only from index 4 onwards
-            Equipment item = Equipment.equipmentList.get(randomIndex);
-
-            if (!item.unlocked) {
-                item.unlocked = true;
-                unlockedCount++;
-                System.out.println("Unlocked: " + item.name);
+        for (Equipment eq : equipmentList) {
+            if (!eq.unlocked) {
+                lockedItems.add(eq);
             }
         }
+
+        if (lockedItems.size() < 2) {
+            System.out.println("No equipments left to unlock.");
+            return;
+        }
+
+        Random random = new Random();
+        int firstIndex = random.nextInt(lockedItems.size());
+        Equipment first = lockedItems.remove(firstIndex); // remove to avoid duplicate
+        first.unlocked = true;
+
+        int secondIndex = random.nextInt(lockedItems.size());
+        Equipment second = lockedItems.get(secondIndex);
+        second.unlocked = true;
+
+        System.out.println("Equipments found: " + first.name + " and " + second.name);
     }
         
 
 
 
     public static void main(String[] args) {
-       
-        
+        generateEquipments();
+        unlockTwoRandomEquipments();
         for (int i : addedstats()) {
             System.out.print(i + " ");
 
@@ -207,7 +218,8 @@ public class Equipment{
 
         }
         System.err.println(" ");
-        equip();
+        //equip();
+        unlockTwoRandomEquipments();
         for (int i : addedstats()) {
             System.out.print(i + " ");
 
