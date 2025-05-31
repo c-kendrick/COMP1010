@@ -150,10 +150,10 @@ public class Engineer extends Character {
 
     @Override
     void attack(Character target) {
-        System.out.println("Engineer attacks" + target.getClass().getSimpleName());
-
-        if (target instanceof Barbarian || target instanceof Engineer) 
-            target.takeDamage(damage);  
+        if (target instanceof Barbarian || target instanceof Engineer) {
+            System.out.println(name + " attacked " + target.name + " for " + damage + " points");        
+            target.takeDamage(damage);
+        }
             
         if (target instanceof Mage) {
             Mage mage = (Mage) target;
@@ -172,6 +172,7 @@ public class Engineer extends Character {
             mage.loseSpellBook();
         }
 
+        System.out.println(name + " attacked " + mage.name + " for " + damage + " points");      
         mage.takeDamage(damage);
     }
 
@@ -181,7 +182,9 @@ public class Engineer extends Character {
             System.out.println("Tracker revealed the Rogue!");
         }
 
-        if (!rog.isInvisible) // if no tracker is built, rogue is still invisible
+        if (!rog.isInvisible) { // if no tracker is built, rogue is still invisible {}
+            System.out.println(name + " attacked " + rog.name + " for " + damage + " points");      
             rog.takeDamage(damage);
+        }
     }
 }
