@@ -16,13 +16,13 @@ public class Engineer extends Character {
         health = 100;
         damage = 15;
         intelligence = 6;
-        initiative = 2;
+        initiative = 5;
         builtDevice = "";
         wallHealth = 0;
         killcount = 0;
         maxHealth = health;
         maxDamage = damage;
-        specialAbLeft = 2;
+        specialAbLeft = 3;
         specialAbMax = specialAbLeft;
 
         RRBuilt = false;
@@ -39,7 +39,7 @@ public class Engineer extends Character {
         this.initiative = initiative;
         this.name = name;
 
-        specialAbLeft = 2;
+        specialAbLeft = 3;
         specialAbMax = specialAbLeft;
         maxHealth = health;
         maxDamage = damage;
@@ -68,10 +68,10 @@ public class Engineer extends Character {
     @Override
     void specialAbility(Character target) {
         System.out.println("Choose a device to build:");
-        System.out.println("1. RoboRogue - Steals mage's spellbook");
-        System.out.println("2. Tracker - Reveals an invisible Rogue & doubles your damage for this dungeon only.");
+        System.out.println("1. RoboRogue (AP Cost: 2) - Steals all mage's spellbook");
+        System.out.println("2. Tracker (AP Cost: 2) - Reveals an invisible Rogue & doubles your damage for this dungeon only.");
         System.out.println("3. Wall - Defend against Barbarian");
-        System.out.println("4. Power Core (NO AP COST) - Increases damage temporarily by 10, permanently by 5");
+        System.out.println("4. Power Core - Increases damage temporarily by 10, permanently by 5");
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -98,8 +98,8 @@ public class Engineer extends Character {
     }
 
     void buildRoboRogue(Character target) {
-        if (!RRBuilt && specialAbLeft > 0) {
-            specialAbLeft--;
+        if (!RRBuilt && specialAbLeft > 1) {
+            specialAbLeft -= 2;
             RRBuilt = true;
             System.out.println(name + " built a RoboRogue.");
         } else {
@@ -109,8 +109,8 @@ public class Engineer extends Character {
     }
 
     void buildTracker(Character target) {
-        if (!trackerBuilt && specialAbLeft > 0) {
-            specialAbLeft--;
+        if (!trackerBuilt && specialAbLeft > 1) {
+            specialAbLeft -= 2;
             trackerBuilt = true;
             damage += damage;
             System.out.println(name + " built a Tracker.");
@@ -121,10 +121,13 @@ public class Engineer extends Character {
     }
 
     void buildPC(Character target) {
-        PCBuilt = true;
-        System.out.println(name + " built a Power Core.");
-        damage += 10;
-        maxDamage += 5;
+        if (specialAbLeft > 0) {
+            specialAbLeft--;
+            PCBuilt = true;
+            System.out.println(name + " built a Power Core.");
+            damage += 10;
+            maxDamage += 5;
+        }
     }
 
     void buildWall(Character target) {
