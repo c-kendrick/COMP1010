@@ -1,13 +1,12 @@
 import java.util.Scanner;
 
 public class Engineer extends Character {
-    String builtDevice;
     int wallHealth;
-
     boolean RRBuilt;
     boolean wallBuilt;
     boolean trackerBuilt;
     boolean PCBuilt;
+    int numAttack;
 
     public Engineer(String race, String name) {
         this.race = race;
@@ -17,13 +16,14 @@ public class Engineer extends Character {
         damage = 15;
         intelligence = 6;
         initiative = 5;
-        builtDevice = "";
+
         wallHealth = 0;
         killcount = 0;
         maxHealth = health;
         maxDamage = damage;
         specialAbLeft = 3;
         specialAbMax = specialAbLeft;
+        numAttack = 0;
 
         RRBuilt = false;
         wallBuilt = false;
@@ -43,9 +43,9 @@ public class Engineer extends Character {
         specialAbMax = specialAbLeft;
         maxHealth = health;
         maxDamage = damage;
-        builtDevice = "";
         wallHealth = 0;
         killcount = 0;
+        numAttack = 0;
 
         RRBuilt = false;
         wallBuilt = false;
@@ -55,14 +55,30 @@ public class Engineer extends Character {
 
     @Override
     void genChoices(Character target) {
-        int choice = (int)(Math.random() * 5) + 1;
+        numAttack++;
 
-        if (choice < 5)
-            useAbility(target, choice);
+        if (numAttack == 1) {
+            if (target instanceof Barbarian)
+                buildWall(target);
+            
+            if (target instanceof Rogue)
+                buildTracker(target);
+            
+            if (target instanceof Mage)
+                buildRoboRogue(target);
 
-        if (choice == 5)
+            if (target instanceof Engineer)
+                buildPC(target);
+            
+            return;
+        }
+
+        int choice = (int)(Math.random() * 3) + 1;
+        if (choice == 1)
+            buildPC(target);
+
+        if (choice > 1)
             attack(target);
-
     }
 
     @Override
@@ -103,7 +119,7 @@ public class Engineer extends Character {
             RRBuilt = true;
             System.out.println(name + " built a RoboRogue.");
         } else {
-            System.out.println("Already built or out of Ability points, attacking normally instead");
+            System.out.println(name + " already built a RoboRogue or out of Ability points, attacking normally instead");
             attack(target);
         }
     }
@@ -114,7 +130,7 @@ public class Engineer extends Character {
             trackerBuilt = true;
             System.out.println(name + " built a Tracker.");
         } else {
-            System.out.println("Already built or out of Ability points, attacking normally instead");
+            System.out.println(name + " already built a Tracker or out of Ability points, attacking normally instead");
             attack(target);
         }
     }
@@ -136,7 +152,7 @@ public class Engineer extends Character {
             wallHealth = 150;
             System.out.println(name + " built a wall with " + wallHealth + " HP");
         } else {
-            System.out.println("Already built or out of Ability points, attacking normally instead");
+            System.out.println(name + " already built a Wall or out of Ability points, attacking normally instead");
             attack(target);
         }
     }
