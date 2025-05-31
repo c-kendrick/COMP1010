@@ -118,6 +118,10 @@ public class Engineer extends Character {
             specialAbLeft--;
             RRBuilt = true;
             System.out.println(name + " built a RoboRogue.");
+            if (target instanceof Mage) {
+                Mage mage = (Mage) target;
+                RRSteal(mage);
+            }
         } else {
             System.out.println(name + " already built a RoboRogue or out of Ability points, attacking normally instead");
             attack(target);
@@ -129,6 +133,10 @@ public class Engineer extends Character {
             specialAbLeft--;
             trackerBuilt = true;
             System.out.println(name + " built a Tracker.");
+            if (target instanceof Rogue) {
+                Rogue rog = (Rogue) target;
+                trackRogue(rog);
+            }
         } else {
             System.out.println(name + " already built a Tracker or out of Ability points, attacking normally instead");
             attack(target);
@@ -185,24 +193,31 @@ public class Engineer extends Character {
     }
 
     void attackMage(Mage mage) {
-        if (RRBuilt) {
-            System.out.println("RoboRogue stole mage's spellbook!");
-            mage.loseSpellBook();
-        }
-
+        RRSteal(mage);
         System.out.println(name + " attacked " + mage.name + " for " + damage + " points");      
         mage.takeDamage(damage);
     }
 
-    void attackRogue(Rogue rog) {
-        if (trackerBuilt && rog.isInvisible) {
-            rog.isInvisible = false;
-            System.out.println("Tracker revealed the Rogue!");
+    void RRSteal(Mage mage) {
+        if (RRBuilt && mage.hasSpellBook) {
+            System.out.println("RoboRogue stole mage's spellbook!");
+            mage.loseSpellBook();
         }
+    }
+
+    void attackRogue(Rogue rog) {
+        trackRogue(rog);
 
         if (!rog.isInvisible) { // if no tracker is built, rogue is still invisible {}
             System.out.println(name + " attacked " + rog.name + " for " + damage + " points");      
             rog.takeDamage(damage);
+        }
+    }
+
+    void trackRogue(Rogue rog) {
+        if (trackerBuilt && rog.isInvisible) {
+            rog.isInvisible = false;
+            System.out.println("Tracker revealed the Rogue!");
         }
     }
 }
