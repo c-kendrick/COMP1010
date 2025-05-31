@@ -72,17 +72,12 @@ public class Barbarian extends Character {
     }
 
     void attackEngineer(Engineer eng) {
-        if (eng.deployedDevice && eng.builtDevice == "WALL" && eng.wallHealth > 0) {
-                if (isRaging) {
-                    eng.wallHealth = 0;
-                    eng.deployedDevice = false;
-                } else {
-                    eng.wallHealth -= 25;
-                    System.out.println("Wall health: 25"); // to do: make it so other clans can attack the wall too
-                }
-                
+        if (eng.wallBuilt && eng.wallHealth > 0) {
+                eng.wallHealth -= damage;
+                System.out.println("Wall health: " + eng.wallHealth); // to do: make it so other clans can attack the wall too
+
                 if (eng.wallHealth <= 0) {
-                    eng.deployedDevice = false;
+                    eng.wallBuilt = false;
                     System.out.println("Wall destroyed");
                 }
         } else {        

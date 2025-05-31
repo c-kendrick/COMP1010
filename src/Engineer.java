@@ -1,19 +1,22 @@
 import java.util.Scanner;
 
 public class Engineer extends Character {
-    boolean deployedDevice;
     String builtDevice;
     int wallHealth;
+
+    boolean RRBuilt;
+    boolean wallBuilt;
+    boolean trackerBuilt;
+    boolean PCBuilt;
 
     public Engineer(String race, String name) {
         this.race = race;
         this.name = name;
 
-        health = 150;
+        health = 100;
         damage = 15;
         intelligence = 10;
         initiative = 2;
-        deployedDevice = false;
         builtDevice = "";
         wallHealth = 0;
         killcount = 0;
@@ -21,6 +24,11 @@ public class Engineer extends Character {
         maxDamage = damage;
         specialAbLeft = 1000;
         specialAbMax = specialAbLeft;
+
+        RRBuilt = false;
+        wallBuilt = false;
+        trackerBuilt = false;
+        PCBuilt = false;
     }
 
     public Engineer(String race, int health, int damage, int intelligence, int initiative, String name) {
@@ -37,8 +45,12 @@ public class Engineer extends Character {
         maxDamage = damage;
         builtDevice = "";
         wallHealth = 0;
-        deployedDevice = false;
         killcount = 0;
+
+        RRBuilt = false;
+        wallBuilt = false;
+        trackerBuilt = false;
+        PCBuilt = false;
     }
 
     @Override
@@ -55,96 +67,123 @@ public class Engineer extends Character {
 
     @Override
     void specialAbility(Character target) {
-        if (deployedDevice) {
-            System.out.println("Device already deployed:" + builtDevice);
-            return;
-        }
-
         System.out.println("Choose a device to build:");
-        System.out.println("1. Cage - Pacifies the rage of a Barbarian");
-        System.out.println("2. Tracker - Reveals an invisible Rogue");
-        System.out.println("3. Wall - Build a wall that has 50hp");
-        System.out.println("4. Power Core - Increases damage by 10");
+        System.out.println("1. RoboRogue - Steals mage's spellbook");
+        System.out.println("2. Tracker - Reveals an invisible Rogue & doubles your damage for this dungeon only.");
+        System.out.println("3. Wall - Defend against Barbarian");
+        System.out.println("4. Power Core - Increases damage temporarily by 10, permanently by 5");
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         useAbility(target, choice);
     }
-
-    // to do: delegate and check if wall is already built, if it is, simply repairs current health (engineer can sit and repair all day)
     
     void useAbility(Character target, int choice) {
         switch (choice) {
             case 1:
-                builtDevice = "CAGE";
-                deployedDevice = true;
-                System.out.println("Engineer built a Cage.");
+                buildRoboRogue(target);
                 break;
-            case 2: // tracker is for rogue only, so maybe make it so if target is rogue, it always builds tracker?
-                builtDevice = "TRACKER";
-                deployedDevice = true;
-                System.out.println("Engineer built a Tracker.");
+            case 2: 
+                buildTracker(target);
                 break;
             case 3:
-                builtDevice = "WALL";
-                wallHealth = 50;
-                deployedDevice = true;
-                System.out.println("Engineer built a Wall with 50 HP.");
+                buildWall(target);   
                 break;
             case 4:
-                builtDevice = "POWER_CORE";
-                damage += 10;
-                maxDamage += 5;
-                System.out.println("Engineer activated Power Core. Damage increases by 10.");
-                deployedDevice = true;
+                buildPC(target);
                 break;
             default:
                 System.out.println("Invalid Choice. No device built.");
         }
     }
 
+    void buildRoboRogue(Character target) {
+        if (!RRBuilt) {
+            RRBuilt = true;
+            System.out.println(name + " built a RoboRogue.");
+        } else {
+            System.out.println("Already built, attacking normally instead");
+            attack(target);
+        }
+    }
+
+    void buildTracker(Character target) {
+        if (!trackerBuilt) {
+            trackerBuilt = true;
+            damage += damage;
+            System.out.println(name + " built a Tracker.");
+        } else {
+            System.out.println("Already built, attacking normally instead");
+            attack(target);
+        }
+    }
+
+    void buildPC(Character target) {
+        if (!PCBuilt) {
+            PCBuilt = true;
+            System.out.println(name + " built a Power Core.");
+            damage += 10;
+            maxDamage += 5;
+        } else {
+            System.out.println("Already built, attacking normally instead");
+            attack(target);
+        }
+    }
+
+    void buildWall(Character target) {
+        if (!wallBuilt) {
+            wallBuilt = true;
+            wallHealth = 60;
+            System.out.println(name + " built a wall with 50 hp.");
+        } else {
+            System.out.println("Already built, attacking normally instead");
+            attack(target);
+        }
+    }
+
+    @Override
+    void characterRest() {
+        RRBuilt = false;
+        trackerBuilt = false;
+        wallBuilt = false;
+        PCBuilt = false;
+        System.out.println("All of your devices have been disassembled.");
+    }
+
     @Override
     void attack(Character target) {
         System.out.println("Engineer attacks" + target.getClass().getSimpleName());
 
-        if (target instanceof Barbarian) {
-            Barbarian bar = (Barbarian) target;
-
-        if (deployedDevice && builtDevice.equals("CAGE") && bar.isRaging) {
-            bar.deactivateRage();
-            System.out.println("Cage pacified the Barbarian's rage!");
-        }
+        if (target instanceof Barbarian || target instanceof Engineer) 
             target.takeDamage(damage);  
-        } else if (target instanceof Rogue) {
-            Rogue rog = (Rogue) target;
-
-            if (deployedDevice && builtDevice.equals("TRACKER") && rog.isInvisible) {
-                rog.isInvisible = false;
-                System.out.println("Tracker revealed the Rogue!");
-            }
-            target.takeDamage(damage);
-
-        } else {
-            target.takeDamage(damage);
+            
+        if (target instanceof Mage) {
+            Mage mage = (Mage) target;
+            attackMage(mage);
         }
+        
+        if (target instanceof Rogue) {
+            Rogue rog = (Rogue) target;
+            attackRogue(rog);
+        } 
     }
 
-    void defend(int incomingDamage) {
-        if (deployedDevice && builtDevice.equals("WALL")) {
-            System.out.println("Wall absorbs " + incomingDamage + " damage.");
-            wallHealth -= incomingDamage;
-
-            if (wallHealth <= 0) {
-                System.out.println("Wall is destroyed!");
-                wallHealth = 0;
-                deployedDevice = false;
-                builtDevice = "";
-            } else {
-                System.out.println("Wall HP remaining: " + wallHealth);
-            }
-        } else {
-            System.out.println("Engineer takes " + incomingDamage + " damage.");
-            this.health -= incomingDamage;
+    void attackMage(Mage mage) {
+        if (RRBuilt) {
+            System.out.println("RoboRogue stole mage's spellbook!");
+            mage.loseSpellBook();
         }
+
+        mage.takeDamage(damage);
+    }
+
+    void attackRogue(Rogue rog) {
+        if (trackerBuilt && rog.isInvisible) {
+            rog.isInvisible = false;
+            System.out.println("Tracker revealed the Rogue!");
+        }
+
+        if (!rog.isInvisible) // if no tracker is built, rogue is still invisible
+            rog.takeDamage(damage);
     }
 }
