@@ -123,9 +123,9 @@ public class Mage extends Character {
             } else {
                 if (bar.damage > 10) { // to prevent going into the negatives and healing enemies 
                     bar.damage -= 10;
--                } else {
+                } else {
                     bar.damage = 1;
--                }
+                }
                 System.out.println(target.name + " damage has been reduced to: " + target.damage);
             }
         } else {
