@@ -210,6 +210,8 @@ public static void generateDungeons(Character player, int difficulty) {
         System.out.println("and watching the embers fly up,");
         System.out.println("you discover a chest filled with treasure,");
         System.out.println("and several brand spanking new sets of armour and weapons.");
+        Equipment.unlockTwoRandomEquipments();
+        
         System.out.println("");
         int gold = (int)((Math.random() * 20) + 5) * difficulty;
         player.gold += gold;
