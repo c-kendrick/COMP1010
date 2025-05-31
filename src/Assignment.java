@@ -80,10 +80,10 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             difficulty = 2; // need to play on normal difficulty at "2"
         }
 
-        int lower = 10 + (difficulty - 2) * 6;
+        int lower = 8 + (difficulty - 2) * 6;
         // lowest difficulty
         // if:
-        //      difficulty == 2, lower = 10
+        //      difficulty == 2, lower = 8
         //      difficulty == 3, lower = 16
         //      difficulty == 4, lower = 22
 

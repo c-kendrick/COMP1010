@@ -16,7 +16,7 @@ public class Engineer extends Character {
         damage = 15;
         intelligence = 20;
         initiative = 5;
-        
+
         maxHealth = health;
         maxDamage = damage;
 
@@ -154,6 +154,9 @@ public class Engineer extends Character {
             System.out.println(name + " built a Power Core.");
             damage += 10;
             maxDamage += 5;
+        } else {
+            System.out.println(name + " out of Ability points, attacking normally instead");
+            attack(target);
         }
     }
 
