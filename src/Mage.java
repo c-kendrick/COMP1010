@@ -111,6 +111,7 @@ public class Mage extends Character {
 
     void poisonSpell(Character target) {
         System.out.println(name + " casts Poison Spell!");
+        
         if (target instanceof Barbarian) {
             Barbarian bar = (Barbarian) target;
             if (bar.isRaging) {

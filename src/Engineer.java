@@ -15,14 +15,14 @@ public class Engineer extends Character {
 
         health = 100;
         damage = 15;
-        intelligence = 10;
+        intelligence = 6;
         initiative = 2;
         builtDevice = "";
         wallHealth = 0;
         killcount = 0;
         maxHealth = health;
         maxDamage = damage;
-        specialAbLeft = 1000;
+        specialAbLeft = 2;
         specialAbMax = specialAbLeft;
 
         RRBuilt = false;
@@ -39,7 +39,7 @@ public class Engineer extends Character {
         this.initiative = initiative;
         this.name = name;
 
-        specialAbLeft = 1000;
+        specialAbLeft = 2;
         specialAbMax = specialAbLeft;
         maxHealth = health;
         maxDamage = damage;
@@ -71,7 +71,7 @@ public class Engineer extends Character {
         System.out.println("1. RoboRogue - Steals mage's spellbook");
         System.out.println("2. Tracker - Reveals an invisible Rogue & doubles your damage for this dungeon only.");
         System.out.println("3. Wall - Defend against Barbarian");
-        System.out.println("4. Power Core - Increases damage temporarily by 10, permanently by 5");
+        System.out.println("4. Power Core (NO AP COST) - Increases damage temporarily by 10, permanently by 5");
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
@@ -98,45 +98,43 @@ public class Engineer extends Character {
     }
 
     void buildRoboRogue(Character target) {
-        if (!RRBuilt) {
+        if (!RRBuilt && specialAbLeft > 0) {
+            specialAbLeft--;
             RRBuilt = true;
             System.out.println(name + " built a RoboRogue.");
         } else {
-            System.out.println("Already built, attacking normally instead");
+            System.out.println("Already built or out of Ability points, attacking normally instead");
             attack(target);
         }
     }
 
     void buildTracker(Character target) {
-        if (!trackerBuilt) {
+        if (!trackerBuilt && specialAbLeft > 0) {
+            specialAbLeft--;
             trackerBuilt = true;
             damage += damage;
             System.out.println(name + " built a Tracker.");
         } else {
-            System.out.println("Already built, attacking normally instead");
+            System.out.println("Already built or out of Ability points, attacking normally instead");
             attack(target);
         }
     }
 
     void buildPC(Character target) {
-        if (!PCBuilt) {
-            PCBuilt = true;
-            System.out.println(name + " built a Power Core.");
-            damage += 10;
-            maxDamage += 5;
-        } else {
-            System.out.println("Already built, attacking normally instead");
-            attack(target);
-        }
+        PCBuilt = true;
+        System.out.println(name + " built a Power Core.");
+        damage += 10;
+        maxDamage += 5;
     }
 
     void buildWall(Character target) {
-        if (!wallBuilt) {
+        if (!wallBuilt && specialAbLeft > 0) {
+            specialAbLeft--;
             wallBuilt = true;
-            wallHealth = 60;
-            System.out.println(name + " built a wall with 50 hp.");
+            wallHealth = 150;
+            System.out.println(name + " built a wall with " + wallHealth + " HP");
         } else {
-            System.out.println("Already built, attacking normally instead");
+            System.out.println("Already built or out of Ability points, attacking normally instead");
             attack(target);
         }
     }
