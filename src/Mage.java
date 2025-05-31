@@ -44,9 +44,11 @@ public class Mage extends Character {
     public void genChoices(Character target) {
         int choice = (int)(Math.random() * 5) + 1;
 
-        if (choice == 3 && health == maxHealth)
+        if (choice == 2 && health == maxHealth) {
             genChoices(target); 
-
+            return;
+        }
+            
         if (choice < 5)
             useAbility(target, choice);
 
@@ -66,12 +68,6 @@ public class Mage extends Character {
 
         Scanner scanner = new Scanner(System.in);
 
-        if (!hasSpellBook) {
-            System.out.println("Spellbook is stolen! You can only cast the basic spell.");
-            attack(target);
-            return;
-        }
-
         System.out.println("Choose a spell to cast:");
         System.out.println("1. Poison - Reduces opponent's damage by 10 (and may blind a raging barbarian).");
         System.out.println("2. Heal - Restores random HP (30-90), up to max health.");
@@ -84,8 +80,8 @@ public class Mage extends Character {
 
     
     void useAbility(Character target, int choice) {
-        if (specialAbLeft < 1) {
-            System.out.println("Too tired to use special abilities.");
+        if (specialAbLeft < 1 || !hasSpellBook) {
+            System.out.println("Too tired to use special abilities or does not have spell book.");
             System.out.println("Attacking normally instead.");
             attack(target);
             return;
