@@ -64,19 +64,17 @@ public class Dungeon {
         System.out.println("Your Health Points (HP): " + player.health);
         System.out.println("Your Ability Points (AP): " + player.specialAbLeft);
         System.out.println("Your Strength: " + player.damage);
+        System.out.println("");
 
+        int idx;
+        for (int i = 0; i < enemyList.size(); i++) {
+            idx = i + 1;
+            System.out.println(idx + ": " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
+        }
 
         while (enemyList.size() > 0) {
             System.out.println("");
-            System.out.println("");
             System.out.println("You are facing " + enemyList.size() + " enemies!");
-
-            int idx;
-            for (int i = 0; i < enemyList.size(); i++) {
-                idx = i + 1;
-                System.out.println(idx + ": " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
-            }
-
             System.out.println("");
 
             if(!defeatEnemy(player, enemyList.get(0))) 
