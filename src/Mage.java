@@ -44,6 +44,9 @@ public class Mage extends Character {
     public void genChoices(Character target) {
         int choice = (int)(Math.random() * 5) + 1;
 
+        if (choice == 3 && health == maxHealth)
+            genChoices(target); 
+
         if (choice < 5)
             useAbility(target, choice);
 
@@ -111,7 +114,7 @@ public class Mage extends Character {
 
     void poisonSpell(Character target) {
         System.out.println(name + " casts Poison Spell!");
-        
+
         if (target instanceof Barbarian) {
             Barbarian bar = (Barbarian) target;
             if (bar.isRaging) {
@@ -120,10 +123,10 @@ public class Mage extends Character {
             } else {
                 if (bar.damage > 10) { // to prevent going into the negatives and healing enemies 
                     bar.damage -= 10;
-                    System.out.println(target.name + " damage has been reduced to: " + target.damage);
-                } else {
+-                } else {
                     bar.damage = 1;
-                }
+-                }
+                System.out.println(target.name + " damage has been reduced to: " + target.damage);
             }
         } else {
             if (target.damage > 10) { // to prevent going into the negatives and healing enemies 
@@ -141,12 +144,13 @@ public class Mage extends Character {
         int potentialHeal = rand.nextInt(90) + 30; // 30-90
         int healed = Math.min(potentialHeal, maxHealth - health);
         health += healed;
-        System.out.println("Mage heals for " + healed + ". Current HP:"  + health);
+        System.out.println(name + " heals for " + healed + ". Current HP:"  + health);
     }
 
     void attackBoostSpell() {
         damage += 10;
         maxDamage += 5; // damage gets reset to maxDamage during rest state
+        System.out.println(name + " boosted their damage to " + damage);
     }
 
     void unstableSpell(Character target) {
