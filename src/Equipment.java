@@ -37,10 +37,10 @@ public class Equipment{
         this.unlocked = unlocked;
 
         try {
-        appendToCSV("allEquipments.csv"); 
-    } catch (IOException e) {
-        System.err.println("Error writing to CSV: " + e.getMessage());
-    }
+            appendToCSV("allEquipments.csv"); 
+        } catch (IOException e) {
+            System.err.println("Error writing to CSV: " + e.getMessage());
+        }
 
 
     }
@@ -81,16 +81,20 @@ public class Equipment{
     public String toString() {
         return "Equipment[" + "ID:" + ID + " - Name:" + name + " | Health:" + health + " | Strength:" + strength + " | Initiative:" + initiative + " | Type:" + typeName(type) + ']';
     }
+
+
     //Prints all unlocked equipment
     public static void allEquipment() {
-        System.out.println("All created Equipment:");
+        System.out.println("All unlocked Equipment:");
         for (Equipment Equipment : equipmentList) {
             if (Equipment.unlocked == true) {
                 System.out.println(Equipment);
             }
         }
     }
-//prints out equiped equipments
+
+
+    //prints out equiped equipments
     public static void equiped() {
         System.out.println("All active Equipment:");
         for (Equipment Equipment : equippedItems) {
@@ -98,6 +102,8 @@ public class Equipment{
 
         }
     }
+
+
     //calculates added stats of equiped equipments
     public static int[] addedstats() {
         
@@ -109,6 +115,8 @@ public class Equipment{
         }
         return stats;
     }
+    
+    //creates equipments - since equipments are added to allEquipment.csv at creation running this twice add these entries twice
     public static void generateEquipments(){
         Equipment sword = new Equipment(1, "Short Sword", 0, 10,  5, 4, true);
         Equipment shield = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true);
@@ -125,9 +133,6 @@ public class Equipment{
     
     //responsible for equiping 
     public static void equip() {
-        //if(equipmentList.isEmpty() == true){
-        //    generateEquipments();
-        //}
         
         Scanner scanner = new Scanner(System.in);
         ArrayList<Integer> usedTypes = new ArrayList<>();
@@ -174,6 +179,8 @@ public class Equipment{
         addedstats();
         equiped();
     }
+
+
     //function that unlocks 2 random equipments
     public static void unlockTwoRandomEquipments() {
         List<Equipment> lockedItems = new ArrayList<>();
