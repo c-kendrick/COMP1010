@@ -209,7 +209,7 @@ public static void generateDungeons(Character player, int difficulty) {
         System.out.println("After relaxing by the crackling logs,");
         System.out.println("and watching the embers fly up,");
         System.out.println("you discover a chest filled with treasure,");
-        System.out.println("and several brand spanking new sets of armour and weapons.");
+        //System.out.println("and several brand spanking new sets of armour and weapons.");
         Equipment.unlockTwoRandomEquipments();
         
         System.out.println("");
@@ -241,7 +241,7 @@ public static void generateDungeons(Character player, int difficulty) {
             player.maxHealth -= Equipment.stats[0];
             player.damage -=  Equipment.stats[1];
             player.maxDamage -= Equipment.stats[1];
-            player.initiative -=  Equipment.stats[3];
+            player.initiative -=  Equipment.stats[2];
 
             Equipment.equip();
             //adding new equipment effects
@@ -249,7 +249,7 @@ public static void generateDungeons(Character player, int difficulty) {
             player.maxHealth += Equipment.stats[0];
             player.damage +=  Equipment.stats[1];
             player.maxDamage += Equipment.stats[1];
-            player.initiative +=  Equipment.stats[3];
+            player.initiative +=  Equipment.stats[2];
 
             System.err.println(Equipment.stats[0]);
             System.out.println("New health: " + player.health);
@@ -284,6 +284,7 @@ public static void generateDungeons(Character player, int difficulty) {
     }
 
     public static void main(String[] args) {
+        Equipment.generateEquipments();
         int difficulty = getDifficulty();
         int clan = getClan();
         Character player = create(clan);
