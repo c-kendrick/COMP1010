@@ -178,9 +178,6 @@ public static void generateDungeons(Character player, int difficulty) {
     }
 
     public static void rest(Character player, int difficulty) {
-        if (player.isPoisoned) 
-            player.damage += 10;
-        
         player.health = player.maxHealth;
         player.specialAbLeft = player.specialAbMax;
         player.damage = player.maxDamage;

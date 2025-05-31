@@ -16,7 +16,6 @@ public class Character {
 
     int gold;
     int killcount;
-    Boolean isPoisoned;
     boolean hasRaged;
 
     public Character() {

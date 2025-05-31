@@ -16,7 +16,6 @@ public class Barbarian extends Character {
         initiative = 5 ;
         isRaging = false;
         isBlindedRampage = false;
-        isPoisoned = false;
         killcount = 0;
         specialAbLeft = 3;
         specialAbMax = specialAbLeft;
