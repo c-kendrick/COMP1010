@@ -121,6 +121,7 @@ public class Character {
                     System.out.println("You find a campfire and decide to rest.");
                     System.out.println("Your health & special abilities have been reset to full.");
 
+                    room.populate();
                     Assignment.gameDriver(this, room, difficulty);
                     return;
                 }

@@ -14,12 +14,15 @@ public class Dungeon {
         this.idx = idx;
         this.count = count;
 
+        populate();
+    }
+
+    void populate() {
         enemyList = new ArrayList();        
         int numEnemies =((int)(Math.random() * 3) + 1) + (difficulty / 2);
 
-        for (int i = 0; i < numEnemies; i++) {
+        for (int i = 0; i < numEnemies; i++) 
            enemyList.add(createEnemy());
-        }
     }
 
     Character createEnemy() {

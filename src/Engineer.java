@@ -12,7 +12,7 @@ public class Engineer extends Character {
         this.race = race;
         this.name = name;
 
-        health = 150;
+        health = 175;
         damage = 15;
         intelligence = 6;
         initiative = 5;
@@ -133,6 +133,7 @@ public class Engineer extends Character {
             specialAbLeft--;
             trackerBuilt = true;
             System.out.println(name + " built a Tracker.");
+
             if (target instanceof Rogue) {
                 Rogue rog = (Rogue) target;
                 trackRogue(rog);
@@ -208,7 +209,7 @@ public class Engineer extends Character {
     void attackRogue(Rogue rog) {
         trackRogue(rog);
 
-        if (!rog.isInvisible) { // if no tracker is built, rogue is still invisible {}
+        if (!rog.isInvisible || trackerBuilt) { // if no tracker is built, rogue is still invisible 
             System.out.println(name + " attacked " + rog.name + " for " + damage + " points");      
             rog.takeDamage(damage);
         }

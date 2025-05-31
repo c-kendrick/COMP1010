@@ -70,13 +70,11 @@ public static int getDifficulty() {
     }
 }
 
-public static void generateDungeons(Character player, int difficulty) {
+public static void generateDungeons(Character player, int difficulty, int steps) {
         if (difficulty == 1) {
             endlessMode = true;
             difficulty = 2; // need to play on normal difficulty at "2"
         }
-
-        int steps = 5; // max of 5 dungeons
 
         int lower = 10 + (difficulty - 2) * 6;
         // lowest difficulty
@@ -265,7 +263,7 @@ public static void generateDungeons(Character player, int difficulty) {
         if (room == null) {
             if (endlessMode == true) {
                 System.out.println("Stage: " + difficulty + " of INFINITY complete.");
-                generateDungeons(player, difficulty++);
+                generateDungeons(player, difficulty++, 5);
             } else {
                 gameWon(player);
                 return;
@@ -290,6 +288,6 @@ public static void generateDungeons(Character player, int difficulty) {
         Character player = create(clan);
 
 
-        generateDungeons(player, difficulty);
+        generateDungeons(player, difficulty, difficulty + 2);
     }
 }
