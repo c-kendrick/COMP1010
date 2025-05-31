@@ -255,7 +255,6 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             System.out.println("New initiative: " + player.initiative);
 
         }
-
     }
 
     //recursive function to play the game
@@ -263,7 +262,7 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         if (room == null) {
             if (endlessMode == true) {
                 System.out.println("Stage: " + difficulty + " of INFINITY complete.");
-                generateDungeons(player, difficulty++, 5);
+                generateDungeons(player, difficulty++, difficulty + 2);
             } else {
                 gameWon(player);
                 return;
