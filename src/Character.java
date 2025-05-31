@@ -125,7 +125,6 @@ public class Character {
                     return;
                 }
                 System.out.println("Flee not successful.");
-                getAction(enemy, room, difficulty);
                 return;
             case 4:
                 System.out.println("Began defense");
