@@ -194,7 +194,7 @@ public static void generateDungeons(Character player, int difficulty, int steps)
 
     }
 
-    public static void rest(Character player, int difficulty) {
+    public static int rest(Character player, int difficulty) {
         player.health = player.maxHealth;
         player.specialAbLeft = player.specialAbMax;
         player.damage = player.maxDamage;
@@ -223,21 +223,28 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         //to do: add armour sets and let player choose between armour.
         System.out.println("");
         System.out.println("========");
-        
         System.out.println("Would you like to continue on to the next dungeon?");
         System.out.println("");
-        System.out.println("1. Bring it on.");
-        System.out.println("2. Let's leave the dungeons for now (exits game).");
-        System.out.println("3. Edit Equipments.");
+        System.out.println("----");
+        System.out.println("1. Let's leave the dungeons for now (exits game).");
+        System.out.println("");
+        System.out.println("2. Edit inventory; equip armour and weapons.");
+        System.out.println("");
+        System.out.println("3. Bring it on.");
+        System.out.println("----");
+        System.out.println("");
+
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         scanner.nextLine();
 
-        if (choice == 2) {
+        if (choice == 1) {
+            System.out.println("Attempting to quit game");
             gameLost(player);
-            return;
+            return choice;
         }
-        if(choice == 3){
+
+        if (choice == 2){
             //getting rid of previous equipment effects
             player.health -=  Equipment.stats[0];
             player.maxHealth -= Equipment.stats[0];
@@ -257,8 +264,9 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             System.out.println("New health: " + player.health);
             System.out.println("New strength: " + player.damage);
             System.out.println("New initiative: " + player.initiative);
-
         }
+
+        return choice;
     }
 
     //recursive function to play the game
@@ -273,11 +281,15 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             }        
         }
 
-        if (player.killcount > 0)
-            rest(player, difficulty);
+        if (player.killcount > 0) {
+            if (rest(player, difficulty) == 1)
+                return;
+        }
+            
 
         if (room.defeatDungeon(player)) {
             gameDriver(player, room.next, difficulty);
+            return;
         } else {
             gameLost(player);
             return;
