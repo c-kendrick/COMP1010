@@ -6,29 +6,21 @@ import java.util.Scanner;
 public class Mage extends Character {
     boolean hasSpellBook;
     ArrayList<String> spells;
-    boolean attackBoostActive;
     
 
     public Mage(String race, String name) {
 		this.race = race;
 		this.name = name;
-		health = 150;
-        maxHealth = 150;
+		health = 100;
+        maxHealth = health;
 		damage = 5;
         maxDamage = damage;
         intelligence = 10;
         initiative = 3;
         hasSpellBook = true;
-        attackBoostActive = false;
         killcount = 0;
         specialAbLeft = 7;
         specialAbMax = specialAbLeft;
-
-        spells = new ArrayList<>();
-        spells.add("Poison");
-        spells.add("Heal");
-        spells.add("Attack Boost");
-        spells.add("Unstable");
         killcount = 0;
         
 	}
@@ -46,13 +38,6 @@ public class Mage extends Character {
         maxHealth = health;
         maxDamage = damage;
         hasSpellBook = true;
-        attackBoostActive = false;
-
-        spells = new ArrayList<>();
-        spells.add("Poison");
-        spells.add("Heal");
-        spells.add("Attack Boost");
-        spells.add("Unstable");
     }
 
     @Override
@@ -85,8 +70,8 @@ public class Mage extends Character {
         }
 
         System.out.println("Choose a spell to cast:");
-        System.out.println("1. Poison - Reduces opponent's damage (and may blind a raging barbarian).");
-        System.out.println("2. Heal - Restores random HP, up to max health.");
+        System.out.println("1. Poison - Reduces opponent's damage by 10 (and may blind a raging barbarian).");
+        System.out.println("2. Heal - Restores random HP (30-90), up to max health.");
         System.out.println("3. Attack Boost - Increase Mage's damage by 10 temporarily, 5 permanently.");
         System.out.println("4. Unstable - Random damage to both enemy (30-90) and self (10-30).");
 
@@ -152,7 +137,7 @@ public class Mage extends Character {
     void healSpell() {
         System.out.println("Mage casts Heal Spell");
         Random rand = new Random();
-        int potentialHeal = rand.nextInt(21) + 15; // 5–20
+        int potentialHeal = rand.nextInt(90) + 30; // 30-90
         int healed = Math.min(potentialHeal, maxHealth - health);
         health += healed;
         System.out.println("Mage heals for " + healed + ". Current HP:"  + health);

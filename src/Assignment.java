@@ -71,22 +71,37 @@ public static int getDifficulty() {
 }
 
 public static void generateDungeons(Character player, int difficulty) {
-        Dungeon room = null;
-        
-        if (difficulty == 1)
+        if (difficulty == 1) {
             endlessMode = true;
-            
-        int steps = 5;
-        int upper = 10 + (difficulty - 1) * 5; 
-        int lower = upper - (steps - 1) * 2; 
-        int count = ((upper - lower) / 2) + 1; 
-        int idx = count;
+            difficulty = 2; // need to play on normal difficulty at "2"
+        }
 
-        for (int i = upper; i >= lower; i -= 2) {
+        int steps = 5; // max of 5 dungeons
+
+        int lower = 10 + (difficulty - 2) * 6;
+        // lowest difficulty
+        // if:
+        //      difficulty == 2, lower = 10
+        //      difficulty == 3, lower = 16
+        //      difficulty == 4, lower = 22
+
+        int upper = lower + (steps - 1) * 3;
+        // highest difficulty.
+        // if:
+        //      difficulty == 2, upper = 22.
+        //      difficulty == 3, upper = 28
+        //      difficulty == 4, upper = 34   
+
+        int count = ((upper - lower) / 3) + 1;
+
+        int idx = count; // room number (5 to 1 decreasing)
+
+        // generate recursive data structure of Dungeon room (object)
+        Dungeon room = null;
+        for (int i = upper; i >= lower; i -= 3) {
             room = new Dungeon(i, room, idx, count);
             idx--;
         }
-            
 
         gameDriver(player, room, difficulty);
 }
