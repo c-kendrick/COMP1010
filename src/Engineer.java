@@ -112,7 +112,6 @@ public class Engineer extends Character {
         if (!trackerBuilt && specialAbLeft > 0) {
             specialAbLeft--;
             trackerBuilt = true;
-            damage += damage;
             System.out.println(name + " built a Tracker.");
         } else {
             System.out.println("Already built or out of Ability points, attacking normally instead");
