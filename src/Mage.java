@@ -14,7 +14,6 @@ public class Mage extends Character {
 		this.race = race;
 		this.name = name;
 		health = 150;
-        maxHealth = health;
         maxHealth = 150;
 		damage = 5;
         maxDamage = damage;

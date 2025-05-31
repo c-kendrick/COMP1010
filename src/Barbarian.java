@@ -9,7 +9,7 @@ public class Barbarian extends Character {
         this.name = name;
 
         health = 200;
-        maxHealth = health;
+        maxHealth = 200;
 		damage = 30;
         maxDamage = damage;
         intelligence = 5 ;
