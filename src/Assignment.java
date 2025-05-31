@@ -243,9 +243,9 @@ public static void generateDungeons(Character player, int difficulty) {
             
             player.initiative +=  Equipment.stats[3];
             
-            System.err.println("New health: " + player.health);
-            System.err.println("New strength: " + player.damage);
-            System.err.println("New initiative: " + player.initiative);
+            System.out.println("New health: " + player.health);
+            System.out.println("New strength: " + player.damage);
+            System.out.println("New initiative: " + player.initiative);
 
         }
 
