@@ -203,10 +203,11 @@ public static void generateDungeons(Character player, int difficulty) {
         System.out.println("Your current amount of gold: $" + player.gold);
         
         //to do: add armour sets and let player choose between armour.
-
+        System.out.println("");
+        System.out.println("========");
         
         System.out.println("Would you like to continue on to the next dungeon?");
-        
+        System.out.println("");
         System.out.println("1. Bring it on.");
         System.out.println("2. Let's leave the dungeons for now (exits game).");
         System.out.println("3. Edit Equipments.");
