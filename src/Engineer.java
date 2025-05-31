@@ -12,7 +12,7 @@ public class Engineer extends Character {
         this.race = race;
         this.name = name;
 
-        health = 100;
+        health = 150;
         damage = 15;
         intelligence = 6;
         initiative = 5;
