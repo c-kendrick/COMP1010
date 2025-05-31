@@ -8,17 +8,19 @@ public class Rogue extends Character {
         this.name = name;
         
         health = 100;
-        maxHealth = health;
 		damage = 15;
-        maxDamage = damage;
         intelligence = 5;
-        initiative = 10;
+        initiative = 20;
+
+        maxHealth = health;
+        maxDamage = damage;
+
         isInvisible = false; 
         hasStolenSpellBook = false; 
         killcount = 0;
         specialAbLeft = 5;
         invisibilityStatus = 0;
-        
+        isFleeing = false;
 	}
 	
     public Rogue(String race, int health, int damage, int intelligence, int initiative, String name) {
@@ -27,13 +29,14 @@ public class Rogue extends Character {
         this.health = health;
         this.damage = damage;
         this.intelligence = intelligence;
-        this.initiative = initiative; 
+        this.initiative = 20; 
         maxHealth = health;
         maxDamage = damage;
         killcount = 0;
         specialAbLeft = 5;
         specialAbMax = specialAbLeft;
         invisibilityStatus = 0;
+        isFleeing = false;
     }
 
 

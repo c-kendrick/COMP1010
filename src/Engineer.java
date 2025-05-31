@@ -14,13 +14,14 @@ public class Engineer extends Character {
 
         health = 175;
         damage = 15;
-        intelligence = 6;
+        intelligence = 20;
         initiative = 5;
+        
+        maxHealth = health;
+        maxDamage = damage;
 
         wallHealth = 0;
         killcount = 0;
-        maxHealth = health;
-        maxDamage = damage;
         specialAbLeft = 3;
         specialAbMax = specialAbLeft;
         numAttack = 0;
@@ -29,6 +30,7 @@ public class Engineer extends Character {
         wallBuilt = false;
         trackerBuilt = false;
         PCBuilt = false;
+        isFleeing = false;
     }
 
     public Engineer(String race, int health, int damage, int intelligence, int initiative, String name) {
@@ -36,7 +38,7 @@ public class Engineer extends Character {
         this.health = health;
         this.damage = damage;
         this.intelligence = intelligence;
-        this.initiative = initiative;
+        this.initiative = 5;
         this.name = name;
 
         specialAbLeft = 3;
@@ -51,6 +53,7 @@ public class Engineer extends Character {
         wallBuilt = false;
         trackerBuilt = false;
         PCBuilt = false;
+        isFleeing = false;
     }
 
     @Override

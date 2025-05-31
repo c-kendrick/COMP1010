@@ -280,7 +280,7 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             }        
         }
 
-        if (player.killcount > 0) {
+        if (player.killcount > 0 && !player.isFleeing) {
             if (rest(player, difficulty) == 1)
                 return;
         }
@@ -288,6 +288,7 @@ public static void generateDungeons(Character player, int difficulty, int steps)
 
         if (room.defeatDungeon(player)) {
             gameDriver(player, room.next, difficulty);
+            player.isFleeing = false;
             return;
         } else {
             gameLost(player);

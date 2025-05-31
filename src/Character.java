@@ -17,6 +17,7 @@ public class Character {
     int gold;
     int killcount;
     boolean hasRaged;
+    boolean isFleeing;
 
     public Character() {
         // blank constructor as we only use sub-class constructors
@@ -112,17 +113,7 @@ public class Character {
                 break;
             case 3:
                 if (flee(enemy)) {
-                    System.out.println("Flee successful");
-                    gold = 0;
-                    health = maxHealth;
-                    specialAbLeft = specialAbMax;
-                    
-                    System.out.println("");
-                    System.out.println("You find a campfire and decide to rest.");
-                    System.out.println("Your health & special abilities have been reset to full.");
-
-                    room.populate();
-                    Assignment.gameDriver(this, room, difficulty);
+                    fleeAction(room, difficulty);
                     return;
                 }
                 System.out.println("Flee not successful.");
@@ -131,5 +122,22 @@ public class Character {
                 System.out.println("Began defense");
                 break;
         }
+    }
+
+    void fleeAction(Dungeon room, int difficulty) {
+        isFleeing = true;
+        System.out.println("Flee successful");
+        gold = 0;
+        health = maxHealth;
+        specialAbLeft = specialAbMax;
+        damage = maxDamage;
+                    
+        System.out.println("");
+        System.out.println("You find a campfire and decide to rest.");
+        System.out.println("Your health & special abilities have been reset to full.");
+        System.out.println("In the chaos of running, you have lost all of your gold.");
+
+        room.populate();
+        Assignment.gameDriver(this, room, difficulty);
     }
 }

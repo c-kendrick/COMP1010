@@ -11,18 +11,21 @@ public class Mage extends Character {
     public Mage(String race, String name) {
 		this.race = race;
 		this.name = name;
+
 		health = 100;
-        maxHealth = health;
 		damage = 5;
+        intelligence = 15;
+        initiative = 10;
+
+        maxHealth = health;
         maxDamage = damage;
-        intelligence = 10;
-        initiative = 3;
+
         hasSpellBook = true;
         killcount = 0;
         specialAbLeft = 7;
         specialAbMax = specialAbLeft;
         killcount = 0;
-        
+        isFleeing = false;
 	}
 
     public Mage(String race, int health, int damage, int intelligence, int initiative, String name) {
@@ -31,13 +34,14 @@ public class Mage extends Character {
         this.health = health;
         this.damage = damage;
         this.intelligence = intelligence;
-        this.initiative = initiative;
+        this.initiative = 10;
 
         specialAbLeft = 7;
         specialAbMax = specialAbLeft;
         maxHealth = health;
         maxDamage = damage;
         hasSpellBook = true;
+        isFleeing = false;
     }
 
     @Override
