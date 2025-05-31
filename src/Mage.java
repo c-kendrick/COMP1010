@@ -67,8 +67,8 @@ public class Mage extends Character {
         Scanner scanner = new Scanner(System.in);
 
         if (!hasSpellBook) {
-            System.out.println("Spellbook is stolen! You can only cast the Unstable Spell.");
-            unstableSpell(target);
+            System.out.println("Spellbook is stolen! You can only cast the basic spell.");
+            attack(target);
             return;
         }
 
@@ -80,7 +80,6 @@ public class Mage extends Character {
 
         int choice = scanner.nextInt();   
         useAbility(target, choice);
-
     }
 
     
