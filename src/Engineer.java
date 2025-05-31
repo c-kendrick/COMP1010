@@ -74,6 +74,7 @@ public class Engineer extends Character {
         useAbility(target, choice);
     }
 
+    // to do: delegate and check if wall is already built, if it is, simply repairs current health (engineer can sit and repair all day)
     
     void useAbility(Character target, int choice) {
         switch (choice) {
@@ -82,7 +83,7 @@ public class Engineer extends Character {
                 deployedDevice = true;
                 System.out.println("Engineer built a Cage.");
                 break;
-            case 2:
+            case 2: // tracker is for rogue only, so maybe make it so if target is rogue, it always builds tracker?
                 builtDevice = "TRACKER";
                 deployedDevice = true;
                 System.out.println("Engineer built a Tracker.");

@@ -51,6 +51,7 @@ public class Barbarian extends Character {
 
     }
 
+    // to do delegate each attackEngineer, attackMage etc to make it readable
     @Override
     void attack(Character target) {
         // attacking engineer
@@ -63,8 +64,10 @@ public class Barbarian extends Character {
                         eng.deployedDevice = false;
                     }
                     eng.wallHealth -= 25;
-                    if (eng.wallHealth < 0) {
+                    System.out.println("Wall health: 25"); // to do: make it so other clans can attack the wall too
+                    if (eng.wallHealth <= 0) {
                         eng.deployedDevice = false;
+                        System.out.println("Wall destroyed");
                     }
             } else {        
                 System.out.println(name + " attacked " + eng.name + " for " + damage + " points");        
@@ -77,13 +80,11 @@ public class Barbarian extends Character {
             Rogue rog = (Rogue) target;
 
             if (!rog.isInvisible) {
-                // cannot rage against rogue
-                if (isRaging)
-                    deactivateRage();
+                System.out.println(name + " attacked " + rog.name + " for " + damage + " points");        
+                rog.takeDamage(damage);
+            } else {
+                System.out.println("Cannot attack invisible rogue!");
             }
-
-            System.out.println(name + " attacked " + rog.name + " for " + damage + " points");        
-            rog.takeDamage(damage);
         }
 
         // attacking mage

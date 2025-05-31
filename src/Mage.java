@@ -111,6 +111,7 @@ public class Mage extends Character {
 
         specialAbLeft--;
         
+        // to do: delegate
         switch (choice) {
             case 1:
                 if (poisonUsed) {
@@ -125,15 +126,25 @@ public class Mage extends Character {
                         bar.enterBlindedRampage();
                         System.out.println("Barbarian enters a Blinded Rampage!");
                     } else {
-                        bar.damage -= 10;
-                        System.out.println("Barbarian's damage is reduced by 10.");
+                        if (bar.damage > 10) { // to prevent going into the negatives and healing enemies 
+                            bar.damage -= 10;
+                            System.out.println("Barbarian's damage is reduced by 10.");
+                        } else {
+                            bar.damage = 1;
+                        }
                     }
                 } else {
-                    target.damage -= 10;
+                    if (target.damage > 10) { // to prevent going into the negatives and healing enemies 
+                        target.damage -= 10;
+                        System.out.println("Barbarian's damage is reduced by 10.");
+                    } else {
+                        target.damage = 1;
+                    }
                     System.out.println(target.getClass().getSimpleName() + "'s damage is reduced by 10.");
                 }
                 poisonUsed = true;
                 break;
+                
             case 2:
                 System.out.println("Mage casts Heal Spell");
                 int healed = Math.min(20, maxHealth - health);
@@ -162,23 +173,27 @@ public class Mage extends Character {
         int damageToEnemy = rand.nextInt(11) + 15; //15-25
         int damageToSelf = rand.nextInt(11) + 10; //10-20
 
-        System.out.println("Mage casts Unstable Spell!");
-        System.out.println("Deals " + damageToEnemy + " to enemy and " + damageToSelf + " to self.");
+        System.out.println(name + " casts Unstable Spell!");
+        System.out.println("Deals: " + damageToEnemy + " to " + target.name + " and " + damageToSelf + " to self.");
 
         target.takeDamage(damageToEnemy);
         this.takeDamage(damageToSelf);
+
+        if (health <= 0) {
+            System.out.println(name + ": 'Oops!'");
+            System.out.println(name + " has accidentally destroyed themselves.");
+        } else {
+            System.out.println(name + " HP: " + health);
+        }
+            
+
     }
     
     @Override
     void attack(Character target) {
-        System.out.println("Mage attacks with basic magic!");
         target.takeDamage(damage);
-    }
+        System.out.println(name + " attacked " + target.name + " with basic magic for " + damage + " points.");
 
-    @Override
-    public void takeDamage(int damage) {
-        this.health -= damage;
-        System.out.println("Mage takes " + damage + " damage. Remaining HP: " + this.health);
     }
 
     void loseSpellBook() {

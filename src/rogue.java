@@ -39,32 +39,10 @@ public class Rogue extends Character {
 
     @Override
 	void attack (Character target){
-
-        if (invisibilityStatus > 0) {
-            System.out.println("Rogue is still invisible");
-            invisibilityStatus--;
-        } else {
-            System.out.println("Rogue is now VISIBLE");
-            deactivateInvisibility();
-        }
-        
-        if (target instanceof Engineer) {  
-            target.takeDamage(damage);
-        }
- 
-        if (target instanceof Rogue) {  
-            target.takeDamage(damage);
-        }
-
-        if (target instanceof Mage) {
-			target.takeDamage(damage);
-        }
-
-        if (target instanceof Barbarian) {
-			target.takeDamage(damage);  
-        }
-
-}
+        checkInvisStatus();
+        target.takeDamage(damage);
+        System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
+    }
 
     @Override
     void genChoices(Character target) {
@@ -85,21 +63,25 @@ public class Rogue extends Character {
             activateInvisibilitiy();
             return;
         } else {
-            if (invisibilityStatus > 0) {
-                invisibilityStatus--;
-                System.out.println("Rogue is still invisible");
-            } else {
-                System.out.println("Rogue is now VISIBLE");
-                deactivateInvisibility();
-            }
-
             if (target instanceof Mage) {
+                checkInvisStatus();
                 Mage m = (Mage) target;
                 if (m.hasSpellBook);
                 m.loseSpellBook();
                 hasStolenSpellBook = true; 
                 System.out.println("Rogue has stolen the Mage's Spell Book");
+            } else {
+                attack(target);
             }
+        }
+    }
+
+    void checkInvisStatus() {
+        if (invisibilityStatus > 0) {                    
+            invisibilityStatus--;
+            System.out.println("Rogue is still invisible");
+        } else {
+            deactivateInvisibility();
         }
     }
 
@@ -110,6 +92,7 @@ public class Rogue extends Character {
     }
 
     void deactivateInvisibility() {
+        System.out.println("Rogue is now VISIBLE");
         isInvisible = false;
     }
 }

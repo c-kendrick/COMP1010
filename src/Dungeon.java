@@ -94,7 +94,9 @@ public class Dungeon {
                 enemy.genChoices(player);
             } else {
                 System.out.println("");
+                System.out.println("~~~");
                 System.out.println("Enemy killed!");
+                System.out.println("~~~");
                 player.killcount++;
             }
 
