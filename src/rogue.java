@@ -39,9 +39,14 @@ public class Rogue extends Character {
 
     @Override
 	void attack (Character target){
-        checkInvisStatus();
-        target.takeDamage(damage);
-        System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
+
+        if (!isEnemyInvisible(target)) {
+            checkInvisStatus();
+            target.takeDamage(damage);
+            System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
+        } else {
+            System.out.println(name + " is invisible and cannot be attacked");
+        }
     }
 
     @Override
@@ -62,17 +67,17 @@ public class Rogue extends Character {
         if (!isInvisible) {
             activateInvisibilitiy();
             return;
+        }
+
+        if (target instanceof Mage) {
+            checkInvisStatus();
+            Mage m = (Mage) target;
+            if (m.hasSpellBook);
+            m.loseSpellBook();
+            hasStolenSpellBook = true; 
+            System.out.println("Rogue has stolen the Mage's Spell Book");
         } else {
-            if (target instanceof Mage) {
-                checkInvisStatus();
-                Mage m = (Mage) target;
-                if (m.hasSpellBook);
-                m.loseSpellBook();
-                hasStolenSpellBook = true; 
-                System.out.println("Rogue has stolen the Mage's Spell Book");
-            } else {
-                attack(target);
-            }
+            attack(target);
         }
     }
 
@@ -94,6 +99,14 @@ public class Rogue extends Character {
     void deactivateInvisibility() {
         System.out.println("Rogue is now VISIBLE");
         isInvisible = false;
+    }
+
+    boolean isEnemyInvisible(Character target) {
+        if (target instanceof Rogue) {
+            Rogue rog = (Rogue) target;
+            return rog.isInvisible;
+        } 
+        return false;
     }
 }
 

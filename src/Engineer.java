@@ -212,6 +212,8 @@ public class Engineer extends Character {
         if (!rog.isInvisible || trackerBuilt) { // if no tracker is built, rogue is still invisible 
             System.out.println(name + " attacked " + rog.name + " for " + damage + " points");      
             rog.takeDamage(damage);
+        } else {
+            System.out.println(name + " cannot attack invisible rogue!");
         }
     }
 

@@ -51,7 +51,11 @@ public static int getDifficulty() {
     while (true) {
         System.out.println("Choose difficulty:");
         System.out.println("1. Endless (Normal)");
+        System.out.println("");
+        System.out.println("-----------");
         System.out.println("2. Normal");
+        System.out.println("-----------");
+        System.out.println("");
         System.out.println("3. Hard");
 
         if (scanner.hasNextInt()) {

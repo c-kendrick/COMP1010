@@ -91,7 +91,7 @@ public class Barbarian extends Character {
             System.out.println(name + " attacked " + rog.name + " for " + damage + " points");        
             rog.takeDamage(damage);
         } else {
-            System.out.println("Cannot attack invisible rogue!");
+            System.out.println(name + " cannot attack invisible rogue!");
         }
     }
 

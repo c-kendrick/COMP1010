@@ -109,7 +109,6 @@ public class Mage extends Character {
 
     void poisonSpell(Character target) {
         System.out.println(name + " casts Poison Spell!");
-
         if (target instanceof Barbarian) {
             Barbarian bar = (Barbarian) target;
             if (bar.isRaging) {
@@ -124,12 +123,16 @@ public class Mage extends Character {
                 System.out.println(target.name + " damage has been reduced to: " + target.damage);
             }
         } else {
-            if (target.damage > 10) { // to prevent going into the negatives and healing enemies 
-                target.damage -= 10;
+            if (!isInvisible(target)) {
+                if (target.damage > 10) { // to prevent going into the negatives and healing enemies 
+                    target.damage -= 10;
+                } else {
+                    target.damage = 1;
+                }
+                System.out.println(target.name + " damage has been reduced to: " + target.damage);
             } else {
-                target.damage = 1;
+                System.out.println(target.name + " is invisible and cannot be attacked!");
             }
-            System.out.println(target.name + " damage has been reduced to: " + target.damage);
         }
     }
 
@@ -156,7 +159,12 @@ public class Mage extends Character {
         System.out.println(name + " casts Unstable Spell!");
         System.out.println("Deals: " + damageToEnemy + " to " + target.name + " and " + damageToSelf + " to self.");
 
-        target.takeDamage(damageToEnemy);
+        if (!isInvisible(target)) {
+            target.takeDamage(damageToEnemy);
+        } else {
+            System.out.println(target.name + " is invisible and cannot be attacked!");
+        }
+        
         this.takeDamage(damageToSelf);
 
         if (health <= 0) {
@@ -169,9 +177,20 @@ public class Mage extends Character {
     
     @Override
     void attack(Character target) {
-        target.takeDamage(damage);
-        System.out.println(name + " attacked " + target.name + " with basic magic for " + damage + " points.");
+        if (!isInvisible(target)) {
+            target.takeDamage(damage);
+            System.out.println(name + " attacked " + target.name + " with basic magic for " + damage + " points.");
+        } else {
+            System.out.println(target.name + " is invisible and cannot be attacked!");
+        }
+    }
 
+    boolean isInvisible(Character target) {
+        if (target instanceof Rogue) {
+            Rogue rog = (Rogue) target;
+            return rog.isInvisible;
+        } 
+        return false;
     }
 
     @Override
@@ -188,6 +207,8 @@ public class Mage extends Character {
         hasSpellBook = true;
         System.out.println(name + " has recovered their spellbook!");
     }
+
+
 
 
 }
