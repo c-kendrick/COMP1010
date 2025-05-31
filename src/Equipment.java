@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Equipment{
@@ -13,16 +14,15 @@ public class Equipment{
     String name;
     int health;
     int strength;
-    int defence;
     int initiative;
     int type;
     boolean unlocked;
 
-    private static ArrayList<Equipment> equipmentList = new ArrayList<>();
+    public static ArrayList<Equipment> equipmentList = new ArrayList<>();
     private static ArrayList<Equipment> equippedItems = new ArrayList<>();
-    public static int[] stats = new int[4];
+    public static int[] stats = {0, 0, 0};
 
-    public Equipment(int ID, String name, int health, int strength, int defence, int initiative, int type, boolean unlocked) {
+    public Equipment(int ID, String name, int health, int strength, int initiative, int type, boolean unlocked) {
         if (type < 1 || type > 4) {
             System.err.println("Type must be between 1 and 4 inclusive.");
         }
@@ -30,7 +30,6 @@ public class Equipment{
         this.name = name;
         this.health = health;
         this.strength = strength;
-        this.defence = defence;
         this.initiative = initiative;
         this.type = type;
         equipmentList.add(this);
@@ -48,7 +47,7 @@ public class Equipment{
 
     //Converts Equipment to csv
     public String EqtoCSV() {
-        return ID + "," + name + "," + health + "," + strength + "," + defence + "," + initiative + "," + type + "," + unlocked;
+        return ID + "," + name + "," + health + "," + strength + "," + initiative + "," + type + "," + unlocked;
     }
 
     //Adds this Equipment to csv
@@ -79,7 +78,7 @@ public class Equipment{
     }
 
     public String toString() {
-        return "Equipment{" + "ID = " + ID + " Name = " + name + " , Health = " + health + " , Strength = " + strength + ", Defence = " + defence + ", Initiative = " + initiative + ", Type = " + typeName(type) + '}';
+        return "Equipment[" + "ID:" + ID + " - Name:" + name + " | Health:" + health + " | Strength:" + strength + " | Initiative:" + initiative + " | Type:" + typeName(type) + ']';
     }
     //Prints all unlocked equipment
     public static void allEquipment() {
@@ -105,17 +104,22 @@ public class Equipment{
         for (Equipment eq : equippedItems) {
             stats[0] += eq.health;
             stats[1] += eq.strength;
-            stats[2] += eq.defence;
-            stats[3] += eq.initiative;
+            stats[2] += eq.initiative;
         }
         return stats;
     }
     public static void generateEquipments(){
-        Equipment locked = new Equipment(5, "Armour", 200, 100, 15, 0, 2, true);
-        Equipment sword = new Equipment(1, "Sword", 0, 10, 0, 5, 4, true);
-        Equipment shield = new Equipment(2, "Shield", 0, 0, 10, 0, 3, true);
-        Equipment helmet = new Equipment(3, "Helmet", 0, 5, 0, 0, 1, true);
-        Equipment armour = new Equipment(4, "Armour", 20, 0, 15, 0, 2, true);
+        Equipment sword = new Equipment(1, "Short Sword", 0, 10,  5, 4, true);
+        Equipment shield = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true);
+        Equipment helmet = new Equipment(3, "Ordinary Cap", 5, 5, 5, 1, true);
+        Equipment armour = new Equipment(4, "Rusty Armour", 10, 0, -5,  2, true);
+        Equipment locked = new Equipment(5, "Armour of strength", 20, 10,  0, 2, false);
+        Equipment armo = new Equipment(6, "Knights Helmet", 10, 0, 5,  1, false);
+        Equipment a = new Equipment(7, "Chain-mail Armour", 15, 0, 0,  2, false);
+        Equipment b = new Equipment(8, "Life4damage gloves", -75, 80, -15,  3, false);
+        Equipment shiel = new Equipment(9, "Big Wall Shield", 50, 0,  -20, 3, false);
+        Equipment sld = new Equipment(10, "Flash Katana", 0, 20,  10, 4, false);
+        Equipment slds = new Equipment(11, "Long Sword", 0, 20,  -10, 4, false);
     }
     
     //responsible for equiping 
@@ -170,7 +174,21 @@ public class Equipment{
         equiped();
     }
 
-    
+    public static void unlockTwoRandomEquipments() {
+        Random rand = new Random();
+        int unlockedCount = 0;
+
+        while (unlockedCount < 2) {
+            int randomIndex = rand.nextInt(Equipment.equipmentList.size() - 4) + 4; // only from index 4 onwards
+            Equipment item = Equipment.equipmentList.get(randomIndex);
+
+            if (!item.unlocked) {
+                item.unlocked = true;
+                unlockedCount++;
+                System.out.println("Unlocked: " + item.name);
+            }
+        }
+    }
         
 
 
@@ -190,8 +208,13 @@ public class Equipment{
         }
         System.err.println(" ");
         equip();
+        for (int i : addedstats()) {
+            System.out.print(i + " ");
+
+        }
+        System.err.println(" ");
  
-            System.out.print( stats[0]+ " ");
+            
 
     }
 
