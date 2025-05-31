@@ -82,7 +82,7 @@ public class Character {
         while (true) {
             System.out.println("What do you do?");
             System.out.println("1. Attack?");
-            System.out.println("2. Special attack? " + specialAbLeft + " left.");
+            System.out.println("2. Special attack? AP left: " + specialAbLeft);
             System.out.println("3. Flee? (Lose all gold!)");
             System.out.println("");
 
