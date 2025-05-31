@@ -10,7 +10,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Equipment{
-
     int ID;
     String name;
     int health;
@@ -41,10 +40,7 @@ public class Equipment{
         } catch (IOException e) {
             System.err.println("Error writing to CSV: " + e.getMessage());
         }
-
-
     }
-
 
     //Converts Equipment to csv
     public String EqtoCSV() {
@@ -58,7 +54,6 @@ public class Equipment{
             writer.newLine();
         }
     }
-
 
     //convert type number to name ie helmet armour etc
     public static String typeName(int type) {
@@ -93,7 +88,6 @@ public class Equipment{
         }
     }
 
-
     //prints out equiped equipments
     public static void equiped() {
         System.out.println("All active Equipment:");
@@ -102,7 +96,6 @@ public class Equipment{
 
         }
     }
-
 
     //calculates added stats of equiped equipments
     public static int[] addedstats() {
@@ -133,7 +126,6 @@ public class Equipment{
     
     //responsible for equiping 
     public static void equip() {
-        
         Scanner scanner = new Scanner(System.in);
         ArrayList<Integer> usedTypes = new ArrayList<>();
         equippedItems.clear();
@@ -207,34 +199,29 @@ public class Equipment{
 
         System.out.println("Equipments found: " + first.name + " and " + second.name);
     }
-        
-
-
 
     public static void main(String[] args) {
         generateEquipments();
         unlockTwoRandomEquipments();
+
         for (int i : addedstats()) {
             System.out.print(i + " ");
-
         }
+
         System.err.println(" ");
         equip();
+
         for (int i : addedstats()) {
             System.out.print(i + " ");
-
         }
+
         System.err.println(" ");
         //equip();
         unlockTwoRandomEquipments();
         for (int i : addedstats()) {
             System.out.print(i + " ");
-
         }
+        
         System.err.println(" ");
- 
-            
-
     }
-
 }

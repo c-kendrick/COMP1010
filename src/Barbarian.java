@@ -1,8 +1,6 @@
-
 public class Barbarian extends Character {
     boolean isRaging;
     boolean isBlindedRampage;
-
 
 	public Barbarian(String race, String name) {
 		this.race = race;
@@ -18,26 +16,26 @@ public class Barbarian extends Character {
 
         isRaging = false;
         isBlindedRampage = false;
-        killcount = 0;
-        specialAbLeft = 3;
-        specialAbMax = specialAbLeft;
+        killCount = 0;
+        abilityPointsLeft = 3;
+        abilityPointsMax = abilityPointsLeft;
         isFleeing = false;
 	}
 
-    public Barbarian(String race, int health, int damage, int intelligence, int initiative, String name) {
+    public Barbarian(String race, int health, int damage, String name) {
         this.race = race;
         this.health = health;
         this.damage = damage;
-        this.intelligence = intelligence;
         this.initiative = 0;
         this.name = name;
 
         this.maxHealth = health;
         this.maxDamage = damage;
 
-        specialAbLeft = 3;
-        specialAbMax = specialAbLeft;
-        killcount = 0;
+        intelligence = 5;
+        abilityPointsLeft = 3;
+        abilityPointsMax = abilityPointsLeft;
+        killCount = 0;
         isRaging = false;
         isBlindedRampage = false;
         isFleeing = false;
@@ -52,7 +50,6 @@ public class Barbarian extends Character {
 
         if (choice == 2) 
             specialAbility(target);
-
     }
 
     @Override
@@ -67,19 +64,18 @@ public class Barbarian extends Character {
             attackRogue(rog);
         }
 
-        if (target instanceof Mage) {
+        if (target instanceof Mage) 
             attackMage(target);
-        } 
         
-        if (target instanceof Barbarian) {
+        if (target instanceof Barbarian) 
             attackBarbarian(target);
-        }
     }
 
     void attackEngineer(Engineer eng) {
+        // Checking if the engineer has built a barbarian-proof wall.
         if (eng.wallBuilt && eng.wallHealth > 0) {
                 eng.wallHealth -= damage;
-                System.out.println("Wall health: " + eng.wallHealth); // to do: make it so other clans can attack the wall too
+                System.out.println("Wall health: " + eng.wallHealth); 
 
                 if (eng.wallHealth <= 0) {
                     eng.wallBuilt = false;
@@ -102,12 +98,11 @@ public class Barbarian extends Character {
 
     void attackMage(Character target) {
         if (isBlindedRampage) {
-            // if mage is using spell
-            // chance for mage spell to double barbarian damage
+            // If mage is using spell, chance for mage spell to double barbarian damage
             System.out.println("Barbarian is in Blinded Rampage! 50% chance to hit Mage.");
             if (Math.random() < 0.5) {
-                System.out.println("Blinded Rampage hit the Mage for" + damage + " points!");
-                target.takeDamage(damage);
+                System.out.println("Blinded Rampage hit the Mage for" + damage * 2 + " points!");
+                target.takeDamage(damage * 2);
             } else {
                 System.out.println("Blinded Rampage missed the Mage!");
             } 
@@ -125,7 +120,6 @@ public class Barbarian extends Character {
     void activateRage() {
         isRaging = true;
         damage += 30;
-        specialAbLeft--;
     }
     
     void deactivateRage() {
@@ -151,12 +145,12 @@ public class Barbarian extends Character {
     //rage attack special ability 
     @Override
     void specialAbility(Character target) {
-        if (specialAbLeft < 1) {
+        if (abilityPointsLeft < 1) {
             System.out.println("You are too tired to rage. Attacking normally instead");
             attack(target);
         } else {
             System.out.println("BARBARIAN RAGING");
-
+            abilityPointsLeft--;
             activateRage();
             attack(target);
             deactivateRage();

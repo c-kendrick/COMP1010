@@ -9,42 +9,43 @@ public class Rogue extends Character {
         
         health = 100;
 		damage = 15;
-        intelligence = 5;
         initiative = 20;
+        intelligence = 5;
 
         maxHealth = health;
         maxDamage = damage;
 
         isInvisible = false; 
         hasStolenSpellBook = false; 
-        killcount = 0;
-        specialAbLeft = 5;
+        killCount = 0;
+        abilityPointsLeft = 5;
+        abilityPointsMax = abilityPointsLeft;
         invisibilityStatus = 0;
         isFleeing = false;
 	}
 	
-    public Rogue(String race, int health, int damage, int intelligence, int initiative, String name) {
+    public Rogue(String race, int health, int damage, String name) {
         this.race = race;
         this.name = name;
+
         this.health = health;
         this.damage = damage;
-        this.intelligence = intelligence;
         this.initiative = 20; 
+        
         maxHealth = health;
         maxDamage = damage;
-        killcount = 0;
-        specialAbLeft = 5;
-        specialAbMax = specialAbLeft;
+        intelligence = 5;
+        killCount = 0; 
+        abilityPointsLeft = 5;
+        abilityPointsMax = abilityPointsLeft;
         invisibilityStatus = 0;
         isFleeing = false;
     }
 
-
     @Override
 	void attack (Character target){
-
         if (!isEnemyInvisible(target)) {
-            checkInvisStatus();
+            checkOwnInvisStatus();
             target.takeDamage(damage);
             System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
         } else {
@@ -61,7 +62,6 @@ public class Rogue extends Character {
 
         if (choice == 2) 
             specialAbility(target);
-
     }
 
 
@@ -72,8 +72,11 @@ public class Rogue extends Character {
             return;
         }
 
+        /* Only if ALREADY invisible
+         * Rogue steals Mage's spellbook
+         */
         if (target instanceof Mage) {
-            checkInvisStatus();
+            checkOwnInvisStatus();
             Mage m = (Mage) target;
             if (m.hasSpellBook);
             m.loseSpellBook();
@@ -84,7 +87,7 @@ public class Rogue extends Character {
         }
     }
 
-    void checkInvisStatus() {
+    void checkOwnInvisStatus() {
         if (invisibilityStatus > 0) {                    
             invisibilityStatus--;
             System.out.println("Rogue is still invisible");

@@ -3,23 +3,23 @@ import java.util.Scanner;
 
 public class Dungeon {
     Dungeon next;
-    int idx;
-    int count;
+    int dungeonIdx;
+    int dungeonAmt;
     int difficulty;
     ArrayList<Character> enemyList;
 
     public Dungeon(int difficulty, Dungeon next, int idx, int count) {
         this.next = next;
         this.difficulty = difficulty;
-        this.idx = idx;
-        this.count = count;
+        this.dungeonIdx = idx;
+        this.dungeonAmt = count;
 
         populate();
     }
 
     void populate() {
-        enemyList = new ArrayList();        
-        int numEnemies =((int)(Math.random() * 3) + 1) + (difficulty / 2);
+        enemyList = new ArrayList<>();        
+        int numEnemies = ((int)(Math.random() * 3) + 1) + (difficulty / 2);
 
         for (int i = 0; i < numEnemies; i++) 
            enemyList.add(createEnemy());
@@ -32,11 +32,11 @@ public class Dungeon {
         int damage = ((int)(Math.random() * 3) + 1) * (difficulty/2);
 
         switch (choice) {
-            case 1: return new Barbarian(getRace(), health, damage, difficulty, difficulty, "Enemy");
-            case 2: return new Rogue(getRace(), health, damage, difficulty, difficulty, "Enemy");
-            case 3: return new Mage(getRace(), health, damage, difficulty, difficulty, "Enemy");
-            case 4: return new Engineer(getRace(), health, damage, difficulty, difficulty, "Enemy");
-            default: return new Barbarian(getRace(), health, damage, difficulty, difficulty, "Enemy");
+            case 1: return new Barbarian(getRace(), health, damage, "Enemy");
+            case 2: return new Rogue(getRace(), health, damage, "Enemy");
+            case 3: return new Mage(getRace(), health, damage, "Enemy");
+            case 4: return new Engineer(getRace(), health, damage, "Enemy");
+            default: return new Barbarian(getRace(), health, damage, "Enemy");
         }
     }
 
@@ -56,23 +56,24 @@ public class Dungeon {
     }
 
     boolean defeatDungeon(Character player) {
+        // The boolean is to check if the player can defeat the dungeon.
         System.out.println("");
         System.out.println("");
         System.out.println("");
         System.out.println("==============================");
-        System.out.println("Dungeon: " + idx + " of " + count);
+        System.out.println("Dungeon: " + dungeonIdx + " of " + dungeonAmt);
         System.out.println("");
         System.out.println("");
 
         System.out.println("Your Health Points (HP): " + player.health);
-        System.out.println("Your Ability Points (AP): " + player.specialAbLeft);
+        System.out.println("Your Ability Points (AP): " + player.abilityPointsLeft);
         System.out.println("Your Strength: " + player.damage);
         System.out.println("");
 
-        int idx;
+        int enemyIdx;
         for (int i = 0; i < enemyList.size(); i++) {
-            idx = i + 1;
-            System.out.println(idx + ": " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
+            enemyIdx = i + 1;
+            System.out.println(enemyIdx + ": " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
         }
 
         while (enemyList.size() > 0) {
@@ -92,10 +93,12 @@ public class Dungeon {
     }
 
     boolean defeatEnemy(Character player, Character enemy) {
+        // The boolean is to check if the player can defeat the enemy.
         System.out.println("");
         System.out.println("");
         System.out.println("You are facing a " + enemy.race + " " + enemy.getClass().getSimpleName());
         System.out.println("HP: " + enemy.health + ", Strength: " + enemy.damage);
+
         while (enemy.health > 0) {
             player.getAction(enemy, this, difficulty);
 
@@ -106,7 +109,7 @@ public class Dungeon {
                 System.out.println("~~~");
                 System.out.println("Enemy killed!");
                 System.out.println("~~~");
-                player.killcount++;
+                player.killCount++;
             }
 
             if (player.health > 0) {
@@ -119,6 +122,4 @@ public class Dungeon {
         }
         return true;
     }
-
-
 }

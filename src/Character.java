@@ -11,11 +11,11 @@ public class Character {
 
     int maxHealth;
     int maxDamage;
-    int specialAbLeft;
-    int specialAbMax;
+    int abilityPointsLeft;
+    int abilityPointsMax;
 
     int gold;
-    int killcount;
+    int killCount;
     boolean hasRaged;
     boolean isFleeing;
 
@@ -83,7 +83,7 @@ public class Character {
         while (true) {
             System.out.println("What do you do?");
             System.out.println("1. Attack?");
-            System.out.println("2. Special attack? AP left: " + specialAbLeft);
+            System.out.println("2. Special attack? AP left: " + abilityPointsLeft);
             System.out.println("3. Flee? (Lose all gold!)");
             System.out.println("");
 
@@ -129,7 +129,7 @@ public class Character {
         System.out.println("Flee successful");
         gold = 0;
         health = maxHealth;
-        specialAbLeft = specialAbMax;
+        abilityPointsLeft = abilityPointsMax;
         damage = maxDamage;
                     
         System.out.println("");
@@ -137,6 +137,7 @@ public class Character {
         System.out.println("Your health & special abilities have been reset to full.");
         System.out.println("In the chaos of running, you have lost all of your gold.");
 
+        // Repopulates the room you fleed from with new enemies.
         room.populate();
         Assignment.gameDriver(this, room, difficulty);
     }

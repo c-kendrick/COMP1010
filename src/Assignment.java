@@ -4,109 +4,90 @@ public class Assignment {
     static boolean endlessMode = false;
 
     public static void gameWon(Character player) {
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
+        for (int i = 0; i < 14; i++) 
+            System.out.println("");
+
         System.out.println("CONGRATULATIONS! You have won the game!");
         System.out.println("");
-        System.out.println("You killed: " + player.killcount + " enemies!");
+        System.out.println("You killed: " + player.killCount + " enemies!");
         System.out.println("Your health at the end of the game: " + player.health);
         System.out.println("Your SCORE (in gold): $" + player.gold);
     }
 
     public static void gameLost(Character player) {
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
-        System.out.println("");
+        for (int i = 0; i < 14; i++) 
+            System.out.println("");
+        
         System.out.println("The game is over.");
-        System.out.println("You killed: " + player.killcount + " enemies!");
+        System.out.println("You killed: " + player.killCount + " enemies!");
         System.out.println("Your SCORE (in gold): $" + player.gold);
     }
 
-public static int getDifficulty() {
-    Scanner scanner = new Scanner(System.in);
-    int choice = -1;
+    public static int getDifficulty() {
+        Scanner scanner = new Scanner(System.in);
+        int choice = -1;
 
-    while (true) {
-        System.out.println("Choose difficulty:");
-        System.out.println("1. Endless (Normal)");
-        System.out.println("");
-        System.out.println("-----------");
-        System.out.println("2. Normal");
-        System.out.println("-----------");
-        System.out.println("");
-        System.out.println("3. Hard");
+        while (true) {
+            System.out.println("Choose difficulty:");
+            System.out.println("1. Endless (Normal)");
+            System.out.println("");
+            System.out.println("-----------");
+            System.out.println("2. Normal");
+            System.out.println("-----------");
+            System.out.println("");
+            System.out.println("3. Hard");
 
-        if (scanner.hasNextInt()) {
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-            if (choice >= 1 && choice <= 3) {
-                return choice;
+                if (choice >= 1 && choice <= 3) {
+                    return choice;
+                } else {
+                    System.out.println("Invalid number. Please enter 1, 2, or 3.");
+                }
             } else {
-                System.out.println("Invalid number. Please enter 1, 2, or 3.");
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine();
             }
-        } else {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine();
         }
     }
-}
 
-public static void generateDungeons(Character player, int difficulty, int steps) {
+    public static void generateDungeons(Character player, int difficulty, int steps) {
         if (difficulty == 1) {
             endlessMode = true;
             difficulty = 2; // need to play on normal difficulty at "2"
         }
 
+        /* lowest difficulty
+         * if
+         *      difficulty == 2, lower = 8
+         *      difficulty == 3, lower = 16
+         *      difficulty == 4, lower = 22
+         */
+
         int lower = 8 + (difficulty - 2) * 6;
-        // lowest difficulty
-        // if:
-        //      difficulty == 2, lower = 8
-        //      difficulty == 3, lower = 16
-        //      difficulty == 4, lower = 22
+
+        /* highest difficulty
+         * if
+         *      difficulty == 2, upper = 22
+         *      difficulty == 3, upper = 28
+         *      difficulty == 4, upper = 34
+         */
 
         int upper = lower + (steps - 1) * 3;
-        // highest difficulty.
-        // if:
-        //      difficulty == 2, upper = 22.
-        //      difficulty == 3, upper = 28
-        //      difficulty == 4, upper = 34   
-
-        int count = ((upper - lower) / 3) + 1;
-
-        int idx = count; // room number (5 to 1 decreasing)
-
-        // generate recursive data structure of Dungeon room (object)
+        int dungeonAmt = ((upper - lower) / 3) + 1;
+        int dungeonIndex = dungeonAmt; // room number (5 to 1 decreasing)
+        
         Dungeon room = null;
         for (int i = upper; i >= lower; i -= 3) {
-            room = new Dungeon(i, room, idx, count);
-            idx--;
+            room = new Dungeon(i, room, dungeonIndex, dungeonAmt);
+            dungeonIndex--;
         }
 
+        // generate recursive data structure of Dungeon room (object)
         gameDriver(player, room, difficulty);
-}
+    }
 
     public static String getName() {
         Scanner scanner = new Scanner(System.in);
@@ -131,25 +112,24 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             System.out.println("4. Dwarf");
             System.out.println("");
 
-        if (scanner.hasNextInt()) {
-            choice = scanner.nextInt();
-            scanner.nextLine();
+            if (scanner.hasNextInt()) {
+                choice = scanner.nextInt();
+                scanner.nextLine();
 
-            switch (choice) {
-                case 1: return "Elf";
-                case 2: return "Orc";
-                case 3: return "Human";
-                case 4: return "Dwarf";
-                default:
-                    System.out.println("Invalid number. Please enter a number between 1 and 4.");
+                switch (choice) {
+                    case 1: return "Elf";
+                    case 2: return "Orc";
+                    case 3: return "Human";
+                    case 4: return "Dwarf";
+                    default:
+                        System.out.println("Invalid number. Please enter a number between 1 and 4.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number between 1 and 4.");
+                scanner.nextLine();
             }
-        } else {
-            System.out.println("Invalid input. Please enter a number between 1 and 4.");
-            scanner.nextLine();
         }
     }
-}
-
 
     public static int getClan() {
         Scanner scanner = new Scanner(System.in);
@@ -176,7 +156,6 @@ public static void generateDungeons(Character player, int difficulty, int steps)
                 System.out.println("Invalid input. Please enter a number between 1 and 4.");
                 scanner.nextLine();
             }
-
         }
     }
 
@@ -190,13 +169,9 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         };
     }
 
-    public static void newEquipmentSet(Character player) {
-
-    }
-
     public static int rest(Character player, int difficulty) {
         player.health = player.maxHealth;
-        player.specialAbLeft = player.specialAbMax;
+        player.abilityPointsLeft = player.abilityPointsMax;
         player.damage = player.maxDamage;
         player.characterRest();
 
@@ -211,7 +186,6 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         System.out.println("After relaxing by the crackling logs,");
         System.out.println("and watching the embers fly up,");
         System.out.println("you discover a chest filled with treasure,");
-        //System.out.println("and several brand spanking new sets of armour and weapons.");
         Equipment.unlockTwoRandomEquipments();
         
         System.out.println("");
@@ -220,7 +194,6 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         System.out.println("Gold found: $" + gold);
         System.out.println("Your current amount of gold: $" + player.gold);
         
-        //to do: add armour sets and let player choose between armour.
         System.out.println("");
         System.out.println("========");
         System.out.println("Would you like to continue on to the next dungeon?");
@@ -268,11 +241,12 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         return choice;
     }
 
-    //recursive function to play the game
     public static void gameDriver(Character player, Dungeon room, int difficulty) {
+        //recursive function to play the game
         if (room == null) {
             if (endlessMode == true) {
                 System.out.println("Stage: " + difficulty + " of INFINITY complete.");
+                // restarts game 
                 generateDungeons(player, difficulty++, difficulty + 2);
             } else {
                 gameWon(player);
@@ -280,12 +254,17 @@ public static void generateDungeons(Character player, int difficulty, int steps)
             }        
         }
 
-        if (player.killcount > 0 && !player.isFleeing) {
+        /* If player is new to the game (and has no kills)
+         * they should not be "resting", if they aren't
+         * AND if they aren't fleeing from combat
+         * they rest before moving onto the next dungeon.
+         */
+
+        if (player.killCount > 0 && !player.isFleeing) 
             if (rest(player, difficulty) == 1)
                 return;
-        }
-            
 
+        // If the player defeats the dungeon, recursively call this function.
         if (room.defeatDungeon(player)) {
             gameDriver(player, room.next, difficulty);
             player.isFleeing = false;
@@ -302,7 +281,12 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         int clan = getClan();
         Character player = create(clan);
 
+        /* difficulty + 2 is to determine how many dungeons are created.
+         * 4 dungeons if difficulty "2" or "normal" is picked.
+         * This scales with difficulty.
+         */
 
-        generateDungeons(player, difficulty, difficulty + 2);
+        int numDungeons = difficulty + 2;
+        generateDungeons(player, difficulty, numDungeons);
     }
 }

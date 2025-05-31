@@ -21,9 +21,9 @@ public class Engineer extends Character {
         maxDamage = damage;
 
         wallHealth = 0;
-        killcount = 0;
-        specialAbLeft = 3;
-        specialAbMax = specialAbLeft;
+        killCount = 0;
+        abilityPointsLeft = 3;
+        abilityPointsMax = abilityPointsLeft;
         numAttack = 0;
 
         RRBuilt = false;
@@ -33,22 +33,22 @@ public class Engineer extends Character {
         isFleeing = false;
     }
 
-    public Engineer(String race, int health, int damage, int intelligence, int initiative, String name) {
+    public Engineer(String race, int health, int damage, String name) {
         this.race = race;
         this.health = health;
         this.damage = damage;
-        this.intelligence = intelligence;
         this.initiative = 5;
         this.name = name;
 
-        specialAbLeft = 3;
-        specialAbMax = specialAbLeft;
+        abilityPointsLeft = 3;
+        abilityPointsMax = abilityPointsLeft;
         maxHealth = health;
         maxDamage = damage;
         wallHealth = 0;
-        killcount = 0;
+        killCount = 0;
         numAttack = 0;
 
+        intelligence = 5;
         RRBuilt = false;
         wallBuilt = false;
         trackerBuilt = false;
@@ -60,6 +60,7 @@ public class Engineer extends Character {
     void genChoices(Character target) {
         numAttack++;
 
+        //On first attack, NPC will always build instead of attacking.
         if (numAttack == 1) {
             if (target instanceof Barbarian)
                 buildWall(target);
@@ -76,6 +77,7 @@ public class Engineer extends Character {
             return;
         }
 
+        // From second attack onwards, NPC will either attack, or build Power-Core (which can stack effects, unlike other buildings).
         int choice = (int)(Math.random() * 3) + 1;
         if (choice == 1)
             buildPC(target);
@@ -117,9 +119,10 @@ public class Engineer extends Character {
     }
 
     void buildRoboRogue(Character target) {
-        if (!RRBuilt && specialAbLeft > 0) {
-            specialAbLeft--;
+        if (!RRBuilt && abilityPointsLeft > 0) {
+            abilityPointsLeft--;
             RRBuilt = true;
+
             System.out.println(name + " built a RoboRogue.");
             if (target instanceof Mage) {
                 Mage mage = (Mage) target;
@@ -132,11 +135,11 @@ public class Engineer extends Character {
     }
 
     void buildTracker(Character target) {
-        if (!trackerBuilt && specialAbLeft > 0) {
-            specialAbLeft--;
+        if (!trackerBuilt && abilityPointsLeft > 0) {
+            abilityPointsLeft--;
             trackerBuilt = true;
-            System.out.println(name + " built a Tracker.");
 
+            System.out.println(name + " built a Tracker.");
             if (target instanceof Rogue) {
                 Rogue rog = (Rogue) target;
                 trackRogue(rog);
@@ -148,10 +151,11 @@ public class Engineer extends Character {
     }
 
     void buildPC(Character target) {
-        if (specialAbLeft > 0) {
-            specialAbLeft--;
+        if (abilityPointsLeft > 0) {
+            abilityPointsLeft--;
             PCBuilt = true;
-            System.out.println(name + " built a Power Core.");
+
+            System.out.println(name + " built a Power-Core.");
             damage += 10;
             maxDamage += 5;
         } else {
@@ -161,10 +165,11 @@ public class Engineer extends Character {
     }
 
     void buildWall(Character target) {
-        if (!wallBuilt && specialAbLeft > 0) {
-            specialAbLeft--;
+        if (!wallBuilt && abilityPointsLeft > 0) {
+            abilityPointsLeft--;
             wallBuilt = true;
             wallHealth = 150;
+
             System.out.println(name + " built a wall with " + wallHealth + " HP");
         } else {
             System.out.println(name + " already built a Wall or out of Ability points, attacking normally instead");
@@ -174,6 +179,7 @@ public class Engineer extends Character {
 
     @Override
     void characterRest() {
+        // Rest in between dungeons
         RRBuilt = false;
         trackerBuilt = false;
         wallBuilt = false;
@@ -215,7 +221,7 @@ public class Engineer extends Character {
     void attackRogue(Rogue rog) {
         trackRogue(rog);
 
-        if (!rog.isInvisible || trackerBuilt) { // if no tracker is built, rogue is still invisible 
+        if (!rog.isInvisible || trackerBuilt) { 
             System.out.println(name + " attacked " + rog.name + " for " + damage + " points");      
             rog.takeDamage(damage);
         } else {

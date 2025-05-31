@@ -2,12 +2,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
 public class Mage extends Character {
     boolean hasSpellBook;
     ArrayList<String> spells;
     
-
     public Mage(String race, String name) {
 		this.race = race;
 		this.name = name;
@@ -21,24 +19,24 @@ public class Mage extends Character {
         maxDamage = damage;
 
         hasSpellBook = true;
-        killcount = 0;
-        specialAbLeft = 7;
-        specialAbMax = specialAbLeft;
-        killcount = 0;
+        abilityPointsLeft = 7;
+        abilityPointsMax = abilityPointsLeft;
+        killCount = 0;
         isFleeing = false;
 	}
 
-    public Mage(String race, int health, int damage, int intelligence, int initiative, String name) {
+    public Mage(String race, int health, int damage, String name) {
         this.race = race;
         this.name = name;
         this.health = health;
         this.damage = damage;
-        this.intelligence = intelligence;
         this.initiative = 10;
 
-        specialAbLeft = 7;
-        specialAbMax = specialAbLeft;
+        intelligence = 5;
+        abilityPointsLeft = 7;
+        abilityPointsMax = abilityPointsLeft;
         maxHealth = health;
+        killCount = 0;
         maxDamage = damage;
         hasSpellBook = true;
         isFleeing = false;
@@ -48,6 +46,7 @@ public class Mage extends Character {
     public void genChoices(Character target) {
         int choice = (int)(Math.random() * 5) + 1;
 
+        // "2" is to heal. If NPC chooses 2 while on max health, re-gen choice.
         if (choice == 2 && health == maxHealth) {
             genChoices(target); 
             return;
@@ -58,12 +57,11 @@ public class Mage extends Character {
 
         if (choice == 5)
             attack(target);
-
     }
 
     @Override
     public void specialAbility(Character target) {
-        if (specialAbLeft < 1) {
+        if (abilityPointsLeft < 1) {
             System.out.println("Too tired to use special abilities.");
             System.out.println("Attacking normally instead.");
             attack(target);
@@ -81,17 +79,16 @@ public class Mage extends Character {
         int choice = scanner.nextInt();   
         useAbility(target, choice);
     }
-
     
     void useAbility(Character target, int choice) {
-        if (specialAbLeft < 1 || !hasSpellBook) {
+        if (abilityPointsLeft < 1 || !hasSpellBook) {
             System.out.println("Too tired to use special abilities or does not have spell book.");
             System.out.println("Attacking normally instead.");
             attack(target);
             return;
         }
 
-        specialAbLeft--;
+        abilityPointsLeft--;
         
         switch (choice) {
             case 1:   
@@ -113,13 +110,15 @@ public class Mage extends Character {
 
     void poisonSpell(Character target) {
         System.out.println(name + " casts Poison Spell!");
+
         if (target instanceof Barbarian) {
             Barbarian bar = (Barbarian) target;
+
             if (bar.isRaging) {
                 bar.enterBlindedRampage();
                 System.out.println(target.name + " enters a Blinded Rampage!");
             } else {
-                if (bar.damage > 10) { // to prevent going into the negatives and healing enemies 
+                if (bar.damage > 10) { // To prevent going into the negatives and healing enemies 
                     bar.damage -= 10;
                 } else {
                     bar.damage = 1;
@@ -128,7 +127,7 @@ public class Mage extends Character {
             }
         } else {
             if (!isInvisible(target)) {
-                if (target.damage > 10) { // to prevent going into the negatives and healing enemies 
+                if (target.damage > 10) { // To prevent going into the negatives and healing enemies 
                     target.damage -= 10;
                 } else {
                     target.damage = 1;
@@ -144,32 +143,40 @@ public class Mage extends Character {
         System.out.println("Mage casts Heal Spell");
         Random rand = new Random();
         int potentialHeal = rand.nextInt(90) + 30; // 30-90
+
+        // Ensures you don't go over maxHealth 
         int healed = Math.min(potentialHeal, maxHealth - health);
         health += healed;
         System.out.println(name + " heals for " + healed + ". Current HP:"  + health);
     }
 
     void attackBoostSpell() {
+        /* Damage gets reset to maxDamage during rest state between dungeons.
+         * So this permanently increases damage by 5 for entire game.
+         * Increases damage by 10 for the duration of just this dungeon.
+         */
+
         damage += 10;
-        maxDamage += 5; // damage gets reset to maxDamage during rest state
+        maxDamage += 5; 
         System.out.println(name + " boosted their damage to " + damage);
     }
 
     void unstableSpell(Character target) {
         Random rand = new Random();
-        int damageToEnemy = rand.nextInt(61) + 30; //30-90
-        int damageToSelf = rand.nextInt(21) + 10; //10-30
+        int damageToEnemy = rand.nextInt(61) + 30; // 30-90
+        int damageToSelf = rand.nextInt(21) + 10; // 10-30
 
         System.out.println(name + " casts Unstable Spell!");
-        System.out.println("Deals: " + damageToEnemy + " to " + target.name + " and " + damageToSelf + " to self.");
 
         if (!isInvisible(target)) {
             target.takeDamage(damageToEnemy);
+            System.out.println("Deals: " + damageToEnemy + " to " + target.name + " and " + damageToSelf + " to self.");
         } else {
-            System.out.println(target.name + " is invisible and cannot be attacked!");
+            System.out.println(target.name + " is invisible and was not attacked!");
+            System.out.println(name + " takes " + damageToSelf + " damage to self.");
         }
         
-        this.takeDamage(damageToSelf);
+        takeDamage(damageToSelf);
 
         if (health <= 0) {
             System.out.println(name + ": 'Oops!'");
@@ -199,6 +206,7 @@ public class Mage extends Character {
 
     @Override
     void characterRest() {
+        // Rest in between dungeons
         regainSpellBook();
     }
 
