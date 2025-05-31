@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Mage extends Character {
     boolean hasSpellBook;
     ArrayList<String> spells;
-    int maxHealth;
     boolean attackBoostActive;
     
 
@@ -190,14 +189,19 @@ public class Mage extends Character {
 
     }
 
+    @Override
+    void characterRest() {
+        regainSpellBook();
+    }
+
     void loseSpellBook() {
         hasSpellBook = false;
-        System.out.println("Mage's spellbook has been stolen!");
+        System.out.println(name + "'s spellbook has been stolen!");
     }
     
     void regainSpellBook() {
         hasSpellBook = true;
-        System.out.println("Mage has recovered their spellbook!");
+        System.out.println(name + " has recovered their spellbook!");
     }
 
 

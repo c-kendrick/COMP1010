@@ -181,6 +181,7 @@ public static void generateDungeons(Character player, int difficulty) {
         player.health = player.maxHealth;
         player.specialAbLeft = player.specialAbMax;
         player.damage = player.maxDamage;
+        player.characterRest();
 
         System.out.println("");
         System.out.println("");
@@ -247,8 +248,10 @@ public static void generateDungeons(Character player, int difficulty) {
             }        
         }
 
-        if (room.defeatDungeon(player)) {
+        if (player.killcount > 0)
             rest(player, difficulty);
+
+        if (room.defeatDungeon(player)) {
             gameDriver(player, room.next, difficulty);
         } else {
             gameLost(player);

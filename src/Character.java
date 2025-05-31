@@ -35,6 +35,10 @@ public class Character {
 
     }
 
+    void characterRest() {
+
+    }
+
     public void takeDamage(int damage) {
         health -= damage;
     }
