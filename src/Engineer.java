@@ -4,7 +4,6 @@ public class Engineer extends Character {
     boolean deployedDevice;
     String builtDevice;
     int wallHealth;
-    boolean powerCoreActive;
 
     public Engineer(String race, String name) {
         this.race = race;
@@ -17,7 +16,6 @@ public class Engineer extends Character {
         deployedDevice = false;
         builtDevice = "";
         wallHealth = 0;
-        powerCoreActive = false;
         killcount = 0;
         maxHealth = health;
         maxDamage = damage;
@@ -40,7 +38,6 @@ public class Engineer extends Character {
         builtDevice = "";
         wallHealth = 0;
         deployedDevice = false;
-        powerCoreActive = false;
         killcount = 0;
     }
 
@@ -96,13 +93,9 @@ public class Engineer extends Character {
                 break;
             case 4:
                 builtDevice = "POWER_CORE";
-                if (!powerCoreActive) {
-                    damage += 10;
-                    powerCoreActive = true;
-                    System.out.println("Engineer activated Power Core. Damage increases by 10.");
-                } else {
-                    System.out.println("Power Core already active.");
-                }
+                damage += 10;
+                maxDamage += 5;
+                System.out.println("Engineer activated Power Core. Damage increases by 10.");
                 deployedDevice = true;
                 break;
             default:

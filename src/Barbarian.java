@@ -50,64 +50,76 @@ public class Barbarian extends Character {
 
     }
 
-    // to do delegate each attackEngineer, attackMage etc to make it readable
     @Override
     void attack(Character target) {
-        // attacking engineer
         if (target instanceof Engineer) {
             Engineer eng = (Engineer) target;
-            
-            if (eng.deployedDevice && eng.builtDevice == "WALL" && eng.wallHealth > 0) {
-                    if (isRaging) {
-                        eng.wallHealth = 0;
-                        eng.deployedDevice = false;
-                    }
-                    eng.wallHealth -= 25;
-                    System.out.println("Wall health: 25"); // to do: make it so other clans can attack the wall too
-                    if (eng.wallHealth <= 0) {
-                        eng.deployedDevice = false;
-                        System.out.println("Wall destroyed");
-                    }
-            } else {        
-                System.out.println(name + " attacked " + eng.name + " for " + damage + " points");        
-                eng.takeDamage(damage);
-            }
+            attackEngineer(eng);
         }
 
-        // attacking rogue
         if (target instanceof Rogue) {
             Rogue rog = (Rogue) target;
-
-            if (!rog.isInvisible) {
-                System.out.println(name + " attacked " + rog.name + " for " + damage + " points");        
-                rog.takeDamage(damage);
-            } else {
-                System.out.println("Cannot attack invisible rogue!");
-            }
+            attackRogue(rog);
         }
 
-        // attacking mage
         if (target instanceof Mage) {
-            if (isBlindedRampage) {
-                // if mage is using spell
-                // chance for mage spell to double barbarian damage
-                System.out.println("Barbarian is in Blinded Rampage! 50% chance to hit Mage.");
-                if (Math.random() < 0.5) {
-                    System.out.println("Blinded Rampage hit the Mage for" + damage + " points!");
-                    target.takeDamage(damage);
-                } else {
-                    System.out.println("Blinded Rampage missed the Mage!");
-                } 
-            } else {
-                System.out.println("Barbarian attacked Mage for " + damage + " points.");
-                target.takeDamage(damage);
-            }
+            attackMage(target);
         } 
         
         if (target instanceof Barbarian) {
-            System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
+            attackBarbarian(target);
+        }
+    }
+
+    void attackEngineer(Engineer eng) {
+        if (eng.deployedDevice && eng.builtDevice == "WALL" && eng.wallHealth > 0) {
+                if (isRaging) {
+                    eng.wallHealth = 0;
+                    eng.deployedDevice = false;
+                } else {
+                    eng.wallHealth -= 25;
+                    System.out.println("Wall health: 25"); // to do: make it so other clans can attack the wall too
+                }
+                
+                if (eng.wallHealth <= 0) {
+                    eng.deployedDevice = false;
+                    System.out.println("Wall destroyed");
+                }
+        } else {        
+            System.out.println(name + " attacked " + eng.name + " for " + damage + " points");        
+            eng.takeDamage(damage);
+        }
+    }
+
+    void attackRogue(Rogue rog) {
+        if (!rog.isInvisible) {
+            System.out.println(name + " attacked " + rog.name + " for " + damage + " points");        
+            rog.takeDamage(damage);
+        } else {
+            System.out.println("Cannot attack invisible rogue!");
+        }
+    }
+
+    void attackMage(Character target) {
+        if (isBlindedRampage) {
+            // if mage is using spell
+            // chance for mage spell to double barbarian damage
+            System.out.println("Barbarian is in Blinded Rampage! 50% chance to hit Mage.");
+            if (Math.random() < 0.5) {
+                System.out.println("Blinded Rampage hit the Mage for" + damage + " points!");
+                target.takeDamage(damage);
+            } else {
+                System.out.println("Blinded Rampage missed the Mage!");
+            } 
+        } else {
+            System.out.println("Barbarian attacked Mage for " + damage + " points.");
             target.takeDamage(damage);
         }
+    }
+
+    void attackBarbarian(Character target) {
+        System.out.println(name + " attacked " + target.name + " for " + damage + " points.");
+        target.takeDamage(damage);
     }
 
     void activateRage() {
