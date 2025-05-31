@@ -234,15 +234,22 @@ public static void generateDungeons(Character player, int difficulty) {
             return;
         }
         if(choice == 3){
+            //getting rid of previous equipment effects
+            player.health -=  Equipment.stats[0];
+            player.maxHealth -= Equipment.stats[0];
+            player.damage -=  Equipment.stats[1];
+            player.maxDamage -= Equipment.stats[1];
+            player.initiative -=  Equipment.stats[3];
+
             Equipment.equip();
+            //adding new equipment effects
             player.health +=  Equipment.stats[0];
             player.maxHealth += Equipment.stats[0];
-
             player.damage +=  Equipment.stats[1];
             player.maxDamage += Equipment.stats[1];
-            
             player.initiative +=  Equipment.stats[3];
-            
+
+            System.err.println(Equipment.stats[0]);
             System.out.println("New health: " + player.health);
             System.out.println("New strength: " + player.damage);
             System.out.println("New initiative: " + player.initiative);
