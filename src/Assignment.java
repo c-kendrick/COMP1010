@@ -239,7 +239,6 @@ public static void generateDungeons(Character player, int difficulty, int steps)
         scanner.nextLine();
 
         if (choice == 1) {
-            System.out.println("Attempting to quit game");
             gameLost(player);
             return choice;
         }
