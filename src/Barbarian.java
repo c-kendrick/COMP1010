@@ -11,6 +11,7 @@ public class Barbarian extends Character {
         health = 200;
         maxHealth = health;
 		damage = 30;
+        maxDamage = damage;
         intelligence = 5 ;
         initiative = 5 ;
         isRaging = false;
@@ -26,6 +27,7 @@ public class Barbarian extends Character {
         this.health = health;
         this.maxHealth = health;
         this.damage = damage;
+        this.maxDamage = damage;
         this.intelligence = intelligence;
         this.initiative = initiative;
         this.name = name;

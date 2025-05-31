@@ -10,6 +10,7 @@ public class Rogue extends Character {
         health = 100;
         maxHealth = health;
 		damage = 15;
+        maxDamage = damage;
         intelligence = 5;
         initiative = 10;
         isInvisible = false; 
@@ -28,6 +29,7 @@ public class Rogue extends Character {
         this.intelligence = intelligence;
         this.initiative = initiative; 
         maxHealth = health;
+        maxDamage = damage;
         killcount = 0;
         specialAbLeft = 5;
         specialAbMax = specialAbLeft;

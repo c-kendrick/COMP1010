@@ -18,6 +18,7 @@ public class Mage extends Character {
         maxHealth = health;
         maxHealth = 150;
 		damage = 15;
+        maxDamage = damage;
         intelligence = 10;
         initiative = 3;
         hasSpellBook = true;
@@ -47,6 +48,7 @@ public class Mage extends Character {
         specialAbLeft = 7;
         specialAbMax = specialAbLeft;
         maxHealth = health;
+        maxDamage = damage;
         hasSpellBook = true;
         attackBoostActive = false;
         poisonUsed = false;

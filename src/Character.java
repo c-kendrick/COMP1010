@@ -1,22 +1,38 @@
 import java.util.Scanner;
 
 public class Character {
-    int gold;
-    int maxHealth;
+    String name;
+    String race;
+
     int health;
     int damage;
     int intelligence;
     int initiative;
-    String race;
-    String name;
-    Boolean isWounded;
-    Boolean isPoisoned;
-    int killcount;
-    boolean hasRaged;
+
+    int maxHealth;
+    int maxDamage;
     int specialAbLeft;
     int specialAbMax;
 
+    int gold;
+    int killcount;
+    Boolean isPoisoned;
+    boolean hasRaged;
+
     public Character() {
+        // blank constructor as we only use sub-class constructors
+    }
+
+
+    // blank functions to be overriden by sub-class
+    void attack(Character target) {
+    }
+
+    void specialAbility(Character target) {
+
+    }
+
+    void genChoices(Character target) {
 
     }
 
@@ -24,13 +40,6 @@ public class Character {
         health -= damage;
     }
 
-    
-    void attack(Character target) {
-    }
-
-    void specialAbility(Character target) {
-
-    }
 
     boolean flee(Character target) {
         int num;
@@ -63,10 +72,6 @@ public class Character {
         return true;
     }
 
-    void genChoices(Character target) {
-
-    }
-
     void getAction(Character enemy, Dungeon room, int difficulty) {
         Scanner scanner = new Scanner(System.in);
         int answer = -1;
@@ -95,12 +100,10 @@ public class Character {
 
         switch(answer) {
             case 1:
-                System.out.println("Enemy health at start of fight: " + enemy.health);
                 attack(enemy);
                 System.out.println("Enemy health now: " + enemy.health);
                 break;
             case 2:
-                System.out.println("Enemy health at start of fight: " + enemy.health);
                 specialAbility(enemy);
                 System.out.println("Enemy health now: " + enemy.health);
                 break;

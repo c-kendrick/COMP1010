@@ -20,6 +20,7 @@ public class Engineer extends Character {
         powerCoreActive = false;
         killcount = 0;
         maxHealth = health;
+        maxDamage = damage;
         specialAbLeft = 1000;
         specialAbMax = specialAbLeft;
     }
@@ -35,6 +36,7 @@ public class Engineer extends Character {
         specialAbLeft = 1000;
         specialAbMax = specialAbLeft;
         maxHealth = health;
+        maxDamage = damage;
         builtDevice = "";
         wallHealth = 0;
         deployedDevice = false;

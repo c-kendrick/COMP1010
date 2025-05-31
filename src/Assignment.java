@@ -183,6 +183,7 @@ public static void generateDungeons(Character player, int difficulty) {
         
         player.health = player.maxHealth;
         player.specialAbLeft = player.specialAbMax;
+        player.damage = player.maxDamage;
 
         System.out.println("");
         System.out.println("");
@@ -222,9 +223,13 @@ public static void generateDungeons(Character player, int difficulty) {
         if(choice == 3){
             Equipment.equip();
             player.health +=  Equipment.stats[0];
-            player.damage +=  Equipment.stats[1];
-            player.initiative +=  Equipment.stats[3];
             player.maxHealth += Equipment.stats[0];
+
+            player.damage +=  Equipment.stats[1];
+            player.maxDamage += Equipment.stats[1];
+            
+            player.initiative +=  Equipment.stats[3];
+            
             System.err.println("New health: " + player.health);
             System.err.println("New strength: " + player.damage);
             System.err.println("New initiative: " + player.initiative);
