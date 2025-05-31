@@ -23,7 +23,6 @@ public class Character {
         // blank constructor as we only use sub-class constructors
     }
 
-
     // blank functions to be overriden by sub-class
     void attack(Character target) {
     }
@@ -43,7 +42,6 @@ public class Character {
     public void takeDamage(int damage) {
         health -= damage;
     }
-
 
     boolean flee(Character target) {
         int num;
