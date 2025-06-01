@@ -18,7 +18,6 @@ public class Engineer extends Character {
     public Engineer( Race race, int health, int damage, String name) {
         this.health = health;
         this.damage = damage;
-
         sameConstructor(race, name);
     }
 
@@ -33,7 +32,7 @@ public class Engineer extends Character {
         killCount = 0;
         abilityPointsLeft = 3;
         abilityPointsMax = abilityPointsLeft;
-        numAttack = 0;
+        numAttack = 0; 
         RRBuilt = false;
         wallBuilt = false;
         trackerBuilt = false;
