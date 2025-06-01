@@ -47,3 +47,6 @@ Helped with: design ideas
 We used inheritance to make Barbarian a subclass of Character, mainly to keep shared features like health and damage in one place. This made it easier to manage the common behaviour of different character types without repeating code. We examined other options, like composition where we would be giving Barbarian a Character object instead, but that felt like adding an extra layer we didn’t need. Barbarians aren’t just using characters, they are characters. Using just interfaces wouldn’t work either, since they can’t store shared data, and we'd end up copying the same fields into every class. 
 
 In the Dungeon class, the program stores all enemies in a single ArrayList<Character>. This keeps things simple and flexible, since it lets us treat all characters the same without worrying about their specific types. It also means we can add new types of characters later without changing how the dungeon works. If we had gone with separate lists for each class, or added type-specific logic to Dungeon, it would’ve made the code harder to manage and more repetitive.
+
+## UML Diagram
+Please see uml.drawio.png in doc folder
