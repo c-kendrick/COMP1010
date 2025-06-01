@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Engineer extends Character {
     int wallHealth;
-    boolean RRBuilt;
+    boolean rrBuilt;
     boolean wallBuilt;
     boolean trackerBuilt;
-    boolean PCBuilt;
+    boolean pcBuilt;
     int numAttack;
 
     public Engineer( Race race, String name) {
@@ -34,10 +34,10 @@ public class Engineer extends Character {
         abilityPointsLeft = 3;
         abilityPointsMax = abilityPointsLeft;
         numAttack = 0; 
-        RRBuilt = false;
+        rrBuilt = false;
         wallBuilt = false;
         trackerBuilt = false;
-        PCBuilt = false;
+        pcBuilt = false;
         isFleeing = false;
         combatBonusApplied = 0;
     }
@@ -105,14 +105,14 @@ public class Engineer extends Character {
     }
 
     void buildRoboRogue(Character target) {
-        if (!RRBuilt && abilityPointsLeft > 0) {
+        if (!rrBuilt && abilityPointsLeft > 0) {
             abilityPointsLeft--;
-            RRBuilt = true;
+            rrBuilt = true;
 
             System.out.println(name + " built a RoboRogue.");
             if (target instanceof Mage) {
                 Mage mage = (Mage) target;
-                RRSteal(mage);
+                rrSteal(mage);
             }
         } else {
             System.out.println(name + " already built a RoboRogue or out of Ability points, attacking normally instead");
@@ -139,7 +139,7 @@ public class Engineer extends Character {
     void buildPC(Character target) {
         if (abilityPointsLeft > 0) {
             abilityPointsLeft--;
-            PCBuilt = true;
+            pcBuilt = true;
 
             System.out.println(name + " built a Power-Core.");
             damage += 10;
@@ -166,10 +166,10 @@ public class Engineer extends Character {
     @Override
     void characterRest() {
         // Rest in between dungeons
-        RRBuilt = false;
+        rrBuilt = false;
         trackerBuilt = false;
         wallBuilt = false;
-        PCBuilt = false;
+        pcBuilt = false;
         System.out.println("All of your devices have been disassembled.");
     }
 
@@ -192,13 +192,13 @@ public class Engineer extends Character {
     }
 
     void attackMage(Mage mage) {
-        RRSteal(mage);
+        rrSteal(mage);
         System.out.println(name + " attacked " + mage.name + " for " + damage + " points");      
         mage.takeDamage(damage);
     }
 
-    void RRSteal(Mage mage) {
-        if (RRBuilt && mage.hasSpellBook) {
+    void rrSteal(Mage mage) {
+        if (rrBuilt && mage.hasSpellBook) {
             System.out.println("RoboRogue stole mage's spellbook!");
             mage.loseSpellBook();
         }

@@ -210,9 +210,5 @@ public class Mage extends Character {
         hasSpellBook = true;
         System.out.println(name + " has recovered their spellbook!");
     }
-
-
-
-
 }
 
