@@ -1,7 +1,7 @@
 # **Project TPOIC 1: Turn-Based RPG** 
 
 ## **What problem your application solves ** 
-This turn based RPG designed in Java lets you select your class, race and name and head into dungeons to fight enemies. You unlock equipments to make you stronger. As you play, you must adjust your playthrough to deal with scaling difficulty. There is a range of options to choose from when fighting enemies, and players must be strategic in how they use their Ability Points.
+This turn based RPG designed in Java lets you select your class, race and name and head into dungeons to fight enemies. You unlock equipments to make you stronger. As you play, you must adjust your playthrough to deal with scaling difficulty. There is a range of options on how to fight enemies, and players must be strategic in how they use their Ability Points.
 
 ## **How to run the program**
 - Use client.java to run the game.
