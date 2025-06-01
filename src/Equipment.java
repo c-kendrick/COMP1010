@@ -253,31 +253,5 @@ public class Equipment{
 
         System.out.println("Equipments found: " + first.name + " and " + second.name);
     }
-    
 
-    public static void main(String[] args) {
-        generateEquipments();
-        unlockTwoRandomEquipments();
-
-        for (int i : addedstats()) {
-            System.out.print(i + " ");
-        }
-
-        System.err.println(" ");
-        equip();
-
-        for (int i : addedstats()) {
-            System.out.print(i + " ");
-        }
-
-        System.err.println(" ");
-        //equip();
-        unlockTwoRandomEquipments();
-        for (int i : addedstats()) {
-            System.out.print(i + " ");
-        }
-        
-        System.err.println(" ");
-        readFromCSV("allEquipments.csv");
-    }
 }
