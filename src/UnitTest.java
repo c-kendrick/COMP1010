@@ -3,7 +3,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
-
     @Test
     public void testFail() {
         assertEquals(1, 2); // this should fail
@@ -20,6 +19,7 @@ public class UnitTest {
         assertEquals(4, test.type);
         assertEquals(true, test.unlocked);
     }
+
     @Test
     public void testTypename(){
         assertEquals("Helmet", Equipment.typeName(1));
@@ -27,7 +27,6 @@ public class UnitTest {
         assertEquals("Item", Equipment.typeName(3));
         assertEquals("Weapon", Equipment.typeName(4));
         assertEquals("Invalid", Equipment.typeName(5));
-
     }
 
     @Test
@@ -47,6 +46,5 @@ public class UnitTest {
         assertEquals(false,test.isBlindedRampage);
         assertEquals(false,test.isFleeing);
         assertEquals(0,test.combatBonusApplied);
-        
     }
 }

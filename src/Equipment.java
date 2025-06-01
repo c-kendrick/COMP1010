@@ -48,17 +48,16 @@ public class Equipment{
             }
         }
     }
-    
 
     //Converts Equipment to csv
-    public String EqtoCSV() {
+    public String eqToCSV() {
         return ID + "," + name + "," + health + "," + strength + "," + initiative + "," + type + "," + unlocked;
     }
 
     //Adds this Equipment to csv
     public void appendToCSV(String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(this.EqtoCSV());
+            writer.write(this.eqToCSV());
             writer.newLine();
         }
     }
@@ -97,8 +96,6 @@ public class Equipment{
         }
     }
 
-
-
     //convert type number to name ie helmet armour etc
     public static String typeName(int type) {
         if (type == 1) {
@@ -114,18 +111,13 @@ public class Equipment{
             return "Weapon";
         }
         else{
-            return "Invalid";//never actually happens, handled in constructor
+            return "Invalid"; // never actually happens, handled in constructor
         }
-       
     }
-
-
 
     public String toString() {
         return "Equipment[" + "ID:" + ID + " - Name:" + name + " | Health:" + health + " | Strength:" + strength + " | Initiative:" + initiative + " | Type:" + typeName(type) + ']';
     }
-
-
 
     //Prints all unlocked equipment
     public static void allEquipment() {
@@ -137,20 +129,16 @@ public class Equipment{
         }
     }
 
-
     //prints out equiped equipments
     public static void equiped() {
         System.out.println("All active Equipment:");
         for (Equipment Equipment : equippedItems) {
             System.out.println(Equipment);
-
         }
     }
 
-
     //calculates added stats of equiped equipments
     public static int[] addedstats() {
-        
         Arrays.fill(stats, 0);
         for (Equipment eq : equippedItems) {
             stats[0] += eq.health;
@@ -253,5 +241,4 @@ public class Equipment{
 
         System.out.println("Equipments found: " + first.name + " and " + second.name);
     }
-
 }

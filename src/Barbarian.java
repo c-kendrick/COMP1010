@@ -146,10 +146,6 @@ public class Barbarian extends Character {
             attack(target);
             deactivateRage();
         }
-
-
     }
-	
-    
 }
 
