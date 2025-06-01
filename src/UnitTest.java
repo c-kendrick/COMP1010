@@ -34,9 +34,19 @@ public class UnitTest {
     public void testCharacter() {
         Race t = new Race();
         t.setRaceName(1);
-        Barbarian test = new Barbarian(t , "testName");
+        Barbarian test = new Barbarian(t ,500, 10, "testName");
         assertEquals("Elf", test.race.raceName);
         assertEquals("testName",test.name);
+        assertEquals(0,test.initiative);
+        assertEquals(5,test.intelligence);
+        assertEquals(500,test.health);
+        assertEquals(10,test.damage);
+        assertEquals(3,test.abilityPointsLeft);
+        assertEquals(0,test.killCount);
+        assertEquals(false,test.isRaging);
+        assertEquals(false,test.isBlindedRampage);
+        assertEquals(false,test.isFleeing);
+        assertEquals(0,test.combatBonusApplied);
         
     }
 }
