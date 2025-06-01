@@ -64,6 +64,7 @@ public class Dungeon {
             System.out.println(enemyIdx + ": " + enemyList.get(i).race.getRaceName() + " " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
         }
 
+        // Dungeon loop:
         while (enemyList.size() > 0) {
             System.out.println("");
             System.out.println("You are facing " + enemyList.size() + " enemies!");
@@ -125,7 +126,7 @@ public class Dungeon {
                 return false;
             }
         }
-        
+
         // Only focusing on reversing player damage, because enemy is dead.
         if (player.combatBonusApplied == 1) {
             player.damage -=5;
