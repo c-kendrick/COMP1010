@@ -11,12 +11,11 @@ public class UnitTest {
 
     @Test
     public void testEquipment() {
-        Equipment test = new Equipment(6, "test", 10, 20, 0, 50, 4, true);
+        Equipment test = new Equipment(6, "test", 10, 20, 50, 4, true);
         assertEquals(6, test.ID);
         assertEquals("test", test.name);
         assertEquals(10, test.health);
         assertEquals(20, test.strength);
-        assertEquals(0, test.defence);
         assertEquals(50, test.initiative);
         assertEquals(4, test.type);
         assertEquals(true, test.unlocked);

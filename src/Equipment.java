@@ -1,5 +1,7 @@
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,12 +19,13 @@ public class Equipment{
     int initiative;
     int type;
     boolean unlocked;
+    boolean writeToCSV;
 
     public static ArrayList<Equipment> equipmentList = new ArrayList<>();
     private static ArrayList<Equipment> equippedItems = new ArrayList<>();
     public static int[] stats = {0, 0, 0};
 
-    public Equipment(int ID, String name, int health, int strength, int initiative, int type, boolean unlocked) {
+    public Equipment(int ID, String name, int health, int strength, int initiative, int type, boolean unlocked, boolean writeToCSV) {
         if (type < 1 || type > 4) {
             System.err.println("Type must be between 1 and 4 inclusive.");
         }
@@ -32,15 +35,20 @@ public class Equipment{
         this.strength = strength;
         this.initiative = initiative;
         this.type = type;
-        equipmentList.add(this);
         this.unlocked = unlocked;
+        
+        equipmentList.add(this);
 
-        try {
-            appendToCSV("allEquipments.csv"); 
-        } catch (IOException e) {
-            System.err.println("Error writing to CSV: " + e.getMessage());
+        if (writeToCSV) {
+            try {
+                appendToCSV("allEquipments.csv");
+                writeToCSV=false;
+            } catch (IOException e) {
+                System.err.println("Error writing to CSV: " + e.getMessage());
+            }
         }
     }
+    
 
     //Converts Equipment to csv
     public String EqtoCSV() {
@@ -54,6 +62,43 @@ public class Equipment{
             writer.newLine();
         }
     }
+
+     public static void readFromCSV(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                // Skip empty lines
+                if (line.trim().isEmpty()) continue;
+
+                String[] values = line.split(",");
+
+                if (values.length != 7) {
+                    System.err.println("Invalid line: " + line);
+                    continue;
+                }
+
+                int ID = Integer.parseInt(values[0].trim());
+                String name = values[1].trim();
+                int health = Integer.parseInt(values[2].trim());
+                int strength = Integer.parseInt(values[3].trim());
+                int initiative = Integer.parseInt(values[4].trim());
+                int type = Integer.parseInt(values[5].trim());
+                boolean unlocked = Boolean.parseBoolean(values[6].trim());
+
+               System.err.println(new Equipment(ID, name, health, strength, initiative, type, unlocked, false)); 
+            }
+            System.err.println("----------------------------------------------------------------------------------------  \n");
+            System.out.println("Those were all the available equipments. Data successfully loaded from " + fileName + "\n");
+            System.err.println("----------------------------------------------------------------------------------------  \n");
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + fileName);
+            e.printStackTrace();
+        }
+    }
+
+
+
 
     //convert type number to name ie helmet armour etc
     public static String typeName(int type) {
@@ -111,18 +156,19 @@ public class Equipment{
     
     //creates equipments - since equipments are added to allEquipment.csv at creation running this twice add these entries twice
     public static void generateEquipments(){
-        Equipment sword = new Equipment(1, "Short Sword", 0, 10,  5, 4, true);
-        Equipment shield = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true);
-        Equipment helmet = new Equipment(3, "Ordinary Cap", 5, 5, 5, 1, true);
-        Equipment armour = new Equipment(4, "Rusty Armour", 10, 0, -5,  2, true);
-        Equipment locked = new Equipment(5, "Armour of strength", 20, 10,  0, 2, false);
-        Equipment armo = new Equipment(6, "Knights Helmet", 10, 0, 5,  1, false);
-        Equipment a = new Equipment(7, "Chain-mail Armour", 15, 0, 0,  2, false);
-        Equipment b = new Equipment(8, "Life4damage gloves", -75, 80, -15,  3, false);
-        Equipment shiel = new Equipment(9, "Big Wall Shield", 50, 0,  -20, 3, false);
-        Equipment sld = new Equipment(10, "Flash Katana", 0, 20,  10, 4, false);
-        Equipment slds = new Equipment(11, "Long Sword", 0, 20,  -10, 4, false);
+        Equipment sword = new Equipment(1, "Short Sword", 0, 10,  5, 4, true,true);
+        Equipment shield = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true,true);
+        Equipment helmet = new Equipment(3, "Ordinary Cap", 5, 5, 5, 1, true,true);
+        Equipment armour = new Equipment(4, "Rusty Armour", 10, 0, -5,  2, true,true);
+        Equipment locked = new Equipment(5, "Armour of strength", 20, 10,  0, 2, false,true);
+        Equipment armo = new Equipment(6, "Knights Helmet", 10, 0, 5,  1, false,true);
+        Equipment a = new Equipment(7, "Chain-mail Armour", 15, 0, 0,  2, false,true);
+        Equipment b = new Equipment(8, "Life4damage gloves", -75, 80, -15,  3, false,true);
+        Equipment shiel = new Equipment(9, "Big Wall Shield", 50, 0,  -20, 3, false,true);
+        Equipment sld = new Equipment(10, "Flash Katana", 0, 20,  10, 4, false,true);
+        Equipment slds = new Equipment(11, "Long Sword", 0, 20,  -10, 4, false,true);
     }
+
     
     //responsible for equiping 
     public static void equip() {
@@ -134,13 +180,13 @@ public class Equipment{
 
         int equippedCount = 0;
         while (equippedCount < 4) {
-            System.out.print("Enter the ID of Equipment to equip (" + (equippedCount + 1) + "/4): ");
+            System.out.print("Enter the ID of Equipment to equip (" + (equippedCount + 1) + "/4): \n");
             int choice = 0;
             try {
                 choice = scanner.nextInt();
 
             } catch (InputMismatchException ex) {
-                System.err.println("enter a number");
+                System.err.println("enter a number ");
                 scanner.nextLine();
             }
 
@@ -223,5 +269,6 @@ public class Equipment{
         }
         
         System.err.println(" ");
+        readFromCSV("allEquipments.csv");
     }
 }
