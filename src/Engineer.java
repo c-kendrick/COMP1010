@@ -18,6 +18,7 @@ public class Engineer extends Character {
     public Engineer( Race race, int health, int damage, String name) {
         this.health = health;
         this.damage = damage;
+
         sameConstructor(race, name);
     }
 
