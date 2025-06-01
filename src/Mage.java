@@ -30,7 +30,7 @@ public class Mage extends Character {
         abilityPointsMax = abilityPointsLeft;
         killCount = 0;
         isFleeing = false;
-        combatBonusApplied = false;
+        combatBonusApplied = 0;
     }
 
     @Override

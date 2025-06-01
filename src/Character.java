@@ -18,7 +18,7 @@ public class Character {
     int killCount;
     boolean hasRaged;
     boolean isFleeing;
-    boolean combatBonusApplied;
+    int combatBonusApplied;
 
     // blank functions to be overriden by sub-class
     void attack(Character target) {

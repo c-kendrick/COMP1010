@@ -31,7 +31,7 @@ public class Rogue extends Character {
         abilityPointsMax = abilityPointsLeft;
         invisibilityStatus = 0;
         isFleeing = false;
-        combatBonusApplied = false;
+        combatBonusApplied = 0;
     }
 
     @Override

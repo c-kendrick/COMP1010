@@ -24,13 +24,12 @@ public class Barbarian extends Character {
         maxHealth = health;
         maxDamage = damage;
         abilityPointsLeft = 3;
-        killCount = 0;
         abilityPointsMax = abilityPointsLeft;
         killCount = 0;
         isRaging = false;
         isBlindedRampage = false;
         isFleeing = false;
-        combatBonusApplied = false;
+        combatBonusApplied = 0;
     }
 
     @Override

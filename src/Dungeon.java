@@ -89,6 +89,21 @@ public class Dungeon {
         System.out.println("You are facing a " + enemy.race.getRaceName() + " " + enemy.getClass().getSimpleName());
         System.out.println("HP: " + enemy.health + ", Strength: " + enemy.damage);
 
+        player.combatBonusApplied = player.race.compareRace(enemy);
+
+        switch (player.combatBonusApplied) {
+            case 1:
+                combatAdvantage(player);
+                break;
+            case 0:
+                System.out.println("Your combat effectiveness is neutral.");
+                break;
+            case -1:
+                combatAdvantage(enemy);
+                break;
+        }
+
+        // Combat loop:
         while (enemy.health > 0) {
             player.getAction(enemy, this, difficulty);
 
@@ -110,6 +125,18 @@ public class Dungeon {
                 return false;
             }
         }
+        
+        // Only focusing on reversing player damage, because enemy is dead.
+        if (player.combatBonusApplied == 1) {
+            player.damage -=5;
+            player.combatBonusApplied = 0;
+        }
+
         return true;
+    }
+
+    void combatAdvantage(Character target) {
+        target.damage += 5;
+        System.out.println(target.name + " damage increased by 5");
     }
 }

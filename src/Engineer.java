@@ -39,7 +39,7 @@ public class Engineer extends Character {
         trackerBuilt = false;
         PCBuilt = false;
         isFleeing = false;
-        combatBonusApplied = false;
+        combatBonusApplied = 0;
     }
 
     @Override
