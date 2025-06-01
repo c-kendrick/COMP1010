@@ -79,11 +79,12 @@ public class Race {
         return 0; // neutral by default, neither combatant has natural strength over the other
     }
 
+    // Pokemon style advantage system.
     private boolean isStrongAgainst(String self, String enemy) {
-        return (self.equals("Elf") && enemy.equals("Orc")) ||
-               (self.equals("Orc") && enemy.equals("Human")) ||
-               (self.equals("Human") && enemy.equals("Dwarf")) ||
-               (self.equals("Dwarf") && enemy.equals("Elf"));
+        return (self.equals("Elf") && enemy.equals("Orc")) ||  // Elf has advantage over Orc
+            (self.equals("Orc") && enemy.equals("Human")) ||   // Orc ... Human
+            (self.equals("Human") && enemy.equals("Dwarf")) || // Human ... Dwarf
+            (self.equals("Dwarf") && enemy.equals("Elf"));     // Dwarf ... Elf
     }
 
     private boolean isWeakAgainst(String self, String enemy) {
