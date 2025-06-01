@@ -59,6 +59,7 @@ public class Equipment{
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             writer.write(this.eqToCSV());
             writer.newLine();
+            writer.close();
         }
     }
     //reads from csv
