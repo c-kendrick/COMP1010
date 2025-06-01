@@ -1,6 +1,6 @@
 import java.util.Scanner;
     
-public class Assignment {
+public class Client {
     static boolean endlessMode = false;
 
     public static void gameWon(Character player) {

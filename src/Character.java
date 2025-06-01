@@ -131,6 +131,6 @@ public class Character {
 
         // Repopulates the room you fleed from with new enemies.
         room.populate();
-        Assignment.gameDriver(this, room, difficulty);
+        Client.gameDriver(this, room, difficulty);
     }
 }
