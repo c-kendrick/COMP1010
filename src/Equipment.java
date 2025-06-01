@@ -42,7 +42,7 @@ public class Equipment{
         //checks if writeTOCSV is true, later on in generateEquipment its set to true, but in readFromCSV its set to false to avoid duplication.
         if (writeToCSV) {
             try {
-                appendToCSV("allEquipments.csv");
+                appendToCSV("allEquipments.csv");//allEquipments.csv  src\allEquipments.csv
             } catch (IOException e) {
                 System.err.println("Error writing to CSV: " + e.getMessage());
             }
@@ -153,17 +153,17 @@ public class Equipment{
     //creates equipments - since equipments are added to allEquipment.csv at creation running this twice add these entries twice
     public static void generateEquipments(){
         //feel free to add equipments here, ID needs to be distict.
-        Equipment sword = new Equipment(1, "Short Sword", 0, 10,  5, 4, true,true);
-        Equipment shield = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true,true);
-        Equipment helmet = new Equipment(3, "Ordinary Cap", 5, 5, 5, 1, true,true);
-        Equipment armour = new Equipment(4, "Rusty Armour", 10, 0, -5,  2, true,true);
-        Equipment locked = new Equipment(5, "Armour of strength", 20, 10,  0, 2, false,true);
-        Equipment armo = new Equipment(6, "Knights Helmet", 10, 0, 5,  1, false,true);
-        Equipment a = new Equipment(7, "Chain-mail Armour", 15, 0, 0,  2, false,true);
-        Equipment b = new Equipment(8, "Life4damage gloves", -75, 80, -15,  3, false,true);
-        Equipment shiel = new Equipment(9, "Big Wall Shield", 50, 0,  -20, 3, false,true);
-        Equipment sld = new Equipment(10, "Flash Katana", 0, 20,  10, 4, false,true);
-        Equipment slds = new Equipment(11, "Long Sword", 0, 20,  -10, 4, false,true);
+        Equipment swordA = new Equipment(1, "Short Sword", 0, 10,  5, 4, true,true);
+        Equipment ItemA = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true,true);
+        Equipment helmetA = new Equipment(3, "Ordinary Cap", 5, 5, 5, 1, true,true);
+        Equipment armourA = new Equipment(4, "Rusty Armour", 10, 0, -5,  2, true,true);
+        Equipment armourB = new Equipment(5, "Armour of strength", 20, 10,  0, 2, false,true);
+        Equipment helmetB = new Equipment(6, "Knights Helmet", 10, 0, 5,  1, false,true);
+        Equipment armourC = new Equipment(7, "Chain-mail Armour", 15, 0, 0,  2, false,true);
+        Equipment itemB = new Equipment(8, "Life4damage gloves", -75, 80, -15,  3, false,true);
+        Equipment itemC = new Equipment(9, "Big Wall Shield", 50, 0,  -20, 3, false,true);
+        Equipment swordB = new Equipment(10, "Flash Katana", 0, 20,  10, 4, false,true);
+        Equipment swordC = new Equipment(11, "Long Sword", 0, 20,  -10, 4, false,true);
     }
 
     
