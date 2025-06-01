@@ -19,7 +19,7 @@ public class Equipment{
     int initiative;
     int type;
     boolean unlocked;
-    boolean writeToCSV;
+    boolean writeToCSV;//to avoid duplication in csv
 
     public static ArrayList<Equipment> equipmentList = new ArrayList<>();
     private static ArrayList<Equipment> equippedItems = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Equipment{
 
     public Equipment(int ID, String name, int health, int strength, int initiative, int type, boolean unlocked, boolean writeToCSV) {
         if (type < 1 || type > 4) {
-            System.err.println("Type must be between 1 and 4 inclusive.");
+            throw new IllegalArgumentException("Type must be between 1 and 4 inclusive.");
         }
         this.ID = ID;
         this.name = name;
@@ -39,10 +39,10 @@ public class Equipment{
         
         equipmentList.add(this);
 
+        //checks if writeTOCSV is true, later on in generateEquipment its set to true, but in readFromCSV its set to false to avoid duplication.
         if (writeToCSV) {
             try {
                 appendToCSV("allEquipments.csv");
-                writeToCSV=false;
             } catch (IOException e) {
                 System.err.println("Error writing to CSV: " + e.getMessage());
             }
@@ -62,17 +62,17 @@ public class Equipment{
             writer.newLine();
         }
     }
-
+    //reads from csv
      public static void readFromCSV(String fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-
+            // Stops if it finds a null line
             while ((line = reader.readLine()) != null) {
-                // Skip empty lines
+                // skips lines that are just spaces
                 if (line.trim().isEmpty()) continue;
 
                 String[] values = line.split(",");
-
+                //Equipments need 7 parameters to contruct
                 if (values.length != 7) {
                     System.err.println("Invalid line: " + line);
                     continue;
@@ -86,7 +86,7 @@ public class Equipment{
                 int type = Integer.parseInt(values[5].trim());
                 boolean unlocked = Boolean.parseBoolean(values[6].trim());
 
-               System.err.println(new Equipment(ID, name, health, strength, initiative, type, unlocked, false)); 
+               System.err.println(new Equipment(ID, name, health, strength, initiative, type, unlocked, false));//sets writeToCSV false so it doesnt write to CSV again 
             }
             System.err.println("----------------------------------------------------------------------------------------  \n");
             System.out.println("Those were all the available equipments. Data successfully loaded from " + fileName + "\n");
@@ -99,28 +99,32 @@ public class Equipment{
 
 
 
-
     //convert type number to name ie helmet armour etc
     public static String typeName(int type) {
-        String typeName = "";
         if (type == 1) {
-            typeName = "Helmet";
+            return "Helmet";
         }
         if (type == 2) {
-            typeName = "Armour";
+            return "Armour";
         }
         if (type == 3) {
-            typeName = "Item";
+            return "Item";
         }
         if (type == 4) {
-            typeName = "Weapon";
+            return "Weapon";
         }
-        return typeName;
+        else{
+            return "Invalid";//never actually happens, handled in constructor
+        }
+       
     }
+
+
 
     public String toString() {
         return "Equipment[" + "ID:" + ID + " - Name:" + name + " | Health:" + health + " | Strength:" + strength + " | Initiative:" + initiative + " | Type:" + typeName(type) + ']';
     }
+
 
 
     //Prints all unlocked equipment
@@ -133,6 +137,7 @@ public class Equipment{
         }
     }
 
+
     //prints out equiped equipments
     public static void equiped() {
         System.out.println("All active Equipment:");
@@ -141,6 +146,7 @@ public class Equipment{
 
         }
     }
+
 
     //calculates added stats of equiped equipments
     public static int[] addedstats() {
@@ -154,8 +160,10 @@ public class Equipment{
         return stats;
     }
     
+
     //creates equipments - since equipments are added to allEquipment.csv at creation running this twice add these entries twice
     public static void generateEquipments(){
+        //feel free to add equipments here, ID needs to be distict.
         Equipment sword = new Equipment(1, "Short Sword", 0, 10,  5, 4, true,true);
         Equipment shield = new Equipment(2, "Wooden Shield", 10, 0,  0, 3, true,true);
         Equipment helmet = new Equipment(3, "Ordinary Cap", 5, 5, 5, 1, true,true);
@@ -245,6 +253,7 @@ public class Equipment{
 
         System.out.println("Equipments found: " + first.name + " and " + second.name);
     }
+    
 
     public static void main(String[] args) {
         generateEquipments();

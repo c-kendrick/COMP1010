@@ -11,7 +11,7 @@ public class UnitTest {
 
     @Test
     public void testEquipment() {
-        Equipment test = new Equipment(6, "test", 10, 20, 50, 4, true);
+        Equipment test = new Equipment(6, "test", 10, 20, 50, 4, true, false);
         assertEquals(6, test.ID);
         assertEquals("test", test.name);
         assertEquals(10, test.health);
@@ -23,11 +23,20 @@ public class UnitTest {
     @Test
     public void testTypename(){
         assertEquals("Helmet", Equipment.typeName(1));
+        assertEquals("Armour", Equipment.typeName(2));
+        assertEquals("Item", Equipment.typeName(3));
+        assertEquals("Weapon", Equipment.typeName(4));
+        assertEquals("Invalid", Equipment.typeName(5));
+
     }
 
     @Test
     public void testCharacter() {
-        Character test = Assignment.create(3, "elf");
-        assertEquals("elf", test.race);
+        Race t = new Race();
+        t.setRaceName(1);
+        Barbarian test = new Barbarian(t , "testName");
+        assertEquals("Elf", test.race.raceName);
+        assertEquals("testName",test.name);
+        
     }
 }

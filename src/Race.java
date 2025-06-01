@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Race {
-    private String raceName;
+    public String raceName;
 
     public Race() {
         raceName = "";
