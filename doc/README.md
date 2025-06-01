@@ -26,7 +26,7 @@ During combat, the player must choose their action. They can either attack norma
 
 After you beat a dungeon you get gold and new equipments and you get to rest, which restores your Health Points (HP), Ability Points (AP), and damage all to max. Some of the clans also have their own special rests (e.g. Mage regains any lost books, Engineer's built devices are dissassembled). While at rest you have 3 choices - exit game, go to next dungeon or equip your new equipments, done by equip(), this shows your unlocked equipments and asks you to type in the ID of your desired equipment. It then aggregates the stats of your 4 selected equipments and adds it to your character. 
 
-Everything related to equipments is in Equipment.java. generateEquipments(), the function called at the very beginning to create new equipments, has a side effect. Creating equipments using its contructor like how this function does writes the Equipment into allEquipment.csv, this file is read out and print at the end of the game. 
+Everything related to equipments is in Equipment.java. generateEquipments(), the function called at the very beginning to create new equipments, also has a side effect of writting on the CSV file. Creating equipments using its contructor, like how generateEquipments() does, writes the Equipment into allEquipment.csv, using the appendToCSV function, the CSV file is then loaded and printed out at the end of the game. 
 
 ## Task Allocation
 Chris: 27.5%
