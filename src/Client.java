@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
     
 public class Client {
@@ -256,6 +257,7 @@ public class Client {
     }
 
     public static void main(String[] args) {
+        System.out.println(new File("majorAssignmentTopic[1]/allEquipments.csv").getAbsolutePath());
         Equipment.generateEquipments();
         int difficulty = getDifficulty();
         int clan = getClan();
