@@ -4,11 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class UnitTest {
     @Test
-    public void testFail() {
-        assertEquals(1, 2); // this should fail
-    }
-
-    @Test
     public void testEquipment() {
         Equipment test = new Equipment(6, "test", 10, 20, 50, 4, true, false);
         assertEquals(6, test.ID);
