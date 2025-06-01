@@ -267,5 +267,6 @@ public class Assignment {
 
         int numDungeons = difficulty + 2;
         generateDungeons(player, difficulty, numDungeons);
+        Equipment.readFromCSV("allEquipments.csv");
     }
 }
