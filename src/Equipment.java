@@ -121,7 +121,7 @@ public class Equipment{
 
     //Prints all unlocked equipment
     public static void allEquipment() {
-        System.out.println("All unlocked Equipment:");
+        System.out.println("\n All unlocked Equipment: \n");
         for (Equipment Equipment : equipmentList) {
             if (Equipment.unlocked == true) {
                 System.out.println(Equipment);
@@ -138,14 +138,14 @@ public class Equipment{
     }
 
     //calculates added stats of equiped equipments
-    public static int[] addedstats() {
+    public static void addedstats() {
         Arrays.fill(stats, 0);
         for (Equipment eq : equippedItems) {
             stats[0] += eq.health;
             stats[1] += eq.strength;
             stats[2] += eq.initiative;
         }
-        return stats;
+        //return stats;
     }
     
 

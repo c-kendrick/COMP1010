@@ -197,6 +197,7 @@ public class Client {
 
         if (choice == 2){
             //getting rid of previous equipment effects
+            int[] old = {player.health, player.damage, player.initiative};
             player.health -=  Equipment.stats[0];
             player.maxHealth -= Equipment.stats[0];
             player.damage -=  Equipment.stats[1];
@@ -210,11 +211,11 @@ public class Client {
             player.damage +=  Equipment.stats[1];
             player.maxDamage += Equipment.stats[1];
             player.initiative +=  Equipment.stats[2];
-
-            System.err.println(Equipment.stats[0]);
-            System.out.println("New health: " + player.health);
-            System.out.println("New strength: " + player.damage);
-            System.out.println("New initiative: " + player.initiative);
+            //prints out old stats and new stats
+            System.err.println(" ");
+            System.out.println("Old health: " + old[0] + "  >>>  New health: " + player.health);
+            System.out.println("Old strength: " + old[1] + "  >>>  New strength: " + player.damage);
+            System.out.println("Old initiative: " + old[2] +"  >>>  New initiative: " + player.initiative);
         }
 
         return choice;
