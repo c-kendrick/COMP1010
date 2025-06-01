@@ -2,43 +2,35 @@ public class Barbarian extends Character {
     boolean isRaging;
     boolean isBlindedRampage;
 
-	public Barbarian(String race, String name) {
-		this.race = race;
-        this.name = name;
-
+	public Barbarian(Race race, String name) {
         health = 200;
 		damage = 30;
-        intelligence = 5;
-        initiative = 0;
-
-        maxHealth = 200;
-        maxDamage = damage;
-
-        isRaging = false;
-        isBlindedRampage = false;
-        killCount = 0;
-        abilityPointsLeft = 3;
-        abilityPointsMax = abilityPointsLeft;
-        isFleeing = false;
+        
+        sameConstructor(race, name);
 	}
 
-    public Barbarian(String race, int health, int damage, String name) {
-        this.race = race;
+    public Barbarian(Race race, int health, int damage, String name) {
         this.health = health;
         this.damage = damage;
-        this.initiative = 0;
+
+        sameConstructor(race, name);
+    }
+
+    public void sameConstructor(Race race, String name) {
+        this.race = race;
         this.name = name;
-
-        this.maxHealth = health;
-        this.maxDamage = damage;
-
+        initiative = 0;
         intelligence = 5;
+        maxHealth = health;
+        maxDamage = damage;
         abilityPointsLeft = 3;
+        killCount = 0;
         abilityPointsMax = abilityPointsLeft;
         killCount = 0;
         isRaging = false;
         isBlindedRampage = false;
         isFleeing = false;
+        combatBonusApplied = false;
     }
 
     @Override

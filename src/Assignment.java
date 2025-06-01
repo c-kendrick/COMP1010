@@ -28,7 +28,9 @@ public class Assignment {
         int choice = -1;
 
         while (true) {
+            System.out.println("");
             System.out.println("Choose difficulty:");
+            System.out.println("");
             System.out.println("1. Endless (Normal)");
             System.out.println("");
             System.out.println("-----------");
@@ -36,6 +38,9 @@ public class Assignment {
             System.out.println("-----------");
             System.out.println("");
             System.out.println("3. Hard");
+            System.out.println("");
+            System.out.println("Type the number (1, 2, or 3) and hit enter.");
+            System.out.println("");
 
             if (scanner.hasNextInt()) {
                 choice = scanner.nextInt();
@@ -94,41 +99,11 @@ public class Assignment {
         
         System.out.println("Hey, you! You're finally awake.");
         System.out.println("What is your name?");
+        System.out.println("(Type in your name and hit enter).");
+        System.out.println("");
         String name = scanner.nextLine();
 
         return name;
-    }
-
-    public static String getRace() {
-        Scanner scanner = new Scanner(System.in);
-        int choice = -1;
-
-        while (true) {
-            System.out.println("What is your race?");
-            System.out.println("Please choose from the following options:");
-            System.out.println("1. Elf");
-            System.out.println("2. Orc");
-            System.out.println("3. Human");
-            System.out.println("4. Dwarf");
-            System.out.println("");
-
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine();
-
-                switch (choice) {
-                    case 1: return "Elf";
-                    case 2: return "Orc";
-                    case 3: return "Human";
-                    case 4: return "Dwarf";
-                    default:
-                        System.out.println("Invalid number. Please enter a number between 1 and 4.");
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a number between 1 and 4.");
-                scanner.nextLine();
-            }
-        }
     }
 
     public static int getClan() {
@@ -137,6 +112,7 @@ public class Assignment {
 
         while (true) {
             System.out.println("What is your class?");
+            System.out.println("");
             System.out.println("1. Barbarian?");
             System.out.println("2. Rogue?");
             System.out.println("3. Mage?");;
@@ -160,11 +136,14 @@ public class Assignment {
     }
 
     public static Character create(int answer) {
+        Race newRace = new Race();
+        newRace.askRace();
+
         return switch(answer) {
-            case 1 -> new Barbarian(getRace(), getName());
-            case 2 -> new Rogue(getRace(), getName());
-            case 3 -> new Mage(getRace(), getName());
-            case 4 -> new Engineer(getRace(), getName());
+            case 1 -> new Barbarian(newRace, getName());
+            case 2 -> new Rogue(newRace, getName());
+            case 3 -> new Mage(newRace, getName());
+            case 4 -> new Engineer(newRace, getName());
             default -> throw new IllegalArgumentException("Unknown choice");
         };
     }

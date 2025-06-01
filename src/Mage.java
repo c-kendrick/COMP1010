@@ -1,45 +1,36 @@
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Mage extends Character {
     boolean hasSpellBook;
-    ArrayList<String> spells;
     
-    public Mage(String race, String name) {
-		this.race = race;
-		this.name = name;
-
+    public Mage(Race race, String name) {
 		health = 100;
 		damage = 5;
-        intelligence = 15;
-        initiative = 10;
 
-        maxHealth = health;
-        maxDamage = damage;
-
-        hasSpellBook = true;
-        abilityPointsLeft = 7;
-        abilityPointsMax = abilityPointsLeft;
-        killCount = 0;
-        isFleeing = false;
+        sameConstructor(race, name);
 	}
 
-    public Mage(String race, int health, int damage, String name) {
-        this.race = race;
-        this.name = name;
+    public Mage(Race race, int health, int damage, String name) {
         this.health = health;
         this.damage = damage;
-        this.initiative = 10;
+        
+        sameConstructor(race, name);
+    }
 
-        intelligence = 5;
-        abilityPointsLeft = 7;
-        abilityPointsMax = abilityPointsLeft;
+    public void sameConstructor(Race race, String name) {
+        this.race = race;
+        this.name = name;
+        intelligence = 15;
+        initiative = 10;
         maxHealth = health;
-        killCount = 0;
         maxDamage = damage;
         hasSpellBook = true;
+        abilityPointsLeft = 7;
+        abilityPointsMax = abilityPointsLeft;
+        killCount = 0;
         isFleeing = false;
+        combatBonusApplied = false;
     }
 
     @Override

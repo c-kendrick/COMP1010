@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
 public class Character {
+    Race race;
     String name;
-    String race;
 
     int health;
     int damage;
@@ -18,25 +18,19 @@ public class Character {
     int killCount;
     boolean hasRaged;
     boolean isFleeing;
-
-    public Character() {
-        // blank constructor as we only use sub-class constructors
-    }
+    boolean combatBonusApplied;
 
     // blank functions to be overriden by sub-class
     void attack(Character target) {
     }
 
     void specialAbility(Character target) {
-
     }
 
     void genChoices(Character target) {
-
     }
 
     void characterRest() {
-
     }
 
     public void takeDamage(int damage) {

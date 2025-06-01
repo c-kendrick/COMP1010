@@ -8,52 +8,38 @@ public class Engineer extends Character {
     boolean PCBuilt;
     int numAttack;
 
-    public Engineer(String race, String name) {
-        this.race = race;
-        this.name = name;
-
+    public Engineer( Race race, String name) {
         health = 175;
         damage = 15;
-        intelligence = 20;
-        initiative = 5;
 
-        maxHealth = health;
-        maxDamage = damage;
-
-        wallHealth = 0;
-        killCount = 0;
-        abilityPointsLeft = 3;
-        abilityPointsMax = abilityPointsLeft;
-        numAttack = 0;
-
-        RRBuilt = false;
-        wallBuilt = false;
-        trackerBuilt = false;
-        PCBuilt = false;
-        isFleeing = false;
+        sameConstructor(race, name);
     }
 
-    public Engineer(String race, int health, int damage, String name) {
-        this.race = race;
+    public Engineer( Race race, int health, int damage, String name) {
         this.health = health;
         this.damage = damage;
-        this.initiative = 5;
-        this.name = name;
 
-        abilityPointsLeft = 3;
-        abilityPointsMax = abilityPointsLeft;
+        sameConstructor(race, name);
+    }
+
+    public void sameConstructor(Race race, String name) {
+        this.race = race;
+        this.name = name;
+        intelligence = 20;
+        initiative = 5;
         maxHealth = health;
         maxDamage = damage;
         wallHealth = 0;
         killCount = 0;
+        abilityPointsLeft = 3;
+        abilityPointsMax = abilityPointsLeft;
         numAttack = 0;
-
-        intelligence = 5;
         RRBuilt = false;
         wallBuilt = false;
         trackerBuilt = false;
         PCBuilt = false;
         isFleeing = false;
+        combatBonusApplied = false;
     }
 
     @Override

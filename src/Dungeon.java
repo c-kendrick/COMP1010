@@ -26,32 +26,20 @@ public class Dungeon {
     }
 
     Character createEnemy() {
-        int choice = (int)(Math.random() * 4) + 1;
+        Race race = new Race();
+        race.genRaceName();
 
         int health = ((int)(Math.random() * 5) + 2) * difficulty;
         int damage = ((int)(Math.random() * 3) + 1) * (difficulty/2);
 
-        switch (choice) {
-            case 1: return new Barbarian(getRace(), health, damage, "Enemy");
-            case 2: return new Rogue(getRace(), health, damage, "Enemy");
-            case 3: return new Mage(getRace(), health, damage, "Enemy");
-            case 4: return new Engineer(getRace(), health, damage, "Enemy");
-            default: return new Barbarian(getRace(), health, damage, "Enemy");
-        }
-    }
+        int choice = (int)(Math.random() * 4) + 1;
 
-    String getRace() {
-        int answer = (int)(Math.random() * 4) + 1;
-        switch(answer) {
-            case 1:
-                return "Elf";
-            case 2:
-                return "Orc";
-            case 3:
-                return "Human";
-            case 4:
-                return "Dwarf";
-            default: throw new IllegalArgumentException("Unknown choice");
+        switch (choice) {
+            case 1: return new Barbarian(race, health, damage, "Enemy");
+            case 2: return new Rogue(race, health, damage, "Enemy");
+            case 3: return new Mage(race, health, damage, "Enemy");
+            case 4: return new Engineer(race, health, damage, "Enemy");
+            default: return new Barbarian(race, health, damage, "Enemy");
         }
     }
 
@@ -73,7 +61,7 @@ public class Dungeon {
         int enemyIdx;
         for (int i = 0; i < enemyList.size(); i++) {
             enemyIdx = i + 1;
-            System.out.println(enemyIdx + ": " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
+            System.out.println(enemyIdx + ": " + enemyList.get(i).race.getRaceName() + " " + enemyList.get(i).getClass().getSimpleName() + " HP: " + enemyList.get(i).health + " Strength: " + enemyList.get(i).damage);
         }
 
         while (enemyList.size() > 0) {
@@ -88,6 +76,8 @@ public class Dungeon {
                 enemyList.remove(0);
         }
 
+        System.out.println("");
+        System.out.println("------");
         System.out.println("You have defeated the dungeon!");
         return true;
     }
@@ -96,7 +86,7 @@ public class Dungeon {
         // The boolean is to check if the player can defeat the enemy.
         System.out.println("");
         System.out.println("");
-        System.out.println("You are facing a " + enemy.race + " " + enemy.getClass().getSimpleName());
+        System.out.println("You are facing a " + enemy.race.getRaceName() + " " + enemy.getClass().getSimpleName());
         System.out.println("HP: " + enemy.health + ", Strength: " + enemy.damage);
 
         while (enemy.health > 0) {

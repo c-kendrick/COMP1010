@@ -3,18 +3,27 @@ public class Rogue extends Character {
     boolean isInvisible;
     boolean hasStolenSpellBook;
 
-	public Rogue(String race, String name) {
-		this.race = race;
-        this.name = name;
-        
+	public Rogue(Race race, String name) {
         health = 100;
 		damage = 15;
+
+        sameConstructor(race, name);
+	}
+	
+    public Rogue(Race race, int health, int damage, String name) {
+        this.health = health;
+        this.damage = damage;
+
+        sameConstructor(race, name);
+    }
+
+    public void sameConstructor(Race race, String name) {
+        this.race = race;
+        this.name = name;
         initiative = 20;
         intelligence = 5;
-
         maxHealth = health;
         maxDamage = damage;
-
         isInvisible = false; 
         hasStolenSpellBook = false; 
         killCount = 0;
@@ -22,24 +31,7 @@ public class Rogue extends Character {
         abilityPointsMax = abilityPointsLeft;
         invisibilityStatus = 0;
         isFleeing = false;
-	}
-	
-    public Rogue(String race, int health, int damage, String name) {
-        this.race = race;
-        this.name = name;
-
-        this.health = health;
-        this.damage = damage;
-        this.initiative = 20; 
-        
-        maxHealth = health;
-        maxDamage = damage;
-        intelligence = 5;
-        killCount = 0; 
-        abilityPointsLeft = 5;
-        abilityPointsMax = abilityPointsLeft;
-        invisibilityStatus = 0;
-        isFleeing = false;
+        combatBonusApplied = false;
     }
 
     @Override
