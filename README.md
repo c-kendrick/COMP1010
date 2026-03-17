@@ -1,37 +1,43 @@
-A compact Java turn-based dungeon crawler that blends class tactics and race matchups with equipment progression. It is easy to pick up, deep enough to reward strategic AP use, and intentionally built so new content slots in cleanly.
+# Dungeons & Dungeons & Dungeons
+
+[Play in Browser Here](https://ckendrick-mqu.itch.io/dungeons) | [Download Latest Build](https://github.com/c-kendrick/COMP1010/releases/tag/Main-jar)
+
+![Dungeons Console Gameplay](./images/dungeons.png)
+
+A compact Java command-line application designed to demonstrate scalable Object-Oriented Programming (OOP) principles, algorithmic logic, and data persistence. While framed as a turn-based tactical game, it is intentionally built with strict extensibility in mind so new entity types and mechanics can be slotted in cleanly without modifying core control flows.
 
 ---
 
-## How to Play
+## Core Mechanics & Features
 
-* **Getting Started:** Select your difficulty (Normal recommended), choose a class, enter a name, and proceed through the generated dungeons.
-* **Combat:** Battles are turn-based. Each turn, you may perform a free attack or spend Ability Points (AP) to use a class special. 
-* **Progression:** Defeat enemies one by one to clear a dungeon. You will earn gold and equipment, then rest to restore Health Points (HP) and AP.
-* **Equipment:** Equip up to four items to aggregate their stat bonuses.
-* **Tactics:**
-  * **Classes:** Each features unique mechanics (e.g., invisibility for the Rogue, device building for the Engineer, and spell interactions for the Mage).
-  * **Races:** Combat outcomes are heavily affected by a Pokemon-style race advantage system.
-
----
-
-## How to Run the Program
-
-1. [Download and run latest build](https://github.com/c-kendrick/COMP1010/releases/tag/Main-jar) or [play in browser here](https://ckendrick-mqu.itch.io/dungeons)
-2. Click into the input section at the bottom, type numbers to make your menu choices and press `Enter`.
-3. **First-time recommendation:** Select Normal difficulty (Option 2) and the Barbarian class (Option 1). Feel free to experiment.
+* **Initialisation:** Users select difficulty parameters and instantiate a specific class object, which dictates their base stats and available methods.
+* **Combat State Loop:** Battles operate on a strict turn-based loop. Each turn, users manage Ability Points (AP) and Health Points (HP) to perform standard attacks or trigger class-specific abilities. 
+* **Dynamic Progression:** As the application generates sequential dungeon levels, users accumulate gold and equipment objects. Resting restores state variables (HP and AP).
+* **Data Aggregation:** Users can equip up to four items at once, which the system aggregates to calculate final stat bonuses.
+* **Algorithmic Tactics:**
+  * **Class Subsystems:** Each class executes unique backend mechanics (e.g., state-toggles like invisibility for the Rogue, resource-building for the Engineer, and specific spell interactions for the Mage).
+  * **Race Multipliers:** Combat output calculations are heavily influenced by a matrix-style race advantage system, dynamically altering damage variables based on entity properties.
 
 ---
 
-## Technical Notes and Design Choices
+## Setup & Execution
 
-The design favors clarity and extensibility so new classes, races, or items can be added without changing the dungeon or combat flow.
+1. [Download and run the latest .jar build](https://github.com/c-kendrick/COMP1010/releases/tag/Main-jar) or [play it directly in your browser](https://ckendrick-mqu.itch.io/dungeons).
+2. Click into the console input section at the bottom, type numbers to make your menu choices, and press `Enter`.
+3. **First-time recommendation:** Select Normal difficulty (Option 2) and the Barbarian class (Option 1) for a standard application flow. Feel free to experiment.
 
-* **Object-Oriented Architecture:** Uses inheritance to share core fields and behavior in a base `Character` class, while subclassing handles class-specific stats and abilities.
-* **Combat & Structure:** `Dungeon` utilizes a recursive structure that holds an `ArrayList` of enemy `Character` objects, allowing combat logic to treat all enemies uniformly.
-* **Data Persistence:** Equipment generation writes entries directly to a CSV file for persistence and end-of-game reporting.
+---
+
+## Technical Notes & Design Choices
+
+The architecture heavily favours clarity and extensibility so new classes, races, or items can be integrated without refactoring the main application loop.
+
+* **Object-Oriented Architecture:** I utilised inheritance to share core fields and behaviour in a base `Character` class, while subclassing is used to handle class-specific stats and unique abilities.
+* **Polymorphic Combat Structure:** The `Dungeon` class utilises a recursive structure that holds an `ArrayList` of enemy `Character` objects. This allows the core combat logic to iterate through and interact with all entities uniformly, regardless of their specific subclass.
+* **Data Persistence:** Equipment generation and inventory state write directly to a CSV file. This acts as a lightweight local database for data persistence and end-of-run reporting.
 
 ---
 
 ## Credits
 
-* **Made by:** Christopher Kendrick, Leif Varapuzhakaran, Ken Armstrong, Max Patel
+* **Development Team:** Christopher Kendrick, Leif Varapuzhakaran, Ken Armstrong, Max Patel
