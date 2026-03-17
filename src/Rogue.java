@@ -67,13 +67,13 @@ public class Rogue extends Character {
         /* Only if ALREADY invisible
          * Rogue steals Mage's spellbook
          */
-        if (target instanceof Mage) {
+        if (target instanceof Mage mage) {
             checkOwnInvisStatus();
-            Mage m = (Mage) target;
-            if (m.hasSpellBook);
-            m.loseSpellBook();
-            hasStolenSpellBook = true; 
-            System.out.println("Rogue has stolen the Mage's Spell Book");
+            if (mage.hasSpellBook) {
+                mage.loseSpellBook();
+                hasStolenSpellBook = true;
+                System.out.println("Rogue has stolen the Mage's Spell Book");
+            }
         } else {
             attack(target);
         }
@@ -100,11 +100,19 @@ public class Rogue extends Character {
     }
 
     boolean isEnemyInvisible(Character target) {
-        if (target instanceof Rogue) {
-            Rogue rog = (Rogue) target;
-            return rog.isInvisible;
+        if (target instanceof Rogue rogue) {
+            return rogue.isInvisible;
         } 
         return false;
     }
+
+
+/*    boolean isEnemyInvisible(Character target) {
+        if (target instanceof Rogue) {
+            Rogue rogue = (Rogue) target;
+            return rogue.isInvisible;
+        }
+        return false;
+    }*/
 }
 

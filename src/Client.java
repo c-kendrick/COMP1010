@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.Scanner;
     
 public class Client {
@@ -225,7 +224,7 @@ public class Client {
     public static void gameDriver(Character player, Dungeon room, int difficulty) {
         //recursive function to play the game
         if (room == null) {
-            if (endlessMode == true) {
+            if (endlessMode) {
                 System.out.println("Stage: " + difficulty + " of INFINITY complete.");
                 // restarts game 
                 generateDungeons(player, difficulty++, difficulty + 2);
