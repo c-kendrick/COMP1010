@@ -16,9 +16,9 @@ A compact Java turn-based dungeon crawler that blends class tactics and race mat
 
 ## How to Run the Program
 
-1. Run `client.java` and call the `main` function.
-2. Type numbers to make your menu choices and press `Enter`.
-3. **First-time recommendation:** Select Normal difficulty (Option 2) and the Barbarian class (Option 1).
+1. [Download and run latest build](https://github.com/c-kendrick/COMP1010/releases/tag/Main-jar) or [play in browser here](https://ckendrick-mqu.itch.io/dungeons)
+2. Click into the input section at the bottom, type numbers to make your menu choices and press `Enter`.
+3. **First-time recommendation:** Select Normal difficulty (Option 2) and the Barbarian class (Option 1). Feel free to experiment.
 
 ---
 
